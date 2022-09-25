@@ -1,15 +1,14 @@
 /*************************************************
-* linker script for ADuC7061 microcontroller
-*
-************************************************/ 
+* linker script for ADuC706x microcontroller
+**************************************************/ 
 ENTRY(_start)
 
-IRQ_STACK_SIZE = 0x400;
-SYS_STACK_SIZE = 0x0;
-FIQ_STACK_SIZE = 0x0;
-UND_STACK_SIZE = 0x0;
-ABT_STACK_SIZE = 0x0;
-SVC_STACK_SIZE = 0x0;
+IRQ_STACK_SIZE = 0x0080;
+SYS_STACK_SIZE = 0x0400;
+FIQ_STACK_SIZE = 0x0000;
+UND_STACK_SIZE = 0x0000;
+ABT_STACK_SIZE = 0x0000;
+SVC_STACK_SIZE = 0x0000;
 
 MEMORY
 {
@@ -61,7 +60,7 @@ SECTIONS
 	.ARM.exidx :
 	{
 		*(.ARM.exidx* .gnu.linkonce.armexidx.*)
-	} >FLASH
+	} > FLASH
 	__exidx_end = .;
 
 	.text.align :
@@ -69,7 +68,7 @@ SECTIONS
 		. = ALIGN(8);
 		_etext = .;
 		_data_image = _etext; /* start of initialized data label */
-	} >FLASH
+	} > FLASH
 
 	.data : AT ( _data_image )
 	{
@@ -80,7 +79,7 @@ SECTIONS
 		*(.data.*)
 		. = ALIGN(4);
 		_edata = . ;
-	} >RAM
+	} > RAM
 
 	/* .bss section which is used for uninitialized data */
 	.bss: (NOLOAD) :
@@ -113,14 +112,14 @@ SECTIONS
 		. += SVC_STACK_SIZE;
 		PROVIDE (__stack_svc = .);
 		. += SYS_STACK_SIZE;
-		PROVIDE (__stack_sys = .);
+		PROVIDE (__stack_sys = .);	
+
 	} > RAM
 
 	_end = . ;
 	PROVIDE (end = .);
 	PROVIDE( _heap = _end );
 	PROVIDE ( _eheap = ALIGN(ORIGIN(RAM) + LENGTH(RAM) - 8 ,8) );
-
 
 	/* Stabs debugging sections.  */
 	.stab          0 : { *(.stab) }

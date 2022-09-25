@@ -1,4 +1,5 @@
 #include "ADuC706x.h"
+#include "stdbool.h"
 
 #define INT_OSC            (32768UL)
 #define PLL_CLK            (10240000UL)
@@ -12,9 +13,10 @@
 
 void led_init(void);
 void led_toggle(void);
+bool timer_deadline_reached(const uint32_t deadline);
 void IRQHandler(void) __attribute__((interrupt));
 
-static uint32_t count = 0;
+static volatile uint32_t time_stamp = 0;
 
 int main(void)
 {
@@ -34,7 +36,14 @@ int main(void)
     
     while(1)
     {
-        /* TODO: not yet working: change count in interrupt and toggle led here */
+        static uint32_t deadline = ONE_SEC_IN_MS;
+
+        if(timer_deadline_reached(deadline))
+        {
+            deadline += ONE_SEC_IN_MS;
+
+            led_toggle();
+        }
     }
 
     return 0;
@@ -51,22 +60,19 @@ void led_toggle(void)
     GP1DAT ^= (1 << 21); /* toggle P1.5 */
 }
 
+bool timer_deadline_reached(const uint32_t deadline)
+{
+    return ((int32_t)(time_stamp - deadline) >= 0);
+}
+
 void IRQHandler(void)
 {
     uint32_t irq = IRQSTA;
 
     if(irq & TIMER0_BIT)
     {
-        count += TIMER_INC_VALUE;
-
-        if(count >= ONE_SEC_IN_MS)
-        {
-            led_toggle();
-            count = 0;
-        }
-
+        time_stamp += TIMER_INC_VALUE;
         T0LD  = TIMER_RELOAD_VALUE;
-
         T0CLRI = 0;
     }
 }

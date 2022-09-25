@@ -12,7 +12,6 @@
 //*
 //*     Version: 5.0.0
 //*
-//*
 //*     Copyright (c) 2003-2015, scmRTOS Team
 //*
 //*     Permission is hereby granted, free of charge, to any person 
@@ -42,8 +41,11 @@
 //*     =================================================================
 //*
 //******************************************************************************
+//*
 //*     ARM port by Sergey A. Borshch, Copyright (c) 2006-2015
 //*     ADuC70xx port maintenance: Anton B. Gusev aka AHTOXA, Copyright (c) 2011-2015
+//*
+//******************************************************************************
 
 #define MODE_USER       0x10
 #define MODE_FIQ        0x11
@@ -53,14 +55,14 @@
 #define MODE_UND        0x1B
 #define MODE_SYS        0x1F
 
-#define NIRQ            (1<<7)
-#define NFIQ            (1<<6)
-#define THUMB           (1<<5)
+#define NIRQ            0x80
+#define NFIQ            0x40
+#define THUMB           0x20
 
     .code 32
-/****************************************************************************/
-/*               Vector table and reset entry                               */
-/****************************************************************************/
+//-----------------------------------------------------------------------------
+//     Vector table and reset entry
+//-----------------------------------------------------------------------------
     .section .vectors,"ax"
     .global _start
 _start:
@@ -95,21 +97,22 @@ FIQAddr:
     .section .text, "ax"
 ResetHandler:
 //-----------------------------------------------------------------------------
-//     Setup stasks
+//     Setup stack for each mode
 //-----------------------------------------------------------------------------
-        MSR     CPSR_c, #MODE_FIQ | NIRQ | NFIQ     // Switch to fiq mode, IRQ & FIQ disabled     
-        LDR     SP, =__stack_fiq
-        MSR     CPSR_c, #MODE_SVC | NIRQ | NFIQ     // Switch to supervisor mode, IRQ & FIQ disabled     
-        LDR     SP, =__stack_svc
-        MSR     CPSR_c, #MODE_UND | NIRQ | NFIQ     // Switch to undefined mode, IRQ & FIQ disabled     
-        LDR     SP, =__stack_und
-        MSR     CPSR_c, #MODE_ABORT | NIRQ | NFIQ   // Switch to abort mode, IRQ & FIQ disabled     
-        LDR     SP, =__stack_abort
-        MSR     CPSR_c, #MODE_IRQ | NIRQ | NFIQ     // Switch to irq mode, IRQ & FIQ disabled     
-        LDR     SP, =__stack_irq
-        MSR     CPSR_c, #MODE_SYS | NIRQ | NFIQ     // Switch to system mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_SYS | NIRQ | NFIQ     // switch to system mode, IRQ & FIQ disabled
         LDR     SP, =__stack_sys
-        MSR     CPSR_c, #MODE_USER
+        MSR     CPSR_c, #MODE_FIQ | NIRQ | NFIQ     // switch to fiq mode, IRQ & FIQ disabled     
+        LDR     SP, =__stack_fiq
+        MSR     CPSR_c, #MODE_SVC | NIRQ | NFIQ     // switch to supervisor mode, IRQ & FIQ disabled     
+        LDR     SP, =__stack_svc
+        MSR     CPSR_c, #MODE_UND | NIRQ | NFIQ     // switch to undefined mode, IRQ & FIQ disabled     
+        LDR     SP, =__stack_und
+        MSR     CPSR_c, #MODE_ABORT | NIRQ | NFIQ   // switch to abort mode, IRQ & FIQ disabled     
+        LDR     SP, =__stack_abort
+        MSR     CPSR_c, #MODE_IRQ | NIRQ | NFIQ     // switch to irq mode, IRQ & FIQ disabled     
+        LDR     SP, =__stack_irq
+        MSR     CPSR_c, #MODE_SYS                   // switch to system mode, IRQ & FIQ enabled
+        LDR     SP, =__stack_sys
 //-----------------------------------------------------------------------------
 //     Clear .bss section
 //-----------------------------------------------------------------------------
@@ -137,7 +140,7 @@ data_copy_loop:
         LDR     R2,=main
         BX      R2
 //-----------------------------------------------------------------------------
-//     Exit function. Never reach here
+//     Exit function. Should never reach here
 //-----------------------------------------------------------------------------
     .section .text.weakExitFunction, "ax"
     .global ExitFunction

@@ -1,3 +1,15 @@
+#+---------------------------------------------------------------------------
+#
+#  Copyright (c) 2010 Anton Gusev aka AHTOXA (HTTP://AHTOXA.NET)
+#
+#  Modified by the author of this repository
+#
+#  File:       makefile
+#
+#  Contents:   makefile to build ADuc706x ARM software with gcc
+#
+#----------------------------------------------------------------------------
+
 # program name
 TARGET      = blinky-make
 TOOL        = arm-none-eabi-
@@ -33,7 +45,7 @@ HEX         = $(EXEDIR)/$(TARGET).hex
 LSS         = $(LSTDIR)/$(TARGET).lss
 
 # linker script
-LD_SCRIPT   = $(SRCDIR)/ADUC7061-ROM.ld
+LD_SCRIPT   = $(SRCDIR)/ADUC706x-ROM.ld
 
 # files in directories
 DIRS       := $(SRCDIR)
