@@ -34,6 +34,7 @@ MD          = mkdir -p
 # dirs
 SRCDIR      = $(BASE)/src
 INCDIR      = $(BASE)/inc
+COMDIR      = $(BASE)/common
 OBJDIR      = $(OUTBASE)/obj
 LSTDIR      = $(OUTBASE)/lst
 EXEDIR      = $(OUTBASE)/exe
@@ -45,11 +46,13 @@ HEX         = $(EXEDIR)/$(TARGET).hex
 LSS         = $(LSTDIR)/$(TARGET).lss
 
 # linker script
-LD_SCRIPT   = $(SRCDIR)/ADUC706x-ROM.ld
+LD_SCRIPT   = $(COMDIR)/ADUC706x-ROM.ld
 
 # files in directories
 DIRS       := $(SRCDIR)
+DIRS       += $(COMDIR)
 INCDIRS    := $(INCDIR)
+INCDIRS    += $(COMDIR)
 INCS       := $(patsubst %, -I "%", $(INCDIRS))
 SRCS       := $(wildcard $(addsuffix /*.c, $(DIRS)) $(wildcard $(addsuffix /*.S, $(DIRS))))
 OBJS       := $(notdir $(SRCS) )
