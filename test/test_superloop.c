@@ -7,7 +7,6 @@
 #include "testable_mcu_registers.h"
 #include "superloop.h"
 #include "mock_led.h"
-#include "mock_system.h"
 #include "mock_timer.h"
 
 void setUp(void)

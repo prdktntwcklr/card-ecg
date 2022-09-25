@@ -4,6 +4,7 @@
 #include "stdbool.h"
 #include "stdint.h"
 
+void system_init(void);
 void timer_init(void);
 void timer_increment_stamp(const uint32_t value);
 bool timer_deadline_reached(const uint32_t deadline);

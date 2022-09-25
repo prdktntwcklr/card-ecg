@@ -26,11 +26,11 @@ int testable_main(void)
 
 void IRQHandler(void)
 {
-    uint32_t irq = IRQSTA;
+    uint32_t irq_status = IRQSTA;
 
-    if(irq & TIMER0_BIT)
+    if(irq_status & TIMER0_BIT)
     {
         timer_handle_interrupt();
-        T0CLRI = 0;
+        T0CLRI = 0; /* clear Timer0 interrupt */
     }
 }
