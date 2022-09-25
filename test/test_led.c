@@ -16,27 +16,27 @@ void tearDown(void)
 {
 }
 
-void test_led_ledInitShouldSetCorrectLedAsOutputAndTurnLedOff(void)
+void test_led_init_should_setCorrectLedAsOutputAndTurnLedOff(void)
 {
     led_init();
     TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);
 }
 
-void test_led_ledOffShouldTurnCorrectLedOff(void)
+void test_led_off_should_turnCorrectLedOff(void)
 {
     GP1DAT = 0xFFFF0000;
     led_off();
     TEST_ASSERT_EQUAL_HEX32(0xFFDF0000, GP1DAT);
 }
 
-void test_led_ledOnShouldTurnCorrectLedOn(void)
+void test_led_on_should_turnCorrectLedOn(void)
 {
     led_init();
     led_on();
     TEST_ASSERT_EQUAL_HEX32(0x20200000, GP1DAT);
 }
 
-void test_led_ledToggleShouldToggleCorrectLedOnOff(void)
+void test_led_toggle_should_toggleCorrectLedOnOff(void)
 {
     led_init();
     TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);
