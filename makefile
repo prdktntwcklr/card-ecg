@@ -14,6 +14,7 @@ CC          = $(TOOL)gcc
 LD          = $(TOOL)g++
 AS          = $(CC) -x assembler-with-cpp
 OBJCOPY     = $(TOOL)objcopy
+OBJDUMP     = $(TOOL)objdump
 SIZE        = $(TOOL)size -d
 RM          = rm -f
 MD          = mkdir -p
@@ -29,17 +30,17 @@ EXEDIR      = $(OUTBASE)/exe
 ELF         = $(EXEDIR)/$(TARGET).elf
 MAP         = $(LSTDIR)/$(TARGET).map
 HEX         = $(EXEDIR)/$(TARGET).hex
+LSS         = $(LSTDIR)/$(TARGET).lss
 
 # linker script
 LD_SCRIPT   = $(SRCDIR)/ADUC7061-ROM.ld
 
-# files
+# files in directories
 DIRS       := $(SRCDIR)
 INCDIRS    := $(INCDIR)
 INCS       := $(patsubst %, -I "%", $(INCDIRS))
-SRCS       := $(wildcard $(addsuffix /*.cpp, $(DIRS))) $(wildcard $(addsuffix /*.c, $(DIRS))) $(wildcard $(addsuffix /*.S, $(DIRS)))
+SRCS       := $(wildcard $(addsuffix /*.c, $(DIRS)) $(wildcard $(addsuffix /*.S, $(DIRS))))
 OBJS       := $(notdir $(SRCS) )
-OBJS       := $(OBJS:.cpp=.o)
 OBJS       := $(OBJS:.c=.o)
 OBJS       := $(OBJS:.S=.o)
 OBJS       := $(OBJS:.s=.o)
@@ -71,18 +72,24 @@ LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
 LD_FLAGS   += -specs=nosys.specs
 
-all: dirs $(ELF) $(OK)
+.PHONY: all dirs clean size dump
 
-$(OK) size: $(ELF)
+all: dirs $(ELF) $(HEX) $(LSS) size
+
+$(LSS): $(ELF) makefile
+	@echo --- making asm-lst...
+	$(OBJDUMP) -dC $(ELF) > $(LSS)
+
+size: $(ELF)
 	$(SIZE) $(ELF)
 	@echo "Errors: none"
 
-$(ELF) linking:	$(OBJS) makefile
+$(ELF):	$(OBJS) makefile
 	@echo --- linking...
 	$(LD) $(OBJS) $(LD_FLAGS) -o $(ELF)
 
-$(HEX) hexing: $(ELF)
-	@echo --- make hex...
+$(HEX): $(ELF)
+	@echo --- creating hex...
 	$(OBJCOPY) -O ihex $(ELF) $(HEX)
 
 VPATH := $(DIRS)

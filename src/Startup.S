@@ -57,10 +57,6 @@
 #define NFIQ            (1<<6)
 #define THUMB           (1<<5)
 
-// #include <scmRTOS_CONFIG.h>
-// #include "scmRTOS_TARGET_CFG.h"
-// #include "os_target_core.h"
-
     .code 32
 /****************************************************************************/
 /*               Vector table and reset entry                               */
@@ -87,21 +83,20 @@ PAbortAddr:
 DAbortAddr:
         .word DAbortHandler
 IRQAddr:
-        //.word irq_handler
         .word IRQHandler
 FIQAddr:
         .word FIQHandler
     .ltorg
 
 //-----------------------------------------------------------------------------
-//
 //     Reset handler
 //     program starts here
-//
+//-----------------------------------------------------------------------------
     .section .text, "ax"
 ResetHandler:
 //-----------------------------------------------------------------------------
 //     Setup stasks
+//-----------------------------------------------------------------------------
         MSR     CPSR_c, #MODE_FIQ | NIRQ | NFIQ     // Switch to fiq mode, IRQ & FIQ disabled     
         LDR     SP, =__stack_fiq
         MSR     CPSR_c, #MODE_SVC | NIRQ | NFIQ     // Switch to supervisor mode, IRQ & FIQ disabled     
@@ -114,13 +109,10 @@ ResetHandler:
         LDR     SP, =__stack_irq
         MSR     CPSR_c, #MODE_SYS | NIRQ | NFIQ     // Switch to system mode, IRQ & FIQ disabled     
         LDR     SP, =__stack_sys
-//-----------------------------------------------------------------------------
-//     Setup hardware
-//        LDR     R0,=__low_level_init
-//        MOV     LR,PC
-//        BX      R0
+        MSR     CPSR_c, #MODE_USER
 //-----------------------------------------------------------------------------
 //     Clear .bss section
+//-----------------------------------------------------------------------------
         LDR     R1, =__bss_start
         LDR     R2, =__bss_end
         MOV     R3, #0
@@ -130,6 +122,7 @@ bss_clear_loop:
         BLO     bss_clear_loop
 //-----------------------------------------------------------------------------
 //     Copy init values to .data section
+//-----------------------------------------------------------------------------
         LDR     R1,=_data_image                     // data image start
         LDR     R2,=_data                           // destination
         LDR     R3,=_edata                          // end of destination
@@ -139,25 +132,13 @@ data_copy_loop:
         STRLO   R0,[R2],#4
         BLO     data_copy_loop
 //-----------------------------------------------------------------------------
-//     Call C++ constructors
-        LDR     R0, =__ctors_start
-        LDR     R1, =__ctors_end
-ctor_loop:
-        CMP     R0, R1
-        BEQ     ctor_end
-        LDR     R2, [R0], #4
-        STMFD   SP!, {R0,R1}
-        MOV     LR, PC
-        BX      R2                      // some constructors can be in THUMB mode
-        LDMFD   SP!, {R0,R1}
-        B       ctor_loop
-ctor_end:
-//-----------------------------------------------------------------------------
 //     Branch to main(). No return from main() expected
+//-----------------------------------------------------------------------------
         LDR     R2,=main
         BX      R2
 //-----------------------------------------------------------------------------
 //     Exit function. Never reach here
+//-----------------------------------------------------------------------------
     .section .text.weakExitFunction, "ax"
     .global ExitFunction
     .weak ExitFunction
@@ -166,6 +147,7 @@ ExitFunction:
 
 //-----------------------------------------------------------------------------
 //     Default exeptions handlers
+//-----------------------------------------------------------------------------
     .section .text.weakIRQHandler, "ax"
     .weak IRQHandler 
 IRQHandler:
@@ -197,5 +179,3 @@ DAbortHandler:
         B       DAbortHandler
 
     .ltorg
-  
-
