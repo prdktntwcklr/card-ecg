@@ -11,8 +11,10 @@
 #define ONE_SEC_IN_MS      (1000U)
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
+void low_level_init(void);
 void led_init(void);
 void led_toggle(void);
+void timer_init(void);
 bool timer_deadline_reached(const uint32_t deadline);
 void IRQHandler(void) __attribute__((interrupt));
 
@@ -20,19 +22,9 @@ static volatile uint32_t time_stamp = 0;
 
 int main(void)
 {
-    /* perform power settings */
-    POWKEY1 = 0x1;
-    POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
-    POWKEY2 = 0xF4;
-
+    low_level_init();
     led_init();
-
-    /* set up timer0 */
-    T0LD  = (ECLK)/(TICK_RATE_HZ);
-    T0CON = T0_10MHZ | T0_DIV_1 | T0_ENABLED | T0_DOWN | T0_PERIODIC;
-
-    /* enable timer0 interrupt */
-    IRQEN = TIMER0_BIT;
+    timer_init();
     
     while(1)
     {
@@ -49,6 +41,14 @@ int main(void)
     return 0;
 }
 
+void low_level_init(void)
+{
+    /* perform power settings */
+    POWKEY1 = 0x1;
+    POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
+    POWKEY2 = 0xF4;
+}
+
 void led_init(void)
 {
     GP1DAT |=  (1 << 29); /* configure P1.5 as an output */
@@ -58,6 +58,16 @@ void led_init(void)
 void led_toggle(void)
 {
     GP1DAT ^= (1 << 21); /* toggle P1.5 */
+}
+
+void timer_init(void)
+{
+    /* set up timer0 */
+    T0LD  = TIMER_RELOAD_VALUE;
+    T0CON = T0_10MHZ | T0_DIV_1 | T0_ENABLED | T0_DOWN | T0_PERIODIC;
+
+    /* enable timer0 interrupt */
+    IRQEN = TIMER0_BIT;
 }
 
 bool timer_deadline_reached(const uint32_t deadline)
