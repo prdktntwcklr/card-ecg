@@ -39,9 +39,9 @@ void test_led_on_should_turnCorrectLedOn(void)
 void test_led_toggle_should_toggleCorrectLedOnOff(void)
 {
     led_init();
-    TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);
     led_toggle();
     TEST_ASSERT_EQUAL_HEX32(0x20200000, GP1DAT);
+
     led_toggle();
     TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);    
 }

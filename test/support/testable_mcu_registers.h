@@ -29,7 +29,9 @@ enum
 	XTAL_POWER_ON		= (1UL << 6)
 };
 EXTERN uint16_t POWKEY1;
+#define	POWKEY1_KEY		(1)
 EXTERN uint16_t POWKEY2;
+#define	POWKEY2_KEY		(0xF4)
 EXTERN uint32_t T0LD;
 EXTERN uint32_t T0CON;
 enum
@@ -105,6 +107,5 @@ enum
 	EXT_IRQ2_BIT		= (1UL << 18),
 	EXT_IRQ3_BIT		= (1UL << 19)
 };
-
 
 #endif // TESTABLE_MCU_REGISTERS_H

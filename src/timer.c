@@ -24,9 +24,9 @@ static volatile uint32_t time_stamp = 0;
 extern void system_init(void)
 {
     /* perform power settings */
-    POWKEY1 = 0x1;
+    POWKEY1 = POWKEY1_KEY;
     POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
-    POWKEY2 = 0xF4;
+    POWKEY2 = POWKEY2_KEY;
 }
 
 /*
@@ -36,7 +36,7 @@ extern void timer_init(void)
 {
     /* set up Timer0 */
     T0LD  = TIMER_RELOAD_VALUE;
-    T0CON = T0_10MHZ | T0_DIV_1 | T0_ENABLED | T0_DOWN | T0_PERIODIC;
+    T0CON = T0_10MHZ | T0_DIV_1 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
 
     /* enable Timer0 interrupt */
     IRQEN = TIMER0_BIT;
@@ -48,6 +48,30 @@ extern void timer_init(void)
 extern void timer_increment_stamp(const uint32_t value)
 {
     time_stamp += value;
+}
+
+/*
+ * @brief Returns the current time stamp value.
+ */
+extern uint32_t timer_get_stamp(void)
+{
+    uint32_t ret_val = 0;
+    
+    IRQEN &= ~(TIMER0_BIT);
+    ret_val = time_stamp;
+    IRQEN |= TIMER0_BIT;
+
+    return ret_val;
+}
+
+/*
+ * @brief Sets the time stamp to a given value.
+ */
+extern void timer_set_stamp(const uint32_t value)
+{
+    IRQEN &= ~(TIMER0_BIT);
+    time_stamp = value;
+    IRQEN |= TIMER0_BIT;
 }
 
 /*
