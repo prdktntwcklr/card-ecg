@@ -1,4 +1,6 @@
-#include "ADuC706x.h"
+#include "main.h"
+#include "aduc706x.h"
+#include "led.h"
 #include "stdbool.h"
 
 #define INT_OSC            (32768UL)
@@ -11,16 +13,18 @@
 #define ONE_SEC_IN_MS      (1000U)
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
-void low_level_init(void);
-void led_init(void);
-void led_toggle(void);
+static void low_level_init(void);
 void timer_init(void);
 bool timer_deadline_reached(const uint32_t deadline);
 void IRQHandler(void) __attribute__((interrupt));
 
 static volatile uint32_t time_stamp = 0;
 
+#ifndef TEST
 int main(void)
+#else
+int testable_main(void)
+#endif
 {
     low_level_init();
     led_init();
@@ -41,23 +45,12 @@ int main(void)
     return 0;
 }
 
-void low_level_init(void)
+static void low_level_init(void)
 {
     /* perform power settings */
     POWKEY1 = 0x1;
     POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
     POWKEY2 = 0xF4;
-}
-
-void led_init(void)
-{
-    GP1DAT |=  (1 << 29); /* configure P1.5 as an output */
-    GP1DAT &= ~(1 << 21); /* turn P1.5 off */
-}
-
-void led_toggle(void)
-{
-    GP1DAT ^= (1 << 21); /* toggle P1.5 */
 }
 
 void timer_init(void)

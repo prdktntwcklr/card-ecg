@@ -46,7 +46,7 @@ HEX         = $(EXEDIR)/$(TARGET).hex
 LSS         = $(LSTDIR)/$(TARGET).lss
 
 # linker script
-LD_SCRIPT   = $(COMDIR)/ADUC706x-ROM.ld
+LD_SCRIPT   = $(COMDIR)/aduc706x_rom.ld
 
 # files in directories
 DIRS       := $(SRCDIR)
@@ -87,17 +87,21 @@ LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
 LD_FLAGS   += -specs=nosys.specs
 
-.PHONY: all dirs clean size dump
+.PHONY: all dirs clean size test
 
 all: dirs $(ELF) $(HEX) $(LSS) size
-
-$(LSS): $(ELF) makefile
-	@echo --- making asm-lst...
-	$(OBJDUMP) -dC $(ELF) > $(LSS)
 
 size: $(ELF)
 	$(SIZE) $(ELF)
 	@echo "Errors: none"
+
+test: all
+	ceedling clobber
+	ceedling test:all
+
+$(LSS): $(ELF) makefile
+	@echo --- making asm-lst...
+	$(OBJDUMP) -dC $(ELF) > $(LSS)	
 
 $(ELF):	$(OBJS) makefile
 	@echo --- linking...
