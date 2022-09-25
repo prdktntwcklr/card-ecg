@@ -1,8 +1,8 @@
 #+---------------------------------------------------------------------------
 #
-#  Copyright (c) 2010 Anton Gusev aka AHTOXA (HTTP://AHTOXA.NET)
+#  Copyright (c) 2010 Anton Gusev aka AHTOXA
 #
-#  Modified by the author of this repository
+#  Makefile modified by the author of this repository.
 #
 #  File:       makefile
 #
@@ -21,23 +21,23 @@ OPTIMIZE    = -O2
 
 # common part
 BASE        = .
-OUTBASE     = output
+OUTDIR      = output
 CC          = $(TOOL)gcc
 LD          = $(TOOL)g++
 AS          = $(CC) -x assembler-with-cpp
 OBJCOPY     = $(TOOL)objcopy
 OBJDUMP     = $(TOOL)objdump
 SIZE        = $(TOOL)size -d
-RM          = rm -f
+RM          = rm -rf
 MD          = mkdir -p
 
 # dirs
 SRCDIR      = $(BASE)/src
 INCDIR      = $(BASE)/inc
 COMDIR      = $(BASE)/common
-OBJDIR      = $(OUTBASE)/obj
-LSTDIR      = $(OUTBASE)/lst
-EXEDIR      = $(OUTBASE)/exe
+OBJDIR      = $(OUTDIR)/obj
+LSTDIR      = $(OUTDIR)/lst
+EXEDIR      = $(OUTDIR)/exe
 
 # files
 ELF         = $(EXEDIR)/$(TARGET).elf
@@ -134,4 +134,4 @@ $(EXEDIR):
 
 clean:
 	@echo --- cleaning up...
-	-@$(RM) -rf $(OUTBASE)
+	-@$(RM) $(OUTDIR)

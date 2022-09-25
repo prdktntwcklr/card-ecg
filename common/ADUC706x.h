@@ -8,7 +8,6 @@
 //*
 //*		Version: 5.0.0
 //*
-//*
 //*		Copyright (c) 2010-2015, scmRTOS Team
 //*
 //*		Permission is hereby granted, free of charge, to any person

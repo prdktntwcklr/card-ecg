@@ -46,6 +46,10 @@
 //*     ADuC70xx port maintenance: Anton B. Gusev aka AHTOXA, Copyright (c) 2011-2015
 //*
 //******************************************************************************
+//*
+//*     Startup file modified by the author of this repository.
+//*
+//******************************************************************************
 
 #define MODE_USER       0x10
 #define MODE_FIQ        0x11
@@ -61,7 +65,7 @@
 
     .code 32
 //-----------------------------------------------------------------------------
-//     Vector table and reset entry
+//     Vector table and reset entry.
 //-----------------------------------------------------------------------------
     .section .vectors,"ax"
     .global _start
@@ -91,13 +95,12 @@ FIQAddr:
     .ltorg
 
 //-----------------------------------------------------------------------------
-//     Reset handler
-//     program starts here
+//     Reset handler. Program starts here.
 //-----------------------------------------------------------------------------
     .section .text, "ax"
 ResetHandler:
 //-----------------------------------------------------------------------------
-//     Setup stack for each mode
+//     Setup stack for each mode.
 //-----------------------------------------------------------------------------
         MSR     CPSR_c, #MODE_SYS | NIRQ | NFIQ     // switch to system mode, IRQ & FIQ disabled
         LDR     SP, =__stack_sys
@@ -114,7 +117,7 @@ ResetHandler:
         MSR     CPSR_c, #MODE_SYS                   // switch to system mode, IRQ & FIQ enabled
         LDR     SP, =__stack_sys
 //-----------------------------------------------------------------------------
-//     Clear .bss section
+//     Clear .bss section.
 //-----------------------------------------------------------------------------
         LDR     R1, =__bss_start
         LDR     R2, =__bss_end
@@ -124,7 +127,7 @@ bss_clear_loop:
         STRLO   R3, [R1], #+4
         BLO     bss_clear_loop
 //-----------------------------------------------------------------------------
-//     Copy init values to .data section
+//     Copy initialized variables to .data section.
 //-----------------------------------------------------------------------------
         LDR     R1,=_data_image                     // data image start
         LDR     R2,=_data                           // destination
@@ -135,12 +138,12 @@ data_copy_loop:
         STRLO   R0,[R2],#4
         BLO     data_copy_loop
 //-----------------------------------------------------------------------------
-//     Branch to main(). No return from main() expected
+//     Branch to main(). No return from main() expected.
 //-----------------------------------------------------------------------------
         LDR     R2,=main
         BX      R2
 //-----------------------------------------------------------------------------
-//     Exit function. Should never reach here
+//     Exit function. We should never reach this function.
 //-----------------------------------------------------------------------------
     .section .text.weakExitFunction, "ax"
     .global ExitFunction
@@ -149,7 +152,7 @@ ExitFunction:
         B       ExitFunction   
 
 //-----------------------------------------------------------------------------
-//     Default exeptions handlers
+//     Default exception handlers.
 //-----------------------------------------------------------------------------
     .section .text.weakIRQHandler, "ax"
     .weak IRQHandler 
