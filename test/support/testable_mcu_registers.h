@@ -3,8 +3,7 @@
 #ifndef TESTABLE_MCU_REGISTERS_H
 #define TESTABLE_MCU_REGISTERS_H
 
-#include "stdbool.h"
-#include "stdint.h"
+#include <stdint.h>
 
 #ifndef EXTERN
 #define EXTERN extern
@@ -107,5 +106,7 @@ enum
     EXT_IRQ2_BIT              = (1UL << 18),
     EXT_IRQ3_BIT              = (1UL << 19)
 };
+EXTERN uint32_t IRQSTA;
+EXTERN uint8_t  T0CLRI;
 
 #endif // TESTABLE_MCU_REGISTERS_H

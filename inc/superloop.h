@@ -1,8 +1,7 @@
 #ifndef SUPERLOOP_H
 #define SUPERLOOP_H
 
-#include "stdbool.h"
-#include "stdint.h"
+#include <stdbool.h>
 
 void superloop_init(void);
 bool superloop_run(void);

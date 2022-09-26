@@ -1,6 +1,6 @@
-#ifndef TEST
 #include "timer.h"
 
+#ifndef TEST
 #include "aduc706x.h"
 #else
 #include "testable_mcu_registers.h"

@@ -1,9 +1,16 @@
 #include "main.h"
-#include "aduc706x.h"
 #include "superloop.h"
 #include "timer.h"
 
-void __attribute__((interrupt)) IRQHandler(void);
+#ifndef TEST
+#include "aduc706x.h"
+#else
+#include "testable_mcu_registers.h"
+#endif
+
+#ifndef TEST
+__attribute__((interrupt)) void IRQHandler(void);
+#endif
 
 #ifndef TEST
 int main(void)
@@ -13,18 +20,19 @@ int testable_main(void)
 {
     superloop_init();
 
-    while(1)
+    while(superloop_run())
     {
-        while(superloop_run())
-        {
-            /* TODO: enter low power mode */
-        }
+        /* TODO: enter low power mode */
     }
 
     return 0;
 }
 
+#ifndef TEST
 void IRQHandler(void)
+#else
+void testable_irq_handler(void)
+#endif
 {
     uint32_t irq_status = IRQSTA;
 
