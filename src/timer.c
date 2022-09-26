@@ -19,6 +19,44 @@
 static volatile uint32_t time_stamp = 0;
 
 /*
+ * @brief Returns the current time stamp value.
+ *
+ * @note  Helper function for unit testing.
+ */
+__attribute__((unused)) static uint32_t timer_get_stamp(void)
+{
+    IRQEN &= ~(TIMER0_BIT);
+    uint32_t ret_val = time_stamp;
+    IRQEN |= TIMER0_BIT;
+
+    return ret_val;
+}
+
+/*
+ * @brief Sets the time stamp to a given value.
+ *
+ * @note  Helper function for unit testing.
+ */
+__attribute__((unused)) static void timer_set_stamp(const uint32_t value)
+{
+    IRQEN &= ~(TIMER0_BIT);
+    time_stamp = value;
+    IRQEN |= TIMER0_BIT;
+}
+
+/*
+ * @brief Increments the time stamp by a given value.
+ *
+ * @note  Helper function for unit testing.
+ */
+__attribute__((unused)) static void timer_increment_stamp(const uint32_t value)
+{
+    IRQEN &= ~(TIMER0_BIT);
+    time_stamp += value;
+    IRQEN |= TIMER0_BIT;
+}
+
+/*
  * @brief Initializes the system by setting power and clock peripherals.
  */
 extern void system_init(void)
@@ -43,38 +81,6 @@ extern void timer_init(void)
 }
 
 /*
- * @brief Increments the time stamp.
- */
-extern void timer_increment_stamp(const uint32_t value)
-{
-    time_stamp += value;
-}
-
-/*
- * @brief Returns the current time stamp value.
- */
-extern uint32_t timer_get_stamp(void)
-{
-    uint32_t ret_val = 0;
-    
-    IRQEN &= ~(TIMER0_BIT);
-    ret_val = time_stamp;
-    IRQEN |= TIMER0_BIT;
-
-    return ret_val;
-}
-
-/*
- * @brief Sets the time stamp to a given value.
- */
-extern void timer_set_stamp(const uint32_t value)
-{
-    IRQEN &= ~(TIMER0_BIT);
-    time_stamp = value;
-    IRQEN |= TIMER0_BIT;
-}
-
-/*
  * @brief Returns TRUE if the deadline has been reached or surpassed.
  */
 extern bool timer_deadline_reached(const uint32_t deadline)
@@ -87,6 +93,6 @@ extern bool timer_deadline_reached(const uint32_t deadline)
  */
 extern void timer_handle_interrupt(void)
 {
-    timer_increment_stamp(TIMER_INC_VALUE);
+    time_stamp += TIMER_INC_VALUE;
     T0LD = TIMER_RELOAD_VALUE; 
 }

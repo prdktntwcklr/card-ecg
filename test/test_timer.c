@@ -7,6 +7,9 @@
 #include "testable_mcu_registers.h"
 #include "timer.h"
 
+/* needed to test static functions in module */
+#include "timer.c"
+
 void setUp(void)
 {
     POWKEY1 = 0;
