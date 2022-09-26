@@ -38,10 +38,10 @@
 
 // GPIO ports
 #define    GP0CON0        (*(volatile uint32_t *)            0xFFFF0D00)
-#define    GP0KEY1        (*(volatile uint32_t *)            0xFFFF0464)
+#define    GP0KEY1        (*(volatile uint16_t *)            0xFFFF0464)
     #define    GP0KEY1_KEY        (0x07)
-#define    GP0CON1        (*(volatile uint32_t *)            0xFFFF0468)
-#define    GP0KEY2        (*(volatile uint32_t *)            0xFFFF046C)
+#define    GP0CON1        (*(volatile uint8_t *)             0xFFFF0468)
+#define    GP0KEY2        (*(volatile uint16_t *)            0xFFFF046C)
     #define    GP0KEY2_KEY        (0x13)
 #define    GP0DAT         (*(volatile uint32_t *)            0xFFFF0D20)
 #define    GP0SET         (*(volatile uint32_t *)            0xFFFF0D24)

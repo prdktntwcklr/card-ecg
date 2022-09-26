@@ -11,10 +11,10 @@
 
 // GPIO ports
 EXTERN  uint32_t  GP0CON0;
-EXTERN  uint32_t  GP0KEY1;
+EXTERN  uint16_t  GP0KEY1;
     #define  GP0KEY1_KEY  (0x07)
-EXTERN  uint32_t  GP0CON1;
-EXTERN  uint32_t  GP0KEY2;
+EXTERN  uint8_t   GP0CON1;
+EXTERN  uint16_t  GP0KEY2;
     #define  GP0KEY2_KEY  (0x13)
 EXTERN  uint32_t  GP0DAT;
 EXTERN  uint32_t  GP0SET;

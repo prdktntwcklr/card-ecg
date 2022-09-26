@@ -25,6 +25,4 @@ extern void spi_init(const uint32_t bit_rate)
     GP0KEY1 = GP0KEY1_KEY;
     GP0CON1 &= ~(1UL << 1);
     GP0KEY2 = GP0KEY2_KEY;
-
-    
 }
