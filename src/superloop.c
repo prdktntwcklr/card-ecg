@@ -1,5 +1,6 @@
 #include "superloop.h"
 #include "led.h"
+#include "system.h"
 #include "timer.h"
 
 #ifndef TEST
@@ -12,7 +13,10 @@
 
 extern void superloop_init(void)
 {
+    /* system_init() must be called first */
     system_init();
+
+    /* initialize rest of peripherals */
     led_init();
     timer_init();
 }
