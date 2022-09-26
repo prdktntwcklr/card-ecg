@@ -53,17 +53,6 @@ __attribute__((unused)) static void timer_increment_stamp(const uint32_t value)
 }
 
 /*
- * @brief Initializes the system by setting power and clock peripherals.
- */
-extern void system_init(void)
-{
-    /* perform power settings */
-    POWKEY1 = POWKEY1_KEY;
-    POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
-    POWKEY2 = POWKEY2_KEY;
-}
-
-/*
  * @brief Initializes the Timer0 peripheral.
  */
 extern void timer_init(void)
