@@ -108,5 +108,6 @@ enum
 };
 EXTERN uint32_t IRQSTA;
 EXTERN uint8_t  T0CLRI;
+EXTERN uint32_t SPIDIV;
 
 #endif // TESTABLE_MCU_REGISTERS_H
