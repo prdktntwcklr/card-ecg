@@ -95,7 +95,7 @@ size: $(ELF)
 	$(SIZE) $(ELF)
 	@echo "Errors: none"
 
-test: all
+test:
 	ceedling clobber
 	ceedling test:all
 
