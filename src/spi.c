@@ -7,6 +7,17 @@
 #include "testable_mcu_registers.h"
 #endif
 
+/* Static Function Prototypes */
+static void spi_wait_for_space_in_tx_fifo(void);
+
+/*
+ * @brief Blocks until there is space in FIFO.
+ */
+static void spi_wait_for_space_in_tx_fifo(void)
+{
+    while(SPISTA & 0x8);
+}
+
 /*
  * @brief Initializes the SPI peripheral.
  *
@@ -39,14 +50,6 @@ extern void spi_init(const uint32_t bit_rate)
 extern void spi_wait_for_tx_complete(void)
 {
 	while(SPISTA & 0xE);
-}
-
-/*
- * @brief Blocks until there is space in FIFO.
- */
-static void spi_wait_for_space_in_tx_fifo(void)
-{
-    while(SPISTA & 0x8);
 }
 
 /*
