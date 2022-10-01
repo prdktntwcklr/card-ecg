@@ -11,7 +11,7 @@
 #----------------------------------------------------------------------------
 
 # program name
-TARGET      = blinky-make
+TARGET      = card-ecg
 TOOL        = arm-none-eabi-
 
 # compile options 
