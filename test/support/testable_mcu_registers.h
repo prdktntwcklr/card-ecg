@@ -185,10 +185,6 @@ enum
     T1_XTALI                  = (2UL << 9),
     T1_10MHZ                  = (3UL << 9)
 };
-<<<<<<< Updated upstream
-EXTERN uint32_t IRQSTA;
-EXTERN uint8_t  T0CLRI;
-=======
 
 EXTERN  uint8_t   T1CLRI;
 
@@ -664,6 +660,5 @@ EXTERN  uint32_t  PWM2COM1;
 EXTERN  uint32_t  PWM2COM2;
 EXTERN  uint32_t  PWM2LEN;
 EXTERN  uint32_t  PWMCLRI;
->>>>>>> Stashed changes
 
 #endif // TESTABLE_MCU_REGISTERS_H
