@@ -38,10 +38,10 @@
 
 // GPIO ports
 #define    GP0CON0        (*(volatile uint32_t *)            0xFFFF0D00)
-#define    GP0KEY1        (*(volatile uint32_t *)            0xFFFF0464)
+#define    GP0KEY1        (*(volatile uint16_t *)            0xFFFF0464)
     #define    GP0KEY1_KEY        (0x07)
-#define    GP0CON1        (*(volatile uint32_t *)            0xFFFF0468)
-#define    GP0KEY2        (*(volatile uint32_t *)            0xFFFF046C)
+#define    GP0CON1        (*(volatile uint8_t *)             0xFFFF0468)
+#define    GP0KEY2        (*(volatile uint16_t *)            0xFFFF046C)
     #define    GP0KEY2_KEY        (0x13)
 #define    GP0DAT         (*(volatile uint32_t *)            0xFFFF0D20)
 #define    GP0SET         (*(volatile uint32_t *)            0xFFFF0D24)
@@ -180,8 +180,8 @@ enum
     T0_POSTSCALER_ENABLED     = (1UL << 23)
 };
 
-#define    T0CLRI         (*(volatile uint8_t *)            0xFFFF032C)
-#define    T0CAP          (*(volatile uint32_t const *)     0xFFFF0330)
+#define    T0CLRI         (*(volatile uint8_t *)             0xFFFF032C)
+#define    T0CAP          (*(volatile uint32_t const *)      0xFFFF0330)
 
 // Timer 1 = Wake-up timer
 #define    T1LD           (*(volatile uint32_t *)            0xFFFF0340)
@@ -666,10 +666,28 @@ enum
 
 // SPI
 #define    SPISTA         (*(volatile uint32_t *)            0xFFFF0A00)
-#define    SPIRX          (*(volatile uint32_t *)            0xFFFF0A04)
-#define    SPITX          (*(volatile uint32_t *)            0xFFFF0A08)
-#define    SPIDIV         (*(volatile uint32_t *)            0xFFFF0A0C)
-#define    SPICON         (*(volatile uint32_t *)            0xFFFF0A10)
+#define    SPIRX          (*(volatile uint8_t *)             0xFFFF0A04)
+#define    SPITX          (*(volatile uint8_t *)             0xFFFF0A08)
+#define    SPIDIV         (*(volatile uint8_t *)             0xFFFF0A0C)
+#define    SPICON         (*(volatile uint16_t *)            0xFFFF0A10)
+enum
+{
+    SPIEN                 = (1 << 0),  /* SPI enable bit */
+    SPIMEN                = (1 << 1),  /* Master mode enable bit */
+    SPICPH                = (1 << 2),  /* Serial clock phase mode bit */
+    SPICPO                = (1 << 3),  /* Serial clock polarity mode bit */
+    SPIWOM                = (1 << 4),  /* SPI wired or mode enable bit */
+    SPILF                 = (1 << 5),  /* LSB first transfer enable bit */
+    SPITMDE               = (1 << 6),  /* SPI transfer and interrupt mode */
+    SPIZEN                = (1 << 7),  /* SPI transmit zeros when transmit FIFO is empty */
+    SPIROW                = (1 << 8),  /* SPIRX overflow overwrite enable */
+    SPIOEN                = (1 << 9),  /* Slave MISO output enable bit */
+    SPILP                 = (1 << 10), /* Loopback enable bit */
+    SPICONT               = (1 << 11), /* Continuous transfer enable */
+    SPIRFLH               = (1 << 12), /* SPI receive FIFO flush enable bit */
+    SPITFLH               = (1 << 13), /* SPI transmit FIFO flush enable bit */
+    SPIMDE_OFFSET         = (1 << 14)  /* SPI IRQ mode bits */
+};
 
 // PWM
 #define    PWMBASE        (*(volatile uint32_t *)            0xFFFF0F80)

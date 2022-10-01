@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "system.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -6,13 +7,8 @@
 #include "testable_mcu_registers.h"
 #endif
 
-#define INT_OSC            (32768UL)
-#define PLL_CLK            (10240000UL)
-#define SLCLK              (INT_OSC)
-#define ECLK               (PLL_CLK)
-
 #define TICK_RATE_HZ       (100UL)
-#define TIMER_RELOAD_VALUE ((ECLK)/(TICK_RATE_HZ))
+#define TIMER_RELOAD_VALUE ((CPU_CLK)/(TICK_RATE_HZ))
 #define ONE_SEC_IN_MS      (1000U)
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
