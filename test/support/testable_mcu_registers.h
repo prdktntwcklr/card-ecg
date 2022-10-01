@@ -639,10 +639,10 @@ EXTERN  uint32_t  I2CRCON;
 
 // SPI
 EXTERN  uint32_t  SPISTA;
-EXTERN  uint32_t  SPIRX;
-EXTERN  uint32_t  SPITX;
-EXTERN  uint32_t  SPIDIV;
-EXTERN  uint32_t  SPICON;
+EXTERN  uint8_t   SPIRX;
+EXTERN  uint8_t   SPITX;
+EXTERN  uint8_t   SPIDIV;
+EXTERN  uint16_t  SPICON;
 
 // PWM
 EXTERN  uint32_t  PWMBASE;

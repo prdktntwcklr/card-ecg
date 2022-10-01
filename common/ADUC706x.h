@@ -180,8 +180,8 @@ enum
     T0_POSTSCALER_ENABLED     = (1UL << 23)
 };
 
-#define    T0CLRI         (*(volatile uint8_t *)            0xFFFF032C)
-#define    T0CAP          (*(volatile uint32_t const *)     0xFFFF0330)
+#define    T0CLRI         (*(volatile uint8_t *)             0xFFFF032C)
+#define    T0CAP          (*(volatile uint32_t const *)      0xFFFF0330)
 
 // Timer 1 = Wake-up timer
 #define    T1LD           (*(volatile uint32_t *)            0xFFFF0340)
@@ -666,10 +666,10 @@ enum
 
 // SPI
 #define    SPISTA         (*(volatile uint32_t *)            0xFFFF0A00)
-#define    SPIRX          (*(volatile uint32_t *)            0xFFFF0A04)
-#define    SPITX          (*(volatile uint32_t *)            0xFFFF0A08)
-#define    SPIDIV         (*(volatile uint32_t *)            0xFFFF0A0C)
-#define    SPICON         (*(volatile uint32_t *)            0xFFFF0A10)
+#define    SPIRX          (*(volatile uint8_t *)             0xFFFF0A04)
+#define    SPITX          (*(volatile uint8_t *)             0xFFFF0A08)
+#define    SPIDIV         (*(volatile uint8_t *)             0xFFFF0A0C)
+#define    SPICON         (*(volatile uint16_t *)            0xFFFF0A10)
 
 // PWM
 #define    PWMBASE        (*(volatile uint32_t *)            0xFFFF0F80)

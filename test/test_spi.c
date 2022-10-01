@@ -13,6 +13,7 @@ void setUp(void)
     GP0KEY1 = 0;
     GP0CON1 = 0;
     GP0KEY2 = 0;
+    SPICON = 0;
 }
 
 void tearDown(void)
@@ -28,6 +29,8 @@ void test_spi_init_should_initializeSpiCorrectly(void)
     TEST_ASSERT_EQUAL_HEX16(0x0007, GP0KEY1);
     TEST_ASSERT_EQUAL_HEX8(0xFD, GP0CON1);
     TEST_ASSERT_EQUAL_HEX16(0x0013, GP0KEY2);
+
+    TEST_ASSERT_EQUAL_HEX16(0x0ACF, SPICON);
 }
 
 #endif // TEST
