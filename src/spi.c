@@ -7,25 +7,6 @@
 #include "testable_mcu_registers.h"
 #endif
 
-enum
-{
-    SPIEN                 = (1 << 0),  /* SPI enable bit */
-    SPIMEN                = (1 << 1),  /* Master mode enable bit */
-    SPICPH                = (1 << 2),  /* Serial clock phase mode bit */
-    SPICPO                = (1 << 3),  /* Serial clock polarity mode bit */
-    SPIWOM                = (1 << 4),  /* SPI wired or mode enable bit */
-    SPILF                 = (1 << 5),  /* LSB first transfer enable bit */
-    SPITMDE               = (1 << 6),  /* SPI transfer and interrupt mode */
-    SPIZEN                = (1 << 7),  /* SPI transmit zeros when transmit FIFO is empty */
-    SPIROW                = (1 << 8),  /* SPIRX overflow overwrite enable */
-    SPIOEN                = (1 << 9),  /* Slave MISO output enable bit */
-    SPILP                 = (1 << 10), /* Loopback enable bit */
-    SPICONT               = (1 << 11), /* Continuous transfer enable */
-    SPIRFLH               = (1 << 12), /* SPI receive FIFO flush enable bit */
-    SPITFLH               = (1 << 13), /* SPI transmit FIFO flush enable bit */
-    SPIMDE_OFFSET         = (1 << 14)  /* SPI IRQ mode bits */
-};
-
 /*
  * @brief Initializes the SPI peripheral.
  *
@@ -45,9 +26,35 @@ extern void spi_init(const uint32_t bit_rate)
     GP0KEY2 = GP0KEY2_KEY;
 
     /* toggle to these bits flush receive and transmit FIFO */
-	SPICON = SPITFLH | SPIRFLH;
+    SPICON = SPITFLH | SPIRFLH;
 
     /* initialize spi peripheral */
     SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
              SPICPO  | SPICPH | SPIMEN | SPIEN;
+}
+
+/*
+ * @brief Blocks until transmit FIFO is empty.
+ */
+extern void spi_wait_for_tx_complete(void)
+{
+	while(SPISTA & 0xE);
+}
+
+/*
+ * @brief Blocks until there is space in FIFO.
+ */
+static void spi_wait_for_space_in_tx_fifo(void)
+{
+    while(SPISTA & 0x8);
+}
+
+/*
+ * @brief Sends data through SPI.
+ */
+extern void spi_send_data(uint8_t data)
+{
+    spi_wait_for_space_in_tx_fifo();
+
+	SPITX = data;
 }

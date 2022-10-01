@@ -643,6 +643,24 @@ EXTERN  uint8_t   SPIRX;
 EXTERN  uint8_t   SPITX;
 EXTERN  uint8_t   SPIDIV;
 EXTERN  uint16_t  SPICON;
+enum
+{
+    SPIEN                 = (1 << 0),  /* SPI enable bit */
+    SPIMEN                = (1 << 1),  /* Master mode enable bit */
+    SPICPH                = (1 << 2),  /* Serial clock phase mode bit */
+    SPICPO                = (1 << 3),  /* Serial clock polarity mode bit */
+    SPIWOM                = (1 << 4),  /* SPI wired or mode enable bit */
+    SPILF                 = (1 << 5),  /* LSB first transfer enable bit */
+    SPITMDE               = (1 << 6),  /* SPI transfer and interrupt mode */
+    SPIZEN                = (1 << 7),  /* SPI transmit zeros when transmit FIFO is empty */
+    SPIROW                = (1 << 8),  /* SPIRX overflow overwrite enable */
+    SPIOEN                = (1 << 9),  /* Slave MISO output enable bit */
+    SPILP                 = (1 << 10), /* Loopback enable bit */
+    SPICONT               = (1 << 11), /* Continuous transfer enable */
+    SPIRFLH               = (1 << 12), /* SPI receive FIFO flush enable bit */
+    SPITFLH               = (1 << 13), /* SPI transmit FIFO flush enable bit */
+    SPIMDE_OFFSET         = (1 << 14)  /* SPI IRQ mode bits */
+};
 
 // PWM
 EXTERN  uint32_t  PWMBASE;
