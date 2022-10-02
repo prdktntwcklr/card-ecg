@@ -35,7 +35,6 @@ extern void spi_init(const uint32_t bit_rate)
     else
     {
         RUNTIME_ERROR("Spi bit rate cannot be zero!");
-        SPIDIV = 0;
     }
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
