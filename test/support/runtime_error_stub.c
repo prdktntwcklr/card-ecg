@@ -12,7 +12,7 @@ const char * runtime_error_stub_get_last_error(void)
     return message;
 }
 
-void runtime_error_failed(const char *msg)
+void runtime_error(const char *msg)
 {
     message = msg;
 }
