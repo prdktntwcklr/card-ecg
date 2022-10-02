@@ -27,12 +27,15 @@ void test_superloop_init_should_initializePeripherals(void)
     superloop_init();
 }
 
-void test_superloop_run_should_toggleLedIfDeadlineReached(void)
+void test_superloop_run_should_notToggleLedIfDeadlineNotReached(void)
 {
     timer_deadline_reached_IgnoreAndReturn(false);
     
     superloop_run();
+}
 
+void test_superloop_run_should_toggleLedIfDeadlineReached(void)
+{
     timer_deadline_reached_IgnoreAndReturn(true);
     led_toggle_Expect();
 

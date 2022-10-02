@@ -20,7 +20,7 @@ void tearDown(void)
 {
 }
 
-void test_spi_init_should_initializeSpiCorrectly(void)
+void test_spi_init_should_initializeSpiPinsCorrectly(void)
 {
     GP0CON1 = 0xFF;
 
@@ -29,6 +29,11 @@ void test_spi_init_should_initializeSpiCorrectly(void)
     TEST_ASSERT_EQUAL_HEX16(0x0007, GP0KEY1);
     TEST_ASSERT_EQUAL_HEX8(0xFD, GP0CON1);
     TEST_ASSERT_EQUAL_HEX16(0x0013, GP0KEY2);
+}
+
+void test_spi_init_should_initializeSpiPeripheralCorrectly(void)
+{
+    spi_init(5120000);
 
     TEST_ASSERT_EQUAL_HEX16(0x0ACF, SPICON);
 }
