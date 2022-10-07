@@ -4,5 +4,5 @@ void runtime_error(const char *msg)
 {
     /* TODO: output error message to screen */
     /* hang in while loop */
-    while(true) {}
+    while(1) {}
 }
