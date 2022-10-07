@@ -1,4 +1,4 @@
 .vscode/
 output/
-test_build/
+test-build/
 *.lnk
