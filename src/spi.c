@@ -27,16 +27,14 @@ static void spi_wait_for_space_in_tx_fifo(void)
 extern void spi_init(const uint32_t bit_rate)
 {
     /* check for division by zero */
-    if(bit_rate != 0)
-    {
-        /* set bit rate, see p97 of datasheet */
-        SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
-    }
-    else
+    if(bit_rate == 0)
     {
         RUNTIME_ERROR("Spi bit rate cannot be zero!");
         return;
     }
+
+    /* set bit rate, see p97 of datasheet */
+    SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
     GP0CON0 = (1UL << 12) | (1UL << 8) | (1UL << 4);
