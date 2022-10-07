@@ -21,6 +21,7 @@ echo ""
 results=$(cat $dummy_file | sed "/^^/d")
 
 rm $dummy_file
+
 if [[ $results ]]; then
 	echo "     FAIL                                                  " 
     echo "     $checker has found problems!                          " 
