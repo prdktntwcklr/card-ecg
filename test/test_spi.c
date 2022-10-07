@@ -31,7 +31,7 @@ void test_spi_init_should_initializeSpiPinsCorrectly(void)
 
     spi_init(5120000);
     TEST_ASSERT_EQUAL_HEX32(0x00001110, GP0CON0);
-    TEST_ASSERT_EQUAL_INT(0, SPIDIV);
+    TEST_ASSERT_EQUAL_UINT8(0, SPIDIV);
     TEST_ASSERT_EQUAL_HEX16(0x0007, GP0KEY1);
     TEST_ASSERT_EQUAL_HEX8(0xFD, GP0CON1);
     TEST_ASSERT_EQUAL_HEX16(0x0013, GP0KEY2);
@@ -54,7 +54,7 @@ void test_spi_init_should_notAcceptBitRateOfZero(void)
 
     TEST_ASSERT_EQUAL_STRING("Spi bit rate cannot be zero!", runtime_error_stub_get_last_error());
 
-    /* make sure rest of function does not run after runtime assert */
+    /* make sure rest of function does not run after runtime assert fails */
     TEST_ASSERT_EQUAL_HEX32(0x00000000, GP0CON0);
 }
 

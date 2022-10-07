@@ -7,7 +7,6 @@ void runtime_error(const char *msg);
     do                            \
     {                             \
         runtime_error(msg);       \
-        return;                   \
     } while (0)
 
 #endif // RUNTIME_ERROR_H
