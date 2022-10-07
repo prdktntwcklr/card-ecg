@@ -63,7 +63,7 @@ extern void spi_wait_for_tx_complete(void)
 /*
  * @brief Sends data through SPI.
  */
-extern void spi_send_data(uint8_t data)
+extern void spi_send_data(const uint8_t data)
 {
     spi_wait_for_space_in_tx_fifo();
 
