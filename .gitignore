@@ -1,4 +1,5 @@
 .vscode/
+doxygen/
 output/
 test-build/
 *.lnk
