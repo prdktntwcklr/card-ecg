@@ -9,7 +9,7 @@
 
 void setUp(void)
 {
-    GP1DAT = 0x0000ABCD;
+    GP1DAT = 0x0000ABCD; /* lower two bytes should not be affected */
 }
 
 void tearDown(void)
