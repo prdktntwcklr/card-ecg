@@ -38,7 +38,7 @@ extern void spi_init(const uint32_t bit_rate)
     if(bit_rate == 0)
     {
         RUNTIME_ERROR("Spi bit rate cannot be zero!");
-        return;
+        return; /* for unit tests */
     }
 
     /* set bit rate, see p97 of datasheet */
@@ -79,7 +79,7 @@ extern void spi_send_data(const uint8_t data)
     if(spi_is_initialized == false)
     {
         RUNTIME_ERROR("Spi is not initialized!");
-        return;
+        return; /* for unit tests */
     }
 
     spi_wait_for_space_in_tx_fifo();

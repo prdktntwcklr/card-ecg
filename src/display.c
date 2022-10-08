@@ -135,7 +135,7 @@ void display_send_framebuffer(const uint8_t *data)
     if(display_is_initialized == false)
     {
         RUNTIME_ERROR("Display is not initialized!");
-        return;
+        return; /* for unit tests */
     }
 
     /* TODO: Implement rest of function */

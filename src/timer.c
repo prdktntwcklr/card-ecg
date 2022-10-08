@@ -79,7 +79,7 @@ extern bool timer_deadline_reached(const uint32_t deadline)
     if(timer_is_initialized == false)
     {
         RUNTIME_ERROR("Timer is not initialized!");
-        return false;        
+        return false; /* for unit tests */        
     }
 
     return ((int32_t)(time_stamp - deadline) >= 0);
