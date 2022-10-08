@@ -25,6 +25,7 @@ static void display_reset_on(void);
 static void display_reset_off(void);
 static void display_dc_on(void);
 static void display_dc_off(void);
+static void display_send_command(const uint8_t byte);
 
 /*
  * @brief Initializes the GPIO pins for the display.
@@ -97,6 +98,21 @@ static void display_dc_off(void)
 }
 
 /*
+ * @brief Sends a command to the display.
+ */
+static void display_send_command(const uint8_t byte)
+{
+    display_dc_off();
+    display_cs_off();
+
+	spi_send(byte);
+	spi_wait_for_tx();
+
+    display_cs_on();
+	display_dc_on();
+}
+
+/*
  * @brief Called by the application to initialize the display.
  */
 void display_init(void)
@@ -104,7 +120,22 @@ void display_init(void)
     spi_init(5120000);
     display_gpio_init();
 
-    /* TODO: perform rest of commands */
+    /* TODO: perform rest of init commands */
 
     display_is_initialized = true;
+}
+
+/*
+ * @brief Sends the framebuffer to the display.
+ */
+void display_send_framebuffer(const uint8_t *data)
+{
+    /* check if peripheral is initialized before sending data */
+    if(display_is_initialized == false)
+    {
+        RUNTIME_ERROR("Display is not initialized!");
+        return;
+    }
+
+    /* TODO: Implement rest of function */
 }
