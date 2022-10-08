@@ -138,5 +138,12 @@ void display_send_framebuffer(const uint8_t *data)
         return; /* for unit tests */
     }
 
+    /* check for null pointer */
+    if(!data)
+    {
+        RUNTIME_ERROR("Null pointer received!");
+        return; /* for unit tests */
+    }
+
     /* TODO: Implement rest of function */
 }

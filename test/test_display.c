@@ -13,10 +13,13 @@
 void setUp(void)
 {
     GP0DAT = 0x0000ABCD; /* lower two bytes should not be affected */
+
+    runtime_error_stub_reset();
 }
 
 void tearDown(void)
 {
+
 }
 
 /* this test must run before any calls to display_init() */
@@ -78,6 +81,16 @@ void test_display_gpio_init_should_setCorrectPins(void)
     display_gpio_init();
 
     TEST_ASSERT_EQUAL_HEX32(0x15EAABCD, GP0DAT);
+}
+
+void test_display_send_framebuffer_should_throwErrorIfNullPointerReceived(void)
+{
+    uint8_t *ptr = NULL;
+
+    display_init();
+    display_send_framebuffer(ptr);
+
+    TEST_ASSERT_EQUAL_STRING("Null pointer received!", runtime_error_stub_get_last_error());
 }
 
 #endif // TEST

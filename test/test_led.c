@@ -11,6 +11,8 @@
 void setUp(void)
 {
     GP1DAT = 0x0000ABCD; /* lower two bytes should not be affected */
+
+    runtime_error_stub_reset();
 }
 
 void tearDown(void)
