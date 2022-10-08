@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#include "spi.h"
+
 #ifndef TEST
 #include "aduc706x.h"
 #else
@@ -11,6 +13,9 @@
 #define CS_PIN_NO    (0UL)
 #define RESET_PIN_NO (2UL)
 #define DC_PIN_NO    (4UL)
+
+/* Flag to check if peripheral is initialized or not */
+static bool display_is_initialized = false;
 
 /* Private function declarations */
 static void display_gpio_init(void);
@@ -24,9 +29,9 @@ static void display_dc_off(void);
 /*
  * @brief Initializes the GPIO pins for the display.
  *
- * @note  Pin0.0 = cs
- *        Pin0.2 = reset
- *        Pin0.4 = dc
+ * @note  Pin0.0 = CS
+ *        Pin0.2 = RESET
+ *        Pin0.4 = DC
  */
 static void display_gpio_init(void)
 {
@@ -43,32 +48,63 @@ static void display_gpio_init(void)
     display_dc_off();
 }
 
+/*
+ * @brief Turns the CS pin on.
+ */
 static void display_cs_on(void)
 {
     GP0DAT |= (1UL << (16 + CS_PIN_NO));
 }
 
+/*
+ * @brief Turns the CS pin off.
+ */
 static void display_cs_off(void)
 {
     GP0DAT &= ~(1UL << (16 + CS_PIN_NO));
 }
 
+/*
+ * @brief Turns the reset pin on.
+ */
 static void display_reset_on(void)
 {
     GP0DAT |= (1UL << (16 + RESET_PIN_NO));
 }
 
+/*
+ * @brief Turns the reset pin off.
+ */
 static void display_reset_off(void)
 {
     GP0DAT &= ~(1UL << (16 + RESET_PIN_NO));
 }
 
+/*
+ * @brief Turns the DC pin on.
+ */
 static void display_dc_on(void)
 {
     GP0DAT |= (1UL << (16 + DC_PIN_NO));
 }
 
+/*
+ * @brief Turns the DC pin off.
+ */
 static void display_dc_off(void)
 {
     GP0DAT &= ~(1UL << (16 + DC_PIN_NO));
+}
+
+/*
+ * @brief Called by the application to initialize the display.
+ */
+void display_init(void)
+{
+    spi_init(5120000);
+    display_gpio_init();
+
+    /* TODO: perform rest of commands */
+
+    display_is_initialized = true;
 }

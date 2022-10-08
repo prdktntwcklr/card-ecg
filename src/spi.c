@@ -28,9 +28,9 @@ static void spi_wait_for_space_in_tx_fifo(void)
 /*
  * @brief Initializes the SPI peripheral.
  *
- * @note  Pin0.1 = sck
- *        Pin0.2 = miso
- *        Pin0.3 = mosi
+ * @note  Pin0.1 = SCK
+ *        Pin0.2 = MISO
+ *        Pin0.3 = MOSI
  */
 extern void spi_init(const uint32_t bit_rate)
 {
@@ -67,7 +67,7 @@ extern void spi_init(const uint32_t bit_rate)
  */
 extern void spi_wait_for_tx_complete(void)
 {
-	while(SPISTA & 0xE);
+    while(SPISTA & 0xE);
 }
 
 /*
@@ -84,5 +84,5 @@ extern void spi_send_data(const uint8_t data)
 
     spi_wait_for_space_in_tx_fifo();
 
-	SPITX = data;
+    SPITX = data;
 }
