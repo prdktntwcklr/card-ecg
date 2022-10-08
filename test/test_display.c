@@ -7,6 +7,8 @@
 #include "testable_mcu_registers.h"
 #include "display.h"
 #include "display.c"
+#include "spi.h"
+#include "runtime_error_stub.h"
 
 void setUp(void)
 {

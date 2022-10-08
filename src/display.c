@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 
+#include "runtime_error.h"
 #include "spi.h"
 
 #ifndef TEST
@@ -105,8 +106,8 @@ static void display_send_command(const uint8_t byte)
     display_dc_off();
     display_cs_off();
 
-	spi_send(byte);
-	spi_wait_for_tx();
+	spi_send_data(byte);
+	spi_wait_for_tx_complete();
 
     display_cs_on();
 	display_dc_on();

@@ -9,6 +9,7 @@
 
 /* needed to test static functions in module */
 #include "timer.c"
+#include "runtime_error_stub.h"
 
 void setUp(void)
 {
