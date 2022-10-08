@@ -24,6 +24,14 @@ void tearDown(void)
 {
 }
 
+/* this test must run before any calls to spi_init() */
+void test_spi_send_data_should_throwErrorIfSpiIsNotInitialized(void)
+{
+    spi_send_data(0xAA);
+
+    TEST_ASSERT_EQUAL_STRING("Spi is not initialized!", runtime_error_stub_get_last_error());
+}
+
 void test_spi_init_should_initializeSpiPinsCorrectly(void)
 {
     /* check if correct bit is cleared */

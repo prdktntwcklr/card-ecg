@@ -19,6 +19,16 @@ void tearDown(void)
 {
 }
 
+/* this test must run before any calls to display_init() */
+void test_spi_send_data_should_throwErrorIfSpiIsNotInitialized(void)
+{
+    uint8_t data = 0xAA;
+
+    display_send_framebuffer(&data);
+
+    TEST_ASSERT_EQUAL_STRING("Display is not initialized!", runtime_error_stub_get_last_error());
+}
+
 void test_display_cs_on_should_setCorrectPin(void)
 {
     display_cs_on();
