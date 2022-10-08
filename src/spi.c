@@ -1,4 +1,7 @@
 #include "spi.h"
+
+#include <stdbool.h>
+
 #include "runtime_error.h"
 #include "system.h"
 
@@ -7,6 +10,9 @@
 #else
 #include "testable_mcu_registers.h"
 #endif
+
+/* Flag to check if peripheral is initialized or not */
+static bool spi_is_initialized = false;
 
 /* Static Function Prototypes */
 static void spi_wait_for_space_in_tx_fifo(void);
@@ -52,6 +58,8 @@ extern void spi_init(const uint32_t bit_rate)
     /* initialize spi peripheral */
     SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
              SPICPO  | SPICPH | SPIMEN | SPIEN;
+
+    spi_is_initialized = true;             
 }
 
 /*
@@ -67,6 +75,13 @@ extern void spi_wait_for_tx_complete(void)
  */
 extern void spi_send_data(const uint8_t data)
 {
+    /* check if peripheral is initialized before sending data */
+    if(spi_is_initialized == false)
+    {
+        RUNTIME_ERROR("Spi is not initialized!");
+        return;
+    }
+
     spi_wait_for_space_in_tx_fifo();
 
 	SPITX = data;

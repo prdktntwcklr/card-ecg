@@ -1,5 +1,7 @@
 #include "display.h"
 
+#include <stdbool.h>
+
 #ifndef TEST
 #include "aduc706x.h"
 #else
@@ -10,6 +12,7 @@
 #define RESET_PIN_NO (2UL)
 #define DC_PIN_NO    (4UL)
 
+/* Private function declarations */
 static void display_gpio_init(void);
 static void display_cs_on(void);
 static void display_cs_off(void);

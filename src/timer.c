@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "runtime_error.h"
 #include "system.h"
 
 #ifndef TEST
@@ -13,6 +14,9 @@
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
 static volatile uint32_t time_stamp = 0;
+
+/* Flag to check if peripheral is initialized or not */
+static bool timer_is_initialized = false;
 
 /*
  * @brief Returns the current time stamp value.
@@ -63,6 +67,8 @@ extern void timer_init(void)
 
     /* enable Timer0 interrupt */
     IRQEN = TIMER0_BIT;
+
+    timer_is_initialized = true;
 }
 
 /*
@@ -70,6 +76,12 @@ extern void timer_init(void)
  */
 extern bool timer_deadline_reached(const uint32_t deadline)
 {
+    if(timer_is_initialized == false)
+    {
+        RUNTIME_ERROR("Timer is not initialized!");
+        return false;        
+    }
+
     return ((int32_t)(time_stamp - deadline) >= 0);
 }
 
