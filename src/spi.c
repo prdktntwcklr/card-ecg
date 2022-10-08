@@ -22,7 +22,9 @@ static void spi_wait_for_space_in_tx_fifo(void)
 /*
  * @brief Initializes the SPI peripheral.
  *
- * @note Pin0.1 = sck, Pin0.2 = miso, Pin0.3 = mosi
+ * @note  Pin0.1 = sck
+ *        Pin0.2 = miso
+ *        Pin0.3 = mosi
  */
 extern void spi_init(const uint32_t bit_rate)
 {
@@ -37,7 +39,7 @@ extern void spi_init(const uint32_t bit_rate)
     SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
-    GP0CON0 = (1UL << 12) | (1UL << 8) | (1UL << 4);
+    GP0CON0 |= (1UL << 12) | (1UL << 8) | (1UL << 4);
 
     /* clear bit 1 of GP0CON1 for SPI mode */
     GP0KEY1 = GP0KEY1_KEY;

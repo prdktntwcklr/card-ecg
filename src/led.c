@@ -11,7 +11,8 @@
  */
 extern void led_init(void)
 {
-    GP1DAT |=  (1UL << 29); /* configure P1.5 as an output */
+    /* configure P1.5 as an output */
+    GP1DAT |=  (1UL << 29);
     led_off();
 }
 
@@ -20,7 +21,7 @@ extern void led_init(void)
  */
 extern void led_off(void)
 {
-    GP1DAT &= ~(1UL << 21); /* turn P1.5 off */
+    GP1DAT &= ~(1UL << 21);
 }
 
 /*
@@ -28,7 +29,7 @@ extern void led_off(void)
  */
 extern void led_on(void)
 {
-    GP1DAT |= (1UL << 21); /* turn P1.5 on */
+    GP1DAT |= (1UL << 21);
 }
 
 /*
@@ -36,5 +37,5 @@ extern void led_on(void)
  */
 extern void led_toggle(void)
 {
-    GP1DAT ^= (1UL << 21); /* toggle P1.5 */
+    GP1DAT ^= (1UL << 21);
 }

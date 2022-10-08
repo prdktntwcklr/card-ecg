@@ -9,7 +9,7 @@
 
 void setUp(void)
 {
-    GP1DAT = 0x00000000;
+    GP1DAT = 0x0000ABCD;
 }
 
 void tearDown(void)
@@ -19,31 +19,31 @@ void tearDown(void)
 void test_led_init_should_setCorrectLedAsOutput(void)
 {
     led_init();
-    TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);
+    TEST_ASSERT_EQUAL_HEX32(0x2000ABCD, GP1DAT);
 }
 
 void test_led_init_should_turnLedOff(void)
 {
-    GP1DAT = 0xFFFF0000;
+    GP1DAT = 0xFFFFABCD;
 
     led_init();
-    TEST_ASSERT_EQUAL_HEX32(0xFFDF0000, GP1DAT);
+    TEST_ASSERT_EQUAL_HEX32(0xFFDFABCD, GP1DAT);
 }
 
 void test_led_off_should_turnCorrectLedOff(void)
 {
-    GP1DAT = 0xFFFF0000;
+    GP1DAT = 0xFFFFABCD;
     
     led_off();
-    TEST_ASSERT_EQUAL_HEX32(0xFFDF0000, GP1DAT);
+    TEST_ASSERT_EQUAL_HEX32(0xFFDFABCD, GP1DAT);
 }
 
 void test_led_on_should_turnCorrectLedOn(void)
 {
-    GP1DAT = 0xFF000000;
+    GP1DAT = 0xFF00ABCD;
 
     led_on();
-    TEST_ASSERT_EQUAL_HEX32(0xFF200000, GP1DAT);
+    TEST_ASSERT_EQUAL_HEX32(0xFF20ABCD, GP1DAT);
 }
 
 void test_led_toggle_should_toggleCorrectLedOnOff(void)
@@ -53,11 +53,11 @@ void test_led_toggle_should_toggleCorrectLedOnOff(void)
 
     /* toggle off to on */
     led_toggle();
-    TEST_ASSERT_EQUAL_HEX32(0x20200000, GP1DAT);
+    TEST_ASSERT_EQUAL_HEX32(0x2020ABCD, GP1DAT);
 
     /* toggle on to off */
     led_toggle();
-    TEST_ASSERT_EQUAL_HEX32(0x20000000, GP1DAT);    
+    TEST_ASSERT_EQUAL_HEX32(0x2000ABCD, GP1DAT);    
 }
 
 #endif // TEST
