@@ -1,6 +1,6 @@
 # syntax for this file https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 # help on github actions: https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions
-name: CI
+name: Static Analysis
 
 # Controls when the action will run. 
 on:
@@ -15,7 +15,7 @@ on:
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  static-analysis:
+  run-code-linter:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -29,16 +29,3 @@ jobs:
              cd static-analysis
              chmod +x 01-code-linter.sh
              ./01-code-linter.sh
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: get updates
-        run: sudo apt-get update
-      - name: install packages
-        run: sudo apt-get install -y make ruby
-      - name: install ceedling
-        run: sudo gem install ceedling
-      - name: run unit tests
-        run: make test
