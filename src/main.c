@@ -15,6 +15,7 @@ __attribute__((interrupt)) void IRQHandler(void);
 #ifndef TEST
 int main(void)
 #else
+/* cppcheck-suppress unusedFunction */
 int testable_main(void)
 #endif
 {
@@ -29,8 +30,10 @@ int testable_main(void)
 }
 
 #ifndef TEST
+/* cppcheck-suppress unusedFunction */
 void IRQHandler(void)
 #else
+/* cppcheck-suppress unusedFunction */
 void testable_irq_handler(void)
 #endif
 {
