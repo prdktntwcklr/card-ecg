@@ -5,6 +5,6 @@
 
 void spi_init(const uint32_t bit_rate);
 void spi_wait_for_tx_complete(void);
-void spi_send_data(uint8_t data);
+void spi_send_data(const uint8_t data);
 
 #endif // SPI_H

@@ -9,6 +9,7 @@
 
 /* needed to test static functions in module */
 #include "timer.c"
+#include "runtime_error_stub.h"
 
 void setUp(void)
 {
@@ -23,12 +24,21 @@ void tearDown(void)
 {
 }
 
+/* this test must run before any calls to timer_init() */
+void test_deadline_reached_should_throwErrorIfLedIsNotInitialized(void)
+{
+    timer_deadline_reached(1000);
+
+    TEST_ASSERT_EQUAL_STRING("Timer is not initialized!", runtime_error_stub_get_last_error());
+}
+
+
 void test_timer_init_should_initializeTimerRegistersCorrectly(void)
 {
     timer_init();
 
-    TEST_ASSERT_EQUAL(102400, T0LD);
-    TEST_ASSERT_EQUAL_HEX32(0x000004C0, T0CON);
+    TEST_ASSERT_EQUAL(400, T0LD);
+    TEST_ASSERT_EQUAL_HEX32(0x000004C8, T0CON);
     TEST_ASSERT_EQUAL_HEX32(0x00000008, IRQEN);    
 }
 
@@ -52,7 +62,7 @@ void test_timer_handle_interrupt_should_incrementReloadTimerAndTimeStamp(void)
     TEST_ASSERT_EQUAL(0, timer_get_stamp());
 
     timer_handle_interrupt();
-    TEST_ASSERT_EQUAL(102400, T0LD);
+    TEST_ASSERT_EQUAL(400, T0LD);
     TEST_ASSERT_EQUAL(10, timer_get_stamp());
 }
 

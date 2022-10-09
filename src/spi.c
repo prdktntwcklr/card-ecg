@@ -1,4 +1,8 @@
 #include "spi.h"
+
+#include <stdbool.h>
+
+#include "runtime_error.h"
 #include "system.h"
 
 #ifndef TEST
@@ -6,6 +10,9 @@
 #else
 #include "testable_mcu_registers.h"
 #endif
+
+/* Flag to check if peripheral is initialized or not */
+static bool spi_is_initialized = false;
 
 /* Static Function Prototypes */
 static void spi_wait_for_space_in_tx_fifo(void);
@@ -21,15 +28,24 @@ static void spi_wait_for_space_in_tx_fifo(void)
 /*
  * @brief Initializes the SPI peripheral.
  *
- * @note Pin0.1 = sck, Pin0.2 = miso, Pin0.3 = mosi
+ * @note  Pin0.1 = SCK
+ *        Pin0.2 = MISO
+ *        Pin0.3 = MOSI
  */
 extern void spi_init(const uint32_t bit_rate)
 {
+    /* check for division by zero */
+    if(bit_rate == 0)
+    {
+        RUNTIME_ERROR("Spi bit rate cannot be zero!");
+        return; /* for unit tests */
+    }
+
     /* set bit rate, see p97 of datasheet */
-    SPIDIV = CPU_CLK / (2 * bit_rate) - 1;
+    SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
-    GP0CON0 = (1UL << 12) | (1UL << 8) | (1UL << 4);
+    GP0CON0 |= (1UL << 12) | (1UL << 8) | (1UL << 4);
 
     /* clear bit 1 of GP0CON1 for SPI mode */
     GP0KEY1 = GP0KEY1_KEY;
@@ -42,6 +58,8 @@ extern void spi_init(const uint32_t bit_rate)
     /* initialize spi peripheral */
     SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
              SPICPO  | SPICPH | SPIMEN | SPIEN;
+
+    spi_is_initialized = true;             
 }
 
 /*
@@ -49,15 +67,22 @@ extern void spi_init(const uint32_t bit_rate)
  */
 extern void spi_wait_for_tx_complete(void)
 {
-	while(SPISTA & 0xE);
+    while(SPISTA & 0xE);
 }
 
 /*
  * @brief Sends data through SPI.
  */
-extern void spi_send_data(uint8_t data)
+extern void spi_send_data(const uint8_t data)
 {
+    /* check if peripheral is initialized before sending data */
+    if(spi_is_initialized == false)
+    {
+        RUNTIME_ERROR("Spi is not initialized!");
+        return; /* for unit tests */
+    }
+
     spi_wait_for_space_in_tx_fifo();
 
-	SPITX = data;
+    SPITX = data;
 }

@@ -1,0 +1,47 @@
+# syntax for this file https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# help on github actions: https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions
+name: Static Analysis
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  run-complexity-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: get updates
+        run:  sudo apt-get update
+      - name: install packages
+        run:  |
+              sudo apt-get install -y python3-pip
+              pip install lizard
+      - name: run complexity check tool
+        run:  |
+              cd static-analysis
+              chmod +x 01-code-complexity.sh
+              ./01-code-complexity.sh
+  run-code-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: get updates
+        run: sudo apt-get update
+      - name: install packages
+        run: sudo apt-get install -y cppcheck
+      - name: run code linter tool
+        run: |
+             cd static-analysis
+             chmod +x 02-code-linter.sh
+             ./02-code-linter.sh

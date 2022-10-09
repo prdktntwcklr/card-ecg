@@ -1,4 +1,5 @@
 #include "superloop.h"
+#include "display.h"
 #include "led.h"
 #include "system.h"
 #include "timer.h"
@@ -19,6 +20,7 @@ extern void superloop_init(void)
     /* initialize rest of peripherals */
     led_init();
     timer_init();
+    display_init();
 }
 
 extern bool superloop_run(void)

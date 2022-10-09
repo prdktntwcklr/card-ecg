@@ -1,17 +1,28 @@
 #include "led.h"
 
+#include <stdbool.h>
+
+#include "runtime_error.h"
+
 #ifndef TEST
 #include "aduc706x.h"
 #else
 #include "testable_mcu_registers.h"
 #endif
 
+/* Flag to check if peripheral is initialized or not */
+static bool led_is_initialized = false;
+
 /*
  * @brief Initializes the LED.
  */
 extern void led_init(void)
 {
-    GP1DAT |=  (1UL << 29); /* configure P1.5 as an output */
+    /* configure P1.5 as an output */
+    GP1DAT |=  (1UL << 29);
+
+    led_is_initialized = true;
+
     led_off();
 }
 
@@ -20,7 +31,13 @@ extern void led_init(void)
  */
 extern void led_off(void)
 {
-    GP1DAT &= ~(1UL << 21); /* turn P1.5 off */
+    if(led_is_initialized == false)
+    {
+        RUNTIME_ERROR("Led is not initialized!");
+        return; /* for unit tests */
+    }
+
+    GP1DAT &= ~(1UL << 21);
 }
 
 /*
@@ -28,7 +45,13 @@ extern void led_off(void)
  */
 extern void led_on(void)
 {
-    GP1DAT |= (1UL << 21); /* turn P1.5 on */
+    if(led_is_initialized == false)
+    {
+        RUNTIME_ERROR("Led is not initialized!");
+        return; /* for unit tests */
+    }
+
+    GP1DAT |= (1UL << 21);
 }
 
 /*
@@ -36,5 +59,11 @@ extern void led_on(void)
  */
 extern void led_toggle(void)
 {
-    GP1DAT ^= (1UL << 21); /* toggle P1.5 */
+    if(led_is_initialized == false)
+    {
+        RUNTIME_ERROR("Led is not initialized!");
+        return; /* for unit tests */
+    }
+
+    GP1DAT ^= (1UL << 21);
 }
