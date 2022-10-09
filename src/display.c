@@ -119,6 +119,8 @@ static void display_send_command(const uint8_t byte)
  */
 void display_init(void)
 {
+    /* #lizard forgives */
+
     spi_init(5120000);
     display_gpio_init();
 
