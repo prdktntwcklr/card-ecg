@@ -9,9 +9,10 @@
 #endif
 
 #define TICK_RATE_HZ       (100UL)
-#define TIMER_RELOAD_VALUE ((CPU_CLK)/(TICK_RATE_HZ))
+#define TIMER_DIV_VAL      (256UL)
+#define TIMER_RELOAD_VALUE ((CPU_CLK)/((TICK_RATE_HZ) * (TIMER_DIV_VAL))) /* 400 */
 #define ONE_SEC_IN_MS      (1000U)
-#define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
+#define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ)) /* 10 */
 
 static volatile uint32_t time_stamp = 0;
 
@@ -20,10 +21,8 @@ static bool timer_is_initialized = false;
 
 /*
  * @brief Returns the current time stamp value.
- *
- * @note  Helper function for unit testing.
  */
-__attribute__((unused)) static uint32_t timer_get_stamp(void)
+uint32_t timer_get_stamp(void)
 {
     IRQEN &= ~(TIMER0_BIT);
     uint32_t ret_val = time_stamp;
@@ -63,7 +62,7 @@ extern void timer_init(void)
 {
     /* set up Timer0 */
     T0LD  = TIMER_RELOAD_VALUE;
-    T0CON = T0_10MHZ | T0_DIV_1 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
+    T0CON = T0_10MHZ | T0_DIV_256 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
 
     /* enable Timer0 interrupt */
     IRQEN = TIMER0_BIT;
@@ -83,6 +82,13 @@ extern bool timer_deadline_reached(const uint32_t deadline)
     }
 
     return ((int32_t)(time_stamp - deadline) >= 0);
+}
+
+extern void timer_delay_10ms(void)
+{
+    uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2);
+
+    while(!timer_deadline_reached(deadline)) {}
 }
 
 /*

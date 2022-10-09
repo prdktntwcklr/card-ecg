@@ -1,9 +1,9 @@
 #include "display.h"
-
-#include <stdbool.h>
-
+#include "display_registers.h"
 #include "runtime_error.h"
 #include "spi.h"
+
+#include <stdbool.h>
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -106,11 +106,11 @@ static void display_send_command(const uint8_t byte)
     display_dc_off();
     display_cs_off();
 
-	spi_send_data(byte);
-	spi_wait_for_tx_complete();
+    spi_send_data(byte);
+    spi_wait_for_tx_complete();
 
     display_cs_on();
-	display_dc_on();
+    display_dc_on();
 }
 
 /*
@@ -121,7 +121,50 @@ void display_init(void)
     spi_init(5120000);
     display_gpio_init();
 
-    /* TODO: perform rest of init commands */
+    display_reset_off();
+    timer_delay_10ms(); /* TODO: shorter delay possible? */
+    display_reset_on();
+    timer_delay_10ms(); /* TODO: shorter delay possible? */
+
+    display_send_command(SSD1306_DISPLAY_OFF);
+
+    
+    display_send_command(SSD1306_SET_DISPLAY_CLOCK_DIV);
+    display_send_command(0x80);
+
+    display_send_command(SSD1306_SET_MULTIPLEX);
+    display_send_command(0x3F);
+
+    display_send_command(SSD1306_SET_DISPLAY_OFFSET);
+    display_send_command(0x0);
+
+    display_send_command(SSD1306_SET_START_LINE | 0x0);
+
+    display_send_command(SSD1306_CHARGE_PUMP);
+    display_send_command(0x14);
+
+    display_send_command(SSD1306_MEMORY_MODE);
+    display_send_command(0x00);
+
+    display_send_command(SSD1306_SEG_REMAP | 0x1);
+
+    display_send_command(SSD1306_COM_SCAN_DEC);
+
+    display_send_command(SSD1306_SET_COM_PINS);
+    display_send_command(0x12);
+
+    display_send_command(SSD1306_SET_CONTRAST);
+    display_send_command(0xCF);
+
+    display_send_command(SSD1306_SET_PRECHARGE);
+    display_send_command(0xF1);
+
+    display_send_command(SSD1306_SET_VCOMH_DESELECT);
+    display_send_command(0x40);
+
+    display_send_command(SSD1306_DISPLAYALLON_RESUME);
+    display_send_command(SSD1306_DISPLAY_NORMAL);
+    display_send_command(SSD1306_DISPLAY_ON);
 
     display_is_initialized = true;
 }
