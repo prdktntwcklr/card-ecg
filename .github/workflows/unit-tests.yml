@@ -21,10 +21,10 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v3
       - name: get updates
-        run: sudo apt-get update
+        run:  sudo apt-get update
       - name: install packages
-        run: sudo apt-get install -y make ruby
-      - name: install ceedling
-        run: sudo gem install ceedling
-      - name: run unit tests
-        run: make test
+        run:  |
+              sudo apt-get install -y make ruby
+              sudo gem install ceedling
+      - name: run all unit tests
+        run:  make test

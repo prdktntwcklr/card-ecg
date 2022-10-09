@@ -15,6 +15,22 @@ on:
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  run-complexity-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: get updates
+        run:  sudo apt-get update
+      - name: install packages
+        run:  |
+              sudo apt-get install -y python3-pip
+              pip install lizard
+      - name: run complexity check tool
+        run:  |
+              cd static-analysis
+              chmod +x 01-code-complexity.sh
+              ./01-code-complexity.sh
   run-code-linter:
     runs-on: ubuntu-latest
     steps:
@@ -24,8 +40,8 @@ jobs:
         run: sudo apt-get update
       - name: install packages
         run: sudo apt-get install -y cppcheck
-      - name: run code linter
+      - name: run code linter tool
         run: |
              cd static-analysis
-             chmod +x 01-code-linter.sh
-             ./01-code-linter.sh
+             chmod +x 02-code-linter.sh
+             ./02-code-linter.sh
