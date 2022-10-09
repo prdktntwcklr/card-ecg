@@ -14,21 +14,24 @@
 #define ONE_SEC_IN_MS      (1000U)
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ)) /* 10 */
 
+/* TODO: add static asserts here */
+
+/* keeps track of the current time stamp, incremented on each interrupt */
 static volatile uint32_t time_stamp = 0;
 
-/* Flag to check if peripheral is initialized or not */
+/* flag to check if peripheral is initialized or not */
 static bool timer_is_initialized = false;
 
 /*
  * @brief Returns the current time stamp value.
  */
-uint32_t timer_get_stamp(void)
+static uint32_t timer_get_stamp(void)
 {
     IRQEN &= ~(TIMER0_BIT);
-    uint32_t ret_val = time_stamp;
+    uint32_t temp_time_stamp = time_stamp;
     IRQEN |= TIMER0_BIT;
 
-    return ret_val;
+    return temp_time_stamp;
 }
 
 /*
@@ -78,7 +81,7 @@ extern bool timer_deadline_reached(const uint32_t deadline)
     if(timer_is_initialized == false)
     {
         RUNTIME_ERROR("Timer is not initialized!");
-        return false; /* for unit tests */        
+        return false; /* for unit tests */
     }
 
     return ((int32_t)(time_stamp - deadline) >= 0);
@@ -86,6 +89,12 @@ extern bool timer_deadline_reached(const uint32_t deadline)
 
 extern void timer_delay_10ms(void)
 {
+    if(timer_is_initialized == false)
+    {
+        RUNTIME_ERROR("Timer is not initialized!");
+        return; /* for unit tests */
+    }
+
     uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2);
 
     while(!timer_deadline_reached(deadline)) {}
@@ -97,5 +106,6 @@ extern void timer_delay_10ms(void)
 extern void timer_handle_interrupt(void)
 {
     time_stamp += TIMER_INC_VALUE;
+
     T0LD = TIMER_RELOAD_VALUE; 
 }

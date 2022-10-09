@@ -2,6 +2,7 @@
 #include "display_registers.h"
 #include "runtime_error.h"
 #include "spi.h"
+#include "timer.h"
 
 #include <stdbool.h>
 
@@ -127,7 +128,6 @@ void display_init(void)
     timer_delay_10ms(); /* TODO: shorter delay possible? */
 
     display_send_command(SSD1306_DISPLAY_OFF);
-
     
     display_send_command(SSD1306_SET_DISPLAY_CLOCK_DIV);
     display_send_command(0x80);
@@ -174,17 +174,17 @@ void display_init(void)
  */
 void display_send_framebuffer(const uint8_t *data)
 {
-    /* check if peripheral is initialized before sending data */
-    if(display_is_initialized == false)
-    {
-        RUNTIME_ERROR("Display is not initialized!");
-        return; /* for unit tests */
-    }
-
     /* check for null pointer */
     if(!data)
     {
         RUNTIME_ERROR("Null pointer received!");
+        return; /* for unit tests */
+    }
+
+    /* check if peripheral is initialized before sending data */
+    if(display_is_initialized == false)
+    {
+        RUNTIME_ERROR("Display is not initialized!");
         return; /* for unit tests */
     }
 
