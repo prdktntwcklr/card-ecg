@@ -21,7 +21,7 @@ void test_framebuffer_clear_should_clearTheFramebuffer(void)
 {
     uint64_t fakeFramebuffer[FRAMEBUFFER_ELEMENTS] = {0xAAAAAAAAAAAAAAAA};
 
-    uint8_t* framebuffer = (uint8_t*) fakeFramebuffer;
+    fb_handle_t framebuffer = (fb_handle_t) fakeFramebuffer;
 
     framebuffer_clear(framebuffer);
 
@@ -33,7 +33,7 @@ void test_framebuffer_clear_should_clearTheFramebuffer(void)
 
 void test_framebuffer_init_should_returnPointerToClearedFramebuffer(void)
 {
-    uint8_t* framebuffer = framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_init();
 
     for(uint16_t i = 0; i < FRAMEBUFFER_ELEMENTS * 8; i++)
     {
@@ -43,7 +43,7 @@ void test_framebuffer_init_should_returnPointerToClearedFramebuffer(void)
 
 void test_framebuffer_change_pixel_should_throwErrorIfOutsideOfLimits(void)
 {
-    uint8_t* framebuffer = framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_init();
 
     framebuffer_change_pixel(framebuffer, 0, 200, true);
 
