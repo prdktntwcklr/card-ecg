@@ -28,6 +28,7 @@ static void display_reset_off(void);
 static void display_dc_on(void);
 static void display_dc_off(void);
 static void display_send_command(const uint8_t byte);
+static void display_burst_framebuffer(const uint8_t *data);
 
 /*
  * @brief Initializes the GPIO pins for the display.
@@ -115,6 +116,25 @@ static void display_send_command(const uint8_t byte)
 }
 
 /*
+ * @brief 
+ */
+static void display_burst_framebuffer(const uint8_t *data)
+{
+	display_cs_off();
+
+	const int size = DISPLAY_WIDTH * DISPLAY_HEIGHT >> 3;
+	
+	for (int i = 0; i < size; i++)
+	{
+		spi_send_data(data[i]);
+	}
+
+	spi_wait_for_tx_complete();
+	
+	display_cs_on();
+}
+
+/*
  * @brief Called by the application to initialize the display.
  */
 void display_init(void)
@@ -190,5 +210,12 @@ void display_send_framebuffer(const uint8_t *data)
         return; /* for unit tests */
     }
 
-    /* TODO: Implement rest of function */
+	display_send_command(SSD1306_COLUMN_ADDR);
+	display_send_command(0);
+	display_send_command(DISPLAY_WIDTH - 1);
+	display_send_command(SSD1306_PAGE_ADDR);
+	display_send_command(0);
+	display_send_command(7);
+	
+	display_burst_framebuffer(data);
 }

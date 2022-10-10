@@ -1,8 +1,6 @@
 #include "framebuffer.h"
 #include "runtime_error.h"
 
-#define FRAMEBUFFER_WIDTH    (128UL)
-#define FRAMEBUFFER_HEIGHT    (64UL)
 #define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
 
 #define ASCII_OFFSET           (32U)
@@ -14,7 +12,6 @@ STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])
 
 /* static function declarations */
 static void framebuffer_clear(uint8_t * const framebuffer);
-static bool image_get_pixel(const uint8_t x, const uint8_t y, const uint8_t * const image);
 
 /*
  * @brief Clears the whole framebuffer.
