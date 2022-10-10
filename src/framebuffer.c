@@ -132,34 +132,36 @@ void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, con
     }
 
     /* initialize variables to start position of string */
-    uint8_t next_symbol_x = x;
-    uint8_t next_symbol_y = y;
+    uint8_t next_x_pos = x;
+    uint8_t next_y_pos = y;
 
     /* print every character of string */
     for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
     {
+        char next_symbol = *(string + i);
+
         /* check if we have reached end of string */
-        if((*(string + i)) == 0)
+        if(next_symbol == 0)
         {
             break;
         }
 
         /* check if we have reached end of line */
-        if(next_symbol_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
+        if((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH)
         {
             /* switch to next line */
-            next_symbol_x = 0;
-            next_symbol_y += FONT_HEIGHT;
+            next_x_pos = x;
+            next_y_pos += FONT_HEIGHT;
         }
 
         /* skip whitespace at beginning of line */
-        if((next_symbol_x == 0) && (*(string + i) == ' '))
+        if((next_x_pos == 0) && (next_symbol == ' '))
         {
             continue;
         }
 
-        framebuffer_draw_symbol(framebuffer, next_symbol_x, next_symbol_y, *(string + i));
+        framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos, next_symbol);
 
-        next_symbol_x += 7;
+        next_x_pos += (FONT_WIDTH + 1);
     }
 }
