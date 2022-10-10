@@ -16,7 +16,31 @@ void setUp(void)
 
 void tearDown(void)
 {
+    framebuffer_deinit();
     runtime_error_stub_reset();
+}
+
+void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
+{
+    fb_handle_t framebuffer = framebuffer_get();
+
+    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
+}
+
+void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
+{
+    framebuffer_init();
+    framebuffer_init();
+
+    TEST_ASSERT_EQUAL_STRING("Framebuffer is already initialized!", runtime_error_stub_get_last_error());
+}
+
+void test_framebuffer_get_should_returnFramebufferHandlerIfFramebufferIsInitialized(void)
+{
+    framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_get();
+
+    TEST_ASSERT_EQUAL_STRING("No Error!", runtime_error_stub_get_last_error());
 }
 
 void test_framebuffer_clear_should_clearTheFramebuffer(void)
@@ -33,9 +57,10 @@ void test_framebuffer_clear_should_clearTheFramebuffer(void)
     }
 }
 
-void test_framebuffer_init_should_returnPointerToClearedFramebuffer(void)
+void test_framebuffer_get_after_init_should_returnPointerToClearedFramebuffer(void)
 {
-    fb_handle_t framebuffer = framebuffer_init();
+    framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_get();
 
     for(uint16_t i = 0; i < FRAMEBUFFER_ELEMENTS * 8; i++)
     {
@@ -45,7 +70,8 @@ void test_framebuffer_init_should_returnPointerToClearedFramebuffer(void)
 
 void test_framebuffer_change_pixel_should_throwErrorIfOutsideOfLimits(void)
 {
-    fb_handle_t framebuffer = framebuffer_init();
+    framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_get();
 
     framebuffer_change_pixel(framebuffer, 0, 200, true);
 

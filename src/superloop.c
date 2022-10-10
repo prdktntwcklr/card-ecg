@@ -29,6 +29,7 @@ extern void superloop_init(void)
     led_init();
     timer_init();
     display_init();
+    framebuffer_init();
 }
 
 extern bool superloop_run(void)

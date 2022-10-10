@@ -8,7 +8,10 @@
 #define ASCII_OFFSET          (32U)
 #define MAX_STRING_LENGTH    (100U)
 
+static fb_handle_t framebuffer_ptr;
 static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
+
+bool framebuffer_is_initialized = false;
 
 /* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
@@ -16,13 +19,31 @@ STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])
 /*
  * @brief Initializes the framebuffer and clears it.
  */
-fb_handle_t framebuffer_init(void)
+void framebuffer_init(void)
 {
-    fb_handle_t framebuffer_ptr = (fb_handle_t) framebuffer_array;
+    if(framebuffer_is_initialized == true)
+    {
+        RUNTIME_ERROR("Framebuffer is already initialized!");
+    }
+
+    framebuffer_ptr = (fb_handle_t) framebuffer_array;
 
     framebuffer_clear(framebuffer_ptr);
 
-    return framebuffer_ptr;
+    framebuffer_is_initialized = true;
+}
+
+/*
+ * @brief Denitializes the framebuffer.
+ *
+ * @note  Helper function for unit testing.
+ */
+/* cppcheck-suppress unusedFunction */
+__attribute__((unused)) static void framebuffer_deinit(void)
+{
+    framebuffer_is_initialized = false;
+
+    framebuffer_ptr = 0;
 }
 
 /*
@@ -30,6 +51,12 @@ fb_handle_t framebuffer_init(void)
  */
 void framebuffer_clear(fb_handle_t const framebuffer)
 {
+    if(!framebuffer)
+    {
+        RUNTIME_ERROR("Null pointer received!");
+        return; /* for unit tests */
+    }
+
     for (uint8_t i = 0; i < FRAMEBUFFER_ELEMENTS; i++)
     {
         framebuffer[i] = 0;
@@ -37,10 +64,30 @@ void framebuffer_clear(fb_handle_t const framebuffer)
 }
 
 /*
+ * @brief Returns the framebuffer.
+ */
+fb_handle_t framebuffer_get(void)
+{
+    if(framebuffer_is_initialized == false)
+    {
+        RUNTIME_ERROR("Framebuffer must be initialized first!");
+        return 0;
+    }
+
+    return framebuffer_ptr;
+}
+
+/*
  * @brief Changes (sets or resets) a single pixel of the framebuffer.
  */
 void framebuffer_change_pixel(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const bool set)
 {
+    if(!framebuffer)
+    {
+        RUNTIME_ERROR("Null pointer received!");
+        return; /* for unit tests */
+    }
+
     if(x >= FRAMEBUFFER_WIDTH || y >= FRAMEBUFFER_HEIGHT)
     {
         RUNTIME_ERROR("Outside of framebuffer limits!");
@@ -78,16 +125,15 @@ void framebuffer_draw_symbol(fb_handle_t const framebuffer, const uint8_t x, con
  */
 void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const char* string)
 {
-    /* check for null pointer */
     if(!string)
     {
         RUNTIME_ERROR("Null pointer received!");
         return; /* for unit tests */
     }
 
-    /* initialize temp variables to start position of string */
-    uint8_t temp_x = x;
-    uint8_t temp_y = y;
+    /* initialize variables to start position of string */
+    uint8_t next_symbol_x = x;
+    uint8_t next_symbol_y = y;
 
     /* print every character of string */
     for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
@@ -99,20 +145,21 @@ void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, con
         }
 
         /* check if we have reached end of line */
-        if(temp_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
+        if(next_symbol_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
         {
-            temp_x = 0;
-            temp_y += FONT_HEIGHT;
+            /* switch to next line */
+            next_symbol_x = 0;
+            next_symbol_y += FONT_HEIGHT;
         }
 
-        /* do not print whitespaces at beginning of line */
-        if((temp_x == 0) && (*(string + i) == ' '))
+        /* skip whitespace at beginning of line */
+        if((next_symbol_x == 0) && (*(string + i) == ' '))
         {
             continue;
         }
 
-        framebuffer_draw_symbol(framebuffer, temp_x, temp_y, *(string + i));
+        framebuffer_draw_symbol(framebuffer, next_symbol_x, next_symbol_y, *(string + i));
 
-        temp_x += 7;
+        next_symbol_x += 7;
     }
 }
