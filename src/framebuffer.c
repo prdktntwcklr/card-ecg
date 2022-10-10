@@ -12,7 +12,6 @@ uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 /* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
-
 /*
  * @brief Initializes the framebuffer and clears it.
  */
