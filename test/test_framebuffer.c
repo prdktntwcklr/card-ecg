@@ -6,6 +6,8 @@
 
 #include "framebuffer.h"
 #include "framebuffer.c"
+#include "font.h"
+#include "mock_image.h"
 #include "runtime_error_stub.h"
 
 void setUp(void)
