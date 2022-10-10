@@ -5,9 +5,10 @@
 
 #define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
 
-#define ASCII_OFFSET           (32U)
+#define ASCII_OFFSET          (32U)
+#define MAX_STRING_LENGTH    (100U)
 
-uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
+static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 
 /* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
@@ -77,8 +78,41 @@ void framebuffer_draw_symbol(fb_handle_t const framebuffer, const uint8_t x, con
  */
 void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const char* string)
 {
-	for (uint8_t i = 0; *(string + i) != 0; i++)
+    /* check for null pointer */
+    if(!string)
+    {
+        RUNTIME_ERROR("Null pointer received!");
+        return; /* for unit tests */
+    }
+
+	/* initialize temp variables to start position of string */
+	uint8_t temp_x = x;
+	uint8_t temp_y = y;
+
+	/* print every character of string */
+	for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
 	{
-		framebuffer_draw_symbol(framebuffer, x + 7 * i, y, *(string + i));
+		/* check if we have reached end of string */
+		if((*(string + i)) == 0)
+		{
+			break;
+		}
+
+		/* check if we have reached end of line */
+		if(temp_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
+		{
+			temp_x = 0;
+			temp_y += FONT_HEIGHT;
+		}
+
+		/* do not print whitespaces at beginning of line */
+		if((temp_x == 0) && (*(string + i) == ' '))
+		{
+			continue;
+		}
+
+		framebuffer_draw_symbol(framebuffer, temp_x, temp_y, *(string + i));
+
+		temp_x += 7;
 	}
 }
