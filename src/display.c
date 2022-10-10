@@ -120,18 +120,18 @@ static void display_send_command(const uint8_t byte)
  */
 static void display_burst_framebuffer(const uint8_t *data)
 {
-	display_cs_off();
+    display_cs_off();
 
-	const int size = DISPLAY_WIDTH * DISPLAY_HEIGHT >> 3;
-	
-	for (int i = 0; i < size; i++)
-	{
-		spi_send_data(data[i]);
-	}
+    const int size = DISPLAY_WIDTH * DISPLAY_HEIGHT >> 3;
+    
+    for (int i = 0; i < size; i++)
+    {
+        spi_send_data(data[i]);
+    }
 
-	spi_wait_for_tx_complete();
-	
-	display_cs_on();
+    spi_wait_for_tx_complete();
+    
+    display_cs_on();
 }
 
 /*
@@ -210,12 +210,12 @@ void display_send_framebuffer(const uint8_t *data)
         return; /* for unit tests */
     }
 
-	display_send_command(SSD1306_COLUMN_ADDR);
-	display_send_command(0);
-	display_send_command(DISPLAY_WIDTH - 1);
-	display_send_command(SSD1306_PAGE_ADDR);
-	display_send_command(0);
-	display_send_command(7);
-	
-	display_burst_framebuffer(data);
+    display_send_command(SSD1306_COLUMN_ADDR);
+    display_send_command(0);
+    display_send_command(DISPLAY_WIDTH - 1);
+    display_send_command(SSD1306_PAGE_ADDR);
+    display_send_command(0);
+    display_send_command(7);
+    
+    display_burst_framebuffer(data);
 }

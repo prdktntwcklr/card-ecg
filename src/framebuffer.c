@@ -18,9 +18,9 @@ STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])
  */
 fb_handle_t framebuffer_init(void)
 {
-	fb_handle_t framebuffer_ptr = (fb_handle_t) framebuffer_array;
+    fb_handle_t framebuffer_ptr = (fb_handle_t) framebuffer_array;
 
-	framebuffer_clear(framebuffer_ptr);
+    framebuffer_clear(framebuffer_ptr);
 
     return framebuffer_ptr;
 }
@@ -30,10 +30,10 @@ fb_handle_t framebuffer_init(void)
  */
 void framebuffer_clear(fb_handle_t const framebuffer)
 {
-	for (uint8_t i = 0; i < FRAMEBUFFER_ELEMENTS; i++)
-	{
-		framebuffer[i] = 0;
-	}
+    for (uint8_t i = 0; i < FRAMEBUFFER_ELEMENTS; i++)
+    {
+        framebuffer[i] = 0;
+    }
 }
 
 /*
@@ -62,15 +62,15 @@ void framebuffer_change_pixel(fb_handle_t const framebuffer, const uint8_t x, co
  */
 void framebuffer_draw_symbol(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const uint8_t symbol)
 {
-	uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
-	
-	for (uint8_t dx = 0; dx < FONT_WIDTH; dx++)
-	{
-		for (uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
-		{
-			framebuffer_change_pixel(framebuffer, dx + x, dy + y, image_get_pixel(dx, dy, &ssd1306xled_font6x8[ascii_symbol]));
-		}
-	}
+    uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
+    
+    for (uint8_t dx = 0; dx < FONT_WIDTH; dx++)
+    {
+        for (uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
+        {
+            framebuffer_change_pixel(framebuffer, dx + x, dy + y, image_get_pixel(dx, dy, &ssd1306xled_font6x8[ascii_symbol]));
+        }
+    }
 }
 
 /*
@@ -85,34 +85,34 @@ void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, con
         return; /* for unit tests */
     }
 
-	/* initialize temp variables to start position of string */
-	uint8_t temp_x = x;
-	uint8_t temp_y = y;
+    /* initialize temp variables to start position of string */
+    uint8_t temp_x = x;
+    uint8_t temp_y = y;
 
-	/* print every character of string */
-	for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
-	{
-		/* check if we have reached end of string */
-		if((*(string + i)) == 0)
-		{
-			break;
-		}
+    /* print every character of string */
+    for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
+    {
+        /* check if we have reached end of string */
+        if((*(string + i)) == 0)
+        {
+            break;
+        }
 
-		/* check if we have reached end of line */
-		if(temp_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
-		{
-			temp_x = 0;
-			temp_y += FONT_HEIGHT;
-		}
+        /* check if we have reached end of line */
+        if(temp_x + FONT_WIDTH > FRAMEBUFFER_WIDTH)
+        {
+            temp_x = 0;
+            temp_y += FONT_HEIGHT;
+        }
 
-		/* do not print whitespaces at beginning of line */
-		if((temp_x == 0) && (*(string + i) == ' '))
-		{
-			continue;
-		}
+        /* do not print whitespaces at beginning of line */
+        if((temp_x == 0) && (*(string + i) == ' '))
+        {
+            continue;
+        }
 
-		framebuffer_draw_symbol(framebuffer, temp_x, temp_y, *(string + i));
+        framebuffer_draw_symbol(framebuffer, temp_x, temp_y, *(string + i));
 
-		temp_x += 7;
-	}
+        temp_x += 7;
+    }
 }
