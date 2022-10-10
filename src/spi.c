@@ -11,10 +11,10 @@
 #include "testable_mcu_registers.h"
 #endif
 
-/* Flag to check if peripheral is initialized or not */
+/* flag to check if peripheral is initialized or not */
 static bool spi_is_initialized = false;
 
-/* Static Function Prototypes */
+/* static function prototypes */
 static void spi_wait_for_space_in_tx_fifo(void);
 
 /*
