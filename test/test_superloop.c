@@ -7,6 +7,7 @@
 #include "testable_mcu_registers.h"
 #include "superloop.h"
 #include "mock_display.h"
+#include "mock_framebuffer.h"
 #include "mock_led.h"
 #include "mock_system.h"
 #include "mock_timer.h"
