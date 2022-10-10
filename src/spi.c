@@ -22,7 +22,7 @@ static void spi_wait_for_space_in_tx_fifo(void);
  */
 static void spi_wait_for_space_in_tx_fifo(void)
 {
-    while(SPISTA & 0x8);
+    while(SPISTA & 0x8) {}
 }
 
 /*
@@ -67,7 +67,7 @@ extern void spi_init(const uint32_t bit_rate)
  */
 extern void spi_wait_for_tx_complete(void)
 {
-    while(SPISTA & 0xE);
+    while(SPISTA & 0xE) {}
 }
 
 /*

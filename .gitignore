@@ -1,5 +1,6 @@
 .vscode/
 output/
 static-analysis/doxygen/
+static-analysis/04-clang-tidy.sh
 test-build/
 *.lnk

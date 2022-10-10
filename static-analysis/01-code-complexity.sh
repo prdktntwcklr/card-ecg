@@ -20,7 +20,7 @@ echo " ========================================================= "
 echo ""
 
 results=$(lizard -w -Tnloc=$NLOC -Tcyclomatic_complexity=$CCN \
-          -Tparameter_count=$PAR -Tlength=$LEN --languages cpp ../src)
+          -Tparameter_count=$PAR -Tlength=$LEN --languages c ../src)
 
 echo "Running lizard..."
 
