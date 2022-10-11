@@ -16,6 +16,11 @@ bool framebuffer_is_initialized = false;
 /* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
+/* helper functions declarations */
+static bool end_of_string_reached(const char next_symbol);
+static bool end_of_line_reached(const uint8_t next_x_pos);
+static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol);
+
 /*
  * @brief Initializes the framebuffer and clears it.
  */
@@ -121,10 +126,38 @@ void framebuffer_draw_symbol(fb_handle_t const framebuffer, const uint8_t x, con
 }
 
 /*
+ * @brief Checks if we have reached the end of the string.
+ */
+static bool end_of_string_reached(const char next_symbol)
+{
+    return (next_symbol == 0);
+}
+
+/*
+ * @brief Checks if the x position for the next symbol goes
+ *        beyond the end of the line.
+ */
+static bool end_of_line_reached(const uint8_t next_x_pos)
+{
+    return ((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH);
+}
+
+/*
+ * @brief Checks if the next symbol is a whitespace at the beginning of a line.
+ */
+static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol)
+{
+    return ((next_x_pos == 0) && (next_symbol == ' '));
+}
+
+/*
  * @brief Outputs a string to the framebuffer.
  */
 void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const char* string)
 {
+    /* TODO: Should be refactored? */
+    /* #lizard forgives (exclude from code complexity check) */
+    
     if(!string)
     {
         RUNTIME_ERROR("Null pointer received!");
@@ -140,22 +173,19 @@ void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, con
     {
         char next_symbol = *(string + i);
 
-        /* check if we have reached end of string */
-        if(next_symbol == 0)
+        if(end_of_string_reached(next_symbol))
         {
             break;
         }
 
-        /* check if we have reached end of line */
-        if((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH)
+        if(end_of_line_reached(next_x_pos))
         {
             /* switch to next line */
-            next_x_pos = x;
+            next_x_pos = 0; /* lines start at zero x position */
             next_y_pos += FONT_HEIGHT;
         }
 
-        /* skip whitespace at beginning of line */
-        if((next_x_pos == 0) && (next_symbol == ' '))
+        if(whitespace_at_line_beginning(next_x_pos, next_symbol))
         {
             continue;
         }

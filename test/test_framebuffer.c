@@ -78,4 +78,35 @@ void test_framebuffer_change_pixel_should_throwErrorIfOutsideOfLimits(void)
     TEST_ASSERT_EQUAL_STRING("Outside of framebuffer limits!", runtime_error_stub_get_last_error());
 }
 
+void test_end_of_string_reached_should_returnCorrectValues(void)
+{
+    TEST_ASSERT_FALSE(end_of_string_reached('a'));
+    TEST_ASSERT_FALSE(end_of_string_reached('G'));
+    TEST_ASSERT_FALSE(end_of_string_reached('?'));
+    TEST_ASSERT_TRUE(end_of_string_reached('\0'));
+    TEST_ASSERT_TRUE(end_of_string_reached(0));
+    TEST_ASSERT_FALSE(end_of_string_reached('#'));
+    TEST_ASSERT_FALSE(end_of_string_reached('3'));
+}
+
+void test_end_of_line_reached_should_returnCorrectValues(void)
+{
+    TEST_ASSERT_FALSE(end_of_line_reached(0));
+    TEST_ASSERT_FALSE(end_of_line_reached(54));
+    TEST_ASSERT_FALSE(end_of_line_reached(99));
+    TEST_ASSERT_FALSE(end_of_line_reached(122));
+    TEST_ASSERT_TRUE(end_of_line_reached(123));
+    TEST_ASSERT_TRUE(end_of_line_reached(-5));
+}
+
+void test_whitespace_at_line_beginning_should_returnCorrectValues(void)
+{
+    TEST_ASSERT_TRUE(whitespace_at_line_beginning(0, ' '));
+    TEST_ASSERT_FALSE(whitespace_at_line_beginning(1, ' '));
+    TEST_ASSERT_FALSE(whitespace_at_line_beginning(128, ' '));
+    TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, 'a'));
+    TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, '?'));
+    TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, 'X'));
+}
+
 #endif // TEST
