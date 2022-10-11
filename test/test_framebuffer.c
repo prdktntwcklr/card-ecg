@@ -99,6 +99,16 @@ void test_end_of_line_reached_should_returnCorrectValues(void)
     TEST_ASSERT_TRUE(end_of_line_reached(-5));
 }
 
+void test_bottom_of_framebuffer_reached_should_returnCorrectValues(void)
+{
+    TEST_ASSERT_FALSE(bottom_of_framebuffer_reached(0));
+    TEST_ASSERT_FALSE(bottom_of_framebuffer_reached(54));
+    TEST_ASSERT_TRUE(bottom_of_framebuffer_reached(99));
+    TEST_ASSERT_TRUE(bottom_of_framebuffer_reached(122));
+    TEST_ASSERT_TRUE(bottom_of_framebuffer_reached(123));
+    TEST_ASSERT_TRUE(bottom_of_framebuffer_reached(-5));
+}
+
 void test_whitespace_at_line_beginning_should_returnCorrectValues(void)
 {
     TEST_ASSERT_TRUE(whitespace_at_line_beginning(0, ' '));

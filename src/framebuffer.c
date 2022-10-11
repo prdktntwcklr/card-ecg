@@ -19,6 +19,7 @@ STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])
 /* helper functions declarations */
 static bool end_of_string_reached(const char next_symbol);
 static bool end_of_line_reached(const uint8_t next_x_pos);
+static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
 static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol);
 
 /*
@@ -143,6 +144,15 @@ static bool end_of_line_reached(const uint8_t next_x_pos)
 }
 
 /*
+ * @brief Checks if the y position for the next symbol goes
+ *        beyond the edge of the framebuffer.
+ */
+static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos)
+{
+    return ((next_y_pos + FONT_HEIGHT) > FRAMEBUFFER_HEIGHT);
+}
+
+/*
  * @brief Checks if the next symbol is a whitespace at the beginning of a line.
  */
 static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol)
@@ -155,7 +165,6 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
  */
 void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const char* string)
 {
-    /* TODO: Should be refactored? */
     /* #lizard forgives (exclude from code complexity check) */
     
     if(!string)
@@ -181,17 +190,19 @@ void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, con
         if(end_of_line_reached(next_x_pos))
         {
             /* switch to next line */
-            next_x_pos = 0; /* lines start at zero x position */
+            next_x_pos  = 0; /* lines start at zero x position */
             next_y_pos += FONT_HEIGHT;
         }
 
-        if(whitespace_at_line_beginning(next_x_pos, next_symbol))
+        if(bottom_of_framebuffer_reached(next_y_pos))
         {
-            continue;
+            break;
         }
 
-        framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos, next_symbol);
-
-        next_x_pos += (FONT_WIDTH + 1);
+        if(!whitespace_at_line_beginning(next_x_pos, next_symbol))
+        {
+            framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos, next_symbol);
+            next_x_pos += (FONT_WIDTH + 1);
+        }
     }
 }

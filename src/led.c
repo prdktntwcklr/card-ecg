@@ -43,6 +43,7 @@ extern void led_off(void)
 /*
  * @brief Turns the LED on.
  */
+/* cppcheck-suppress unusedFunction */
 extern void led_on(void)
 {
     if(led_is_initialized == false)
