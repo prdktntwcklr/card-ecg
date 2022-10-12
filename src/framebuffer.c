@@ -17,6 +17,7 @@ bool framebuffer_is_initialized = false;
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
 /* helper functions declarations */
+__attribute__((unused)) static void framebuffer_deinit(void);
 static bool end_of_string_reached(const char next_symbol);
 static bool end_of_line_reached(const uint8_t next_x_pos);
 static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
@@ -30,6 +31,7 @@ void framebuffer_init(void)
     if(framebuffer_is_initialized == true)
     {
         RUNTIME_ERROR("Framebuffer is already initialized!");
+        return; /* for unit tests */
     }
 
     framebuffer_ptr = (fb_handle_t) framebuffer_array;
