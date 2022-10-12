@@ -13,7 +13,6 @@ static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 
 bool framebuffer_is_initialized = false;
 
-/* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
 /* helper functions declarations */

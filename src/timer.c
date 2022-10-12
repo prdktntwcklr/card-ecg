@@ -14,9 +14,7 @@
 #define ONE_SEC_IN_MS      (1000U)
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
-/* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(TIMER_RELOAD_VALUE == 400UL, timer_reload_value_should_be_400);
-/* cppcheck-suppress unusedStructMember */
 STATIC_ASSERT(TIMER_INC_VALUE == 10U, timer_inc_value_should_be_10);
 
 /* keeps track of the current time stamp, incremented on each interrupt */

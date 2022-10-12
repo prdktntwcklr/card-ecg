@@ -136,6 +136,8 @@ static void display_burst_framebuffer(const uint8_t *data)
 
 /*
  * @brief Called by the application to initialize the display.
+ *
+ * @ref   https://www.avrfreaks.net/forum/ssd1306-lcd-initialization-commands
  */
 void display_init(void)
 {

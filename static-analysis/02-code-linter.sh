@@ -10,8 +10,9 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker --enable=all --suppress=missingInclude  --inline-suppr \
-         --language=c --output-file=$dummy_file -I../inc ../src
+$checker --enable=all --suppress=missingInclude --inline-suppr \
+         --suppressions-list=cppc-supp.txt --language=c \
+		 --output-file=$dummy_file -I../inc ../src
 
 echo ""
 echo " ========================================================= "
