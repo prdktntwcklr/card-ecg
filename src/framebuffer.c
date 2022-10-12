@@ -56,7 +56,7 @@ __attribute__((unused)) static void framebuffer_deinit(void)
 /*
  * @brief Clears the whole framebuffer.
  */
-void framebuffer_clear(fb_handle_t const framebuffer)
+void framebuffer_clear(fb_handle_t framebuffer)
 {
     if(!framebuffer)
     {
@@ -64,7 +64,7 @@ void framebuffer_clear(fb_handle_t const framebuffer)
         return; /* for unit tests */
     }
 
-    for (uint8_t i = 0; i < FRAMEBUFFER_ELEMENTS; i++)
+    for (uint8_t i = 0; i < (uint8_t) FRAMEBUFFER_ELEMENTS; i++)
     {
         framebuffer[i] = 0;
     }
@@ -87,7 +87,7 @@ fb_handle_t framebuffer_get(void)
 /*
  * @brief Changes (sets or resets) a single pixel of the framebuffer.
  */
-void framebuffer_change_pixel(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const bool set)
+void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const bool set)
 {
     if(!framebuffer)
     {
@@ -114,7 +114,7 @@ void framebuffer_change_pixel(fb_handle_t const framebuffer, const uint8_t x, co
 /*
  * @brief Draws a single symbol (character) to the framebuffer.
  */
-void framebuffer_draw_symbol(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const uint8_t symbol)
+void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const uint8_t symbol)
 {
     uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
     
@@ -164,7 +164,7 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
 /*
  * @brief Outputs a string to the framebuffer.
  */
-void framebuffer_draw_string(fb_handle_t const framebuffer, const uint8_t x, const uint8_t y, const char* string)
+void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const char* string)
 {
     /* #lizard forgives (exclude from code complexity check) */
     
