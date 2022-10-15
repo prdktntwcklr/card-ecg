@@ -8,10 +8,8 @@
 #define ASCII_OFFSET          (32U)
 #define MAX_STRING_LENGTH    (100U)
 
-static fb_handle_t framebuffer_ptr;
+static fb_handle_t framebuffer_ptr = 0;
 static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
-
-bool framebuffer_is_initialized = false;
 
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
@@ -30,7 +28,7 @@ __attribute__((unused)) static void framebuffer_deinit(void);
  */
 void framebuffer_init(void)
 {
-    if(framebuffer_is_initialized == true)
+    if(framebuffer_ptr)
     {
         RUNTIME_ERROR("Framebuffer is already initialized!");
         return; /* for unit tests */
@@ -39,8 +37,6 @@ void framebuffer_init(void)
     framebuffer_ptr = (fb_handle_t) framebuffer_array;
 
     framebuffer_clear(framebuffer_ptr);
-
-    framebuffer_is_initialized = true;
 }
 
 #ifdef TEST
@@ -52,14 +48,15 @@ void framebuffer_init(void)
 /* cppcheck-suppress unusedFunction */
 static void framebuffer_deinit(void)
 {
-    framebuffer_is_initialized = false;
-
     framebuffer_ptr = 0;
 }
 #endif
 
 /*
  * @brief Clears the whole framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
 void framebuffer_clear(fb_handle_t framebuffer)
 {
@@ -80,7 +77,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
  */
 fb_handle_t framebuffer_get(void)
 {
-    if(framebuffer_is_initialized == false)
+    if(!framebuffer_ptr)
     {
         RUNTIME_ERROR("Framebuffer must be initialized first!");
         return 0;
@@ -91,6 +88,9 @@ fb_handle_t framebuffer_get(void)
 
 /*
  * @brief Changes (sets or resets) a single pixel of the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
 void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const bool set)
 {
@@ -118,6 +118,9 @@ void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const ui
 
 /*
  * @brief Draws a single symbol (character) to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
 void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const uint8_t symbol)
 {
@@ -168,8 +171,11 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
 
 /*
  * @brief Outputs a string to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const char* string)
+void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const char *string)
 {
     /* #lizard forgives (exclude from code complexity check) */
     
@@ -215,14 +221,17 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
 
 /*
  * @brief Draws an image to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t* image)
+void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t *image)
 {
-	for (uint32_t dx = 0; dx < FRAMEBUFFER_WIDTH; dx++)
+	for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
 	{
-		for (uint32_t dy = 0; dy < FRAMEBUFFER_HEIGHT; dy++)
+		for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
 		{
-			framebuffer_change_pixel(framebuffer, dx, dy, image_get_pixel(dx, dy, image));
+			framebuffer_change_pixel(framebuffer, x_pos, y_pos, image_get_pixel(x_pos, y_pos, image));
 		}
 	}
 }
