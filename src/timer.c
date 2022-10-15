@@ -35,31 +35,35 @@ static uint32_t timer_get_stamp(void)
     return temp_time_stamp;
 }
 
+#ifdef TEST
 /*
  * @brief Sets the time stamp to a given value.
  *
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-__attribute__((unused)) static void timer_set_stamp(const uint32_t value)
+static void timer_set_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);
     time_stamp = value;
     IRQEN |= TIMER0_BIT;
 }
+#endif
 
+#ifdef TEST
 /*
  * @brief Increments the time stamp by a given value.
  *
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-__attribute__((unused)) static void timer_increment_stamp(const uint32_t value)
+static void timer_increment_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);
     time_stamp += value;
     IRQEN |= TIMER0_BIT;
 }
+#endif
 
 /*
  * @brief Initializes the Timer0 peripheral.
@@ -75,6 +79,19 @@ extern void timer_init(void)
 
     timer_is_initialized = true;
 }
+
+#ifdef TEST
+/*
+ * @brief Deinitializes the timer module.
+ *
+ * @note  Helper function for unit testing.
+ */
+/* cppcheck-suppress unusedFunction */
+static void timer_deinit(void)
+{
+    timer_is_initialized = false;
+}
+#endif
 
 /*
  * @brief Returns TRUE if the deadline has been reached or surpassed.

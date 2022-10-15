@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #include "framebuffer.h"
-#include "framebuffer.c" /* to test static functions */
+#include "framebuffer.c" /* hack to test static functions */
 #include "font.h"
 #include "mock_image.h"
 #include "runtime_error_stub.h"
@@ -18,13 +18,6 @@ void tearDown(void)
 {
     framebuffer_deinit();
     runtime_error_stub_reset();
-}
-
-void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
-{
-    fb_handle_t framebuffer = framebuffer_get();
-
-    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
 }
 
 void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
@@ -117,6 +110,13 @@ void test_whitespace_at_line_beginning_should_returnCorrectValues(void)
     TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, 'a'));
     TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, '?'));
     TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, 'X'));
+}
+
+void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
+{
+    fb_handle_t framebuffer = framebuffer_get();
+
+    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
 }
 
 #endif // TEST

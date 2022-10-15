@@ -6,6 +6,7 @@
 
 #include "testable_mcu_registers.h"
 #include "led.h"
+#include "led.c" /* hack to test static functions */
 #include "runtime_error_stub.h"
 
 void setUp(void)
@@ -17,30 +18,7 @@ void setUp(void)
 
 void tearDown(void)
 {
-}
-
-/* this test must run before any calls to led_init() */
-void test_led_off_should_throwErrorIfLedIsNotInitialized(void)
-{
-    led_off();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
-}
-
-/* this test must run before any calls to led_init() */
-void test_led_on_should_throwErrorIfLedIsNotInitialized(void)
-{
-    led_on();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
-}
-
-/* this test must run before any calls to led_init() */
-void test_led_toggle_should_throwErrorIfLedIsNotInitialized(void)
-{
-    led_toggle();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+    led_deinit();
 }
 
 void test_led_init_should_setCorrectLedAsOutput(void)
@@ -87,6 +65,27 @@ void test_led_toggle_should_toggleCorrectLedOnOff(void)
     /* toggle on to off */
     led_toggle();
     TEST_ASSERT_EQUAL_HEX32(0x2000ABCD, GP1DAT);    
+}
+
+void test_led_off_should_throwErrorIfLedIsNotInitialized(void)
+{
+    led_off();
+
+    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+}
+
+void test_led_on_should_throwErrorIfLedIsNotInitialized(void)
+{
+    led_on();
+
+    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+}
+
+void test_led_toggle_should_throwErrorIfLedIsNotInitialized(void)
+{
+    led_toggle();
+
+    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
 }
 
 #endif // TEST
