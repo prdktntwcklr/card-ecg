@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
-void uart_init(const uint32_t baud_rate);
+void uart_init(void);
+void uart_send_data(const char *data);
 
 #endif // UART_H

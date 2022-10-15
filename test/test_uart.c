@@ -6,11 +6,17 @@
 
 #include "testable_mcu_registers.h"
 #include "uart.h"
+#include "uart.c" /* hack to test static functions */
 #include "runtime_error_stub.h"
 
 void setUp(void)
 {
     GP1CON = 0;
+    COMCON0 = 0;
+    COMDIV0 = 0;
+    COMDIV1 = 0;
+    COMDIV2 = 0;
+    COMTX = 0;
 
     runtime_error_stub_reset();
 }
@@ -22,16 +28,39 @@ void tearDown(void)
 
 void test_uart_init_should_initializeUartCorrectly(void)
 {
-    uart_init(9600);
+    uart_init();
 
     TEST_ASSERT_EQUAL_HEX32(0x00000010, GP1CON);
+
+    TEST_ASSERT_EQUAL_HEX8(0x21, COMDIV0);
+    TEST_ASSERT_EQUAL_HEX8(0x00, COMDIV1);
+    TEST_ASSERT_EQUAL_HEX16(0x0815, COMDIV2);
+
+    TEST_ASSERT_EQUAL_HEX8(0x03, COMCON0);
 }
 
-void test_uart_init_should_throwErrorIfBaudRateIsZero(void)
+void test_uart_send_data_should_throwErrorIfUartIsNotInitialized(void)
 {
-    uart_init(0);
+    uart_send_data("Unit Test!");
 
-    TEST_ASSERT_EQUAL_STRING("Uart baud rate cannot be zero!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_EQUAL_STRING("Uart is not initialized!", runtime_error_stub_get_last_error());
 }
+
+void test_uart_send_data_should_putDataIntoTxRegister(void)
+{
+    COMSTA0 |= TX_BUF_EMPTY; /* set buf empty bit so that we don't hang in while loop */
+
+    uart_init();
+
+    uart_send_data("H");
+    TEST_ASSERT_EQUAL_HEX8('H', COMTX);
+
+    uart_send_data("He");
+    TEST_ASSERT_EQUAL_HEX8('e', COMTX);
+
+    uart_send_data("Hello");
+    TEST_ASSERT_EQUAL_HEX8('o', COMTX);
+}
+
 
 #endif // TEST
