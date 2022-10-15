@@ -6,9 +6,7 @@
 
 #include "testable_mcu_registers.h"
 #include "timer.h"
-
-/* needed to test static functions in module */
-#include "timer.c"
+#include "timer.c" /* to test static functions */
 #include "runtime_error_stub.h"
 
 void setUp(void)

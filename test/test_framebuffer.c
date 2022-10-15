@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #include "framebuffer.h"
-#include "framebuffer.c"
+#include "framebuffer.c" /* to test static functions */
 #include "font.h"
 #include "mock_image.h"
 #include "runtime_error_stub.h"
