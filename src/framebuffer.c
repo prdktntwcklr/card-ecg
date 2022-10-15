@@ -16,11 +16,14 @@ bool framebuffer_is_initialized = false;
 STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
 
 /* helper functions declarations */
-__attribute__((unused)) static void framebuffer_deinit(void);
 static bool end_of_string_reached(const char next_symbol);
 static bool end_of_line_reached(const uint8_t next_x_pos);
 static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
 static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol);
+
+#ifdef TEST
+__attribute__((unused)) static void framebuffer_deinit(void);
+#endif
 
 /*
  * @brief Initializes the framebuffer and clears it.
@@ -40,6 +43,7 @@ void framebuffer_init(void)
     framebuffer_is_initialized = true;
 }
 
+#ifdef TEST
 /*
  * @brief Denitializes the framebuffer.
  *
@@ -52,6 +56,7 @@ __attribute__((unused)) static void framebuffer_deinit(void)
 
     framebuffer_ptr = 0;
 }
+#endif
 
 /*
  * @brief Clears the whole framebuffer.
@@ -206,4 +211,18 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
             next_x_pos += (FONT_WIDTH + 1);
         }
     }
+}
+
+/*
+ * @brief Draws an image to the framebuffer.
+ */
+void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t* image)
+{
+	for (uint32_t dx = 0; dx < FRAMEBUFFER_WIDTH; dx++)
+	{
+		for (uint32_t dy = 0; dy < FRAMEBUFFER_HEIGHT; dy++)
+		{
+			framebuffer_change_pixel(framebuffer, dx, dy, image_get_pixel(dx, dy, image));
+		}
+	}
 }

@@ -2,6 +2,7 @@
 #include "display.h"
 #include "framebuffer.h"
 #include "led.h"
+#include "logo.h"
 #include "runtime_error.h"
 #include "system.h"
 #include "timer.h"
@@ -27,6 +28,13 @@ extern void superloop_init(void)
     timer_init();
     display_init();
     framebuffer_init();
+
+#if 0
+    fb_handle_t fb = framebuffer_get();
+    framebuffer_clear(fb);
+    framebuffer_draw_image(fb, logo);
+    display_send_framebuffer(fb);
+#endif
 }
 
 extern bool superloop_run(void)
