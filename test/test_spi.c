@@ -6,6 +6,7 @@
 
 #include "testable_mcu_registers.h"
 #include "spi.h"
+#include "spi.c" /* hack to test static functions */
 #include "runtime_error_stub.h"
 
 void setUp(void)
@@ -22,14 +23,7 @@ void setUp(void)
 
 void tearDown(void)
 {
-}
-
-/* this test must run before any calls to spi_init() */
-void test_spi_send_data_should_throwErrorIfSpiIsNotInitialized(void)
-{
-    spi_send_data(0xAA);
-
-    TEST_ASSERT_EQUAL_STRING("Spi is not initialized!", runtime_error_stub_get_last_error());
+    spi_deinit();
 }
 
 void test_spi_init_should_initializeSpiPinsCorrectly(void)
@@ -64,6 +58,13 @@ void test_spi_init_should_notAcceptBitRateOfZero(void)
 
     /* make sure rest of function does not run after runtime assert fails */
     TEST_ASSERT_EQUAL_HEX32(0x00000000, GP0CON0);
+}
+
+void test_spi_send_data_should_throwErrorIfSpiIsNotInitialized(void)
+{
+    spi_send_data(0xAA);
+
+    TEST_ASSERT_EQUAL_STRING("Spi is not initialized!", runtime_error_stub_get_last_error());
 }
 
 #endif // TEST

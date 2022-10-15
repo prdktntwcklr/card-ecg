@@ -6,7 +6,7 @@
 
 #include "testable_mcu_registers.h"
 #include "timer.h"
-#include "timer.c" /* to test static functions */
+#include "timer.c" /* hack to test static functions */
 #include "runtime_error_stub.h"
 
 void setUp(void)
@@ -20,16 +20,8 @@ void setUp(void)
 
 void tearDown(void)
 {
+    timer_deinit();
 }
-
-/* this test must run before any calls to timer_init() */
-void test_deadline_reached_should_throwErrorIfLedIsNotInitialized(void)
-{
-    timer_deadline_reached(1000);
-
-    TEST_ASSERT_EQUAL_STRING("Timer is not initialized!", runtime_error_stub_get_last_error());
-}
-
 
 void test_timer_init_should_initializeTimerRegistersCorrectly(void)
 {
@@ -80,6 +72,8 @@ void test_timer_set_stamp_should_SetTimeStampCorrectly(void)
 
 void test_timer_deadline_reached_should_handleDeadlinesCorrectly(void)
 {
+    timer_init();
+
     timer_set_stamp(0);
     TEST_ASSERT_FALSE(timer_deadline_reached(50));
 
@@ -95,6 +89,13 @@ void test_timer_deadline_reached_should_handleDeadlinesCorrectly(void)
 
     timer_increment_stamp(100);
     TEST_ASSERT_TRUE(timer_deadline_reached(50));
+}
+
+void test_deadline_reached_should_throwErrorIfTimerIsNotInitialized(void)
+{
+    timer_deadline_reached(1000);
+
+    TEST_ASSERT_EQUAL_STRING("Timer is not initialized!", runtime_error_stub_get_last_error());
 }
 
 #endif // TEST

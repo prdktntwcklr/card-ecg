@@ -50,7 +50,7 @@ void framebuffer_init(void)
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-__attribute__((unused)) static void framebuffer_deinit(void)
+static void framebuffer_deinit(void)
 {
     framebuffer_is_initialized = false;
 
