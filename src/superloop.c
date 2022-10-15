@@ -1,6 +1,9 @@
 #include "superloop.h"
 #include "display.h"
+#include "framebuffer.h"
 #include "led.h"
+#include "logo.h"
+#include "runtime_error.h"
 #include "system.h"
 #include "timer.h"
 
@@ -12,6 +15,9 @@
 
 #define ONE_SEC_IN_MS      (1000U)
 
+STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH, display_and_framebuffer_widths_do_not_match);
+STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_height_do_not_match);
+
 extern void superloop_init(void)
 {
     /* system_init() must be called first */
@@ -21,6 +27,14 @@ extern void superloop_init(void)
     led_init();
     timer_init();
     display_init();
+    framebuffer_init();
+
+#if 0
+    fb_handle_t fb = framebuffer_get();
+    framebuffer_clear(fb);
+    framebuffer_draw_image(fb, logo);
+    display_send_framebuffer(fb);
+#endif
 }
 
 extern bool superloop_run(void)

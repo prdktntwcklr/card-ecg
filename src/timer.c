@@ -15,7 +15,7 @@
 #define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
 
 STATIC_ASSERT(TIMER_RELOAD_VALUE == 400UL, timer_reload_value_should_be_400);
-STATIC_ASSERT(TIMER_INC_VALUE == 10U, timer_reload_value_should_be_10);
+STATIC_ASSERT(TIMER_INC_VALUE == 10U, timer_inc_value_should_be_10);
 
 /* keeps track of the current time stamp, incremented on each interrupt */
 static volatile uint32_t time_stamp = 0;
@@ -40,6 +40,7 @@ static uint32_t timer_get_stamp(void)
  *
  * @note  Helper function for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 __attribute__((unused)) static void timer_set_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);
@@ -52,6 +53,7 @@ __attribute__((unused)) static void timer_set_stamp(const uint32_t value)
  *
  * @note  Helper function for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 __attribute__((unused)) static void timer_increment_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);

@@ -6,7 +6,7 @@
 
 #include "testable_mcu_registers.h"
 #include "display.h"
-#include "display.c"
+#include "display.c" /* to test static functions */
 #include "mock_spi.h"
 #include "mock_timer.h"
 #include "runtime_error_stub.h"
