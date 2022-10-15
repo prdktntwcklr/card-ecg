@@ -26,6 +26,18 @@ extern void led_init(void)
     led_off();
 }
 
+#ifdef TEST
+/*
+ * @brief Deinitializes the LED.
+ *
+ * @note  Used for unit testing.
+ */
+static void led_deinit(void)
+{
+    led_is_initialized = false;
+}
+#endif
+
 /*
  * @brief Turns the LED off.
  */

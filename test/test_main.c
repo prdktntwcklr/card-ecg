@@ -66,5 +66,4 @@ void test_main_irq_should_notHandleTimer0InterruptIfNoTimer0Interrupt(void)
     TEST_ASSERT_EQUAL_HEX8(0xAA, T0CLRI);
 }
 
-
 #endif // TEST

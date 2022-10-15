@@ -193,6 +193,18 @@ void display_init(void)
     display_is_initialized = true;
 }
 
+#ifdef TEST
+/*
+ * @brief Deinitializes the display.
+ *
+ * @note  Used for unit testing.
+ */
+extern void display_deinit(void)
+{
+    display_is_initialized = false;
+}
+#endif
+
 /*
  * @brief Sends the framebuffer to the display.
  */

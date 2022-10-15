@@ -59,8 +59,20 @@ extern void spi_init(const uint32_t bit_rate)
     SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
              SPICPO  | SPICPH | SPIMEN | SPIEN;
 
-    spi_is_initialized = true;             
+    spi_is_initialized = true;
 }
+
+#ifdef TEST
+/*
+ * @brief Deinitilizes the SPI module.
+ *
+ * @note  Used for unit testing.
+ */
+static void spi_deinit(void)
+{
+    spi_is_initialized = false;
+}
+#endif
 
 /*
  * @brief Blocks until transmit FIFO is empty.
