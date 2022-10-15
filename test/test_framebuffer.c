@@ -7,7 +7,7 @@
 #include "framebuffer.h"
 #include "framebuffer.c" /* hack to test static functions */
 #include "font.h"
-#include "mock_image.h"
+#include "image.h"
 #include "runtime_error_stub.h"
 
 void setUp(void)
@@ -18,6 +18,25 @@ void tearDown(void)
 {
     framebuffer_deinit();
     runtime_error_stub_reset();
+}
+
+/*
+ * @brief Dumps the framebuffer to the screen.
+ *
+ * @note  Could be used for comparing expected to actual output.
+ */
+static void dump_framebuffer(fb_handle_t framebuffer)
+{
+	for(uint8_t y = 0; y < FRAMEBUFFER_HEIGHT; y++)
+	{
+		for(uint8_t x = 0; x < FRAMEBUFFER_WIDTH; x++)
+		{
+			image_get_pixel((uint8_t*) framebuffer, x, y) ? printf("#") : printf(".");
+		}
+		
+        /* end of a line reached, switch to next line */
+		printf("\n");
+	}	    
 }
 
 void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
@@ -117,6 +136,19 @@ void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
     fb_handle_t framebuffer = framebuffer_get();
 
     TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
+}
+
+void test_framebuffer_dump(void)
+{
+    TEST_IGNORE_MESSAGE("TODO: Find a way to test framebuffer dumps.");
+
+    framebuffer_init();
+
+    fb_handle_t framebuffer = framebuffer_get();
+
+    framebuffer_draw_string(framebuffer, 0, 0, "Hello World!");
+
+    dump_framebuffer(framebuffer);
 }
 
 #endif // TEST

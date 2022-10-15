@@ -48,6 +48,11 @@ void framebuffer_init(void)
 /* cppcheck-suppress unusedFunction */
 static void framebuffer_deinit(void)
 {
+    if(framebuffer_ptr)
+    {
+        framebuffer_clear(framebuffer_ptr);
+    }
+
     framebuffer_ptr = 0;
 }
 #endif
@@ -130,7 +135,7 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uin
     {
         for (uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
         {
-            framebuffer_change_pixel(framebuffer, dx + x, dy + y, image_get_pixel(dx, dy, &ssd1306xled_font6x8[ascii_symbol]));
+            framebuffer_change_pixel(framebuffer, dx + x, dy + y, image_get_pixel(&ssd1306xled_font6x8[ascii_symbol], dx, dy));
         }
     }
 }
@@ -231,7 +236,7 @@ void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t *image)
 	{
 		for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
 		{
-			framebuffer_change_pixel(framebuffer, x_pos, y_pos, image_get_pixel(x_pos, y_pos, image));
+			framebuffer_change_pixel(framebuffer, x_pos, y_pos, image_get_pixel(image, x_pos, y_pos));
 		}
 	}
 }

@@ -1,6 +1,9 @@
 #include "image.h"
 
-bool image_get_pixel(const uint8_t x, const uint8_t y, const uint8_t* image)
+/*
+ * @brief Returns true if the pixel at x and y coordinates is set.
+ */
+bool image_get_pixel(const uint8_t* image, const uint8_t x, const uint8_t y)
 {
     uint8_t byte = image[x + ((y & 0xF8) << 4)];
         
