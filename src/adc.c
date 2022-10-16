@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#include "runtime_error.h"
+
 #ifndef TEST
 #include "aduc706x.h"
 #else
@@ -30,8 +32,7 @@ void adc_init(void)
     ADCMSKI |= ADC0RDY_INTEN;
 
     /* set adc rate to 50 Hz */
-    ADCFLT = 127;
-    /* TODO: should support custom rate settings here */
+    adc_set_rate(50);
 
     /* enable analog ground switch */
     ADCCFG = ADCCFG_GNDSW_EN;
@@ -50,3 +51,25 @@ static void adc_deinit(void)
     adc_is_initialized = false;
 }
 #endif
+
+/*
+ * @brief Sets the ADC rate.
+ *
+ * @note  Currently only supports 50 and 60 Hz.
+ */
+void adc_set_rate(const uint16_t rate)
+{
+    if(rate == 50)
+    {
+        ADCFLT = 127;
+    }
+    else if(rate == 60)
+    {
+        ADCFLT = 126;
+    }
+    else
+    {
+        RUNTIME_ERROR("Adc rate not supported!");
+        return;
+    }
+}

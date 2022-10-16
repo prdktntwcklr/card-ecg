@@ -35,4 +35,18 @@ void test_adc_init_should_initializeAdcCorrectly(void)
     TEST_ASSERT_EQUAL_HEX8(0x80, ADCCFG);
 }
 
+void test_adc_set_rate_should_setSupportedRatesCorrectly(void)
+{
+    adc_set_rate(50);
+    TEST_ASSERT_EQUAL_INT(127, ADCFLT);
+
+    adc_set_rate(60);
+    TEST_ASSERT_EQUAL_INT(126, ADCFLT);
+
+    /* unsupported rate */
+    adc_set_rate(256);
+    TEST_ASSERT_EQUAL_STRING("Adc rate not supported!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_EQUAL_INT(126, ADCFLT);
+}
+
 #endif // TEST
