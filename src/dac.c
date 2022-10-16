@@ -34,8 +34,6 @@ extern void dac_init(void)
  */
 static void dac_deinit(void)
 {
-    DAC0CON &= ~DAC0_NORMAL_OPERATION;
-
     dac_is_initialized = false;
 }
 #endif
