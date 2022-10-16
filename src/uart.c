@@ -11,17 +11,22 @@
 #include "testable_mcu_registers.h"
 #endif
 
+/* flag to check if peripheral is initialized or not */
 static bool uart_is_initialized = false;
 
-/* Values for a baud rate of 9600, see p81 of datasheet */
+/* static function prototypes */
+static void uart_wait_for_buffer_empty(void);
+
+/* values for a baud rate of 9600, see p81 of datasheet */
 #define BAUD_9600_DL (0x0021U)
 #define BAUD_9600_M       (1U)
 #define BAUD_9600_N      (21U)
 
-#define MAX_UART_LENGTH (100U)
+/* max number of characters allowed to send */
+#define MAX_UART_LENGTH (100U) /* characters */
 
 /*
- * @brief Initializes the uart module. Uses a fixed baud rate of 9600.
+ * @brief Initializes the UART module. Uses a fixed baud rate of 9600.
  *
  * @note  Pin1.1 = SOUT
  */
@@ -52,7 +57,7 @@ void uart_init(void)
 
 #ifdef TEST
 /*
- * @brief Deinitializes the uart module.
+ * @brief Deinitializes the UART module.
  *
  * @note  Used for unit testing.
  */
@@ -65,7 +70,7 @@ static void uart_deinit(void)
 /*
  * @brief Blocks until transmit buffer is empty.
  */
-void uart_wait_for_buffer_empty(void)
+static void uart_wait_for_buffer_empty(void)
 {
     while((COMSTA0 & TX_BUF_EMPTY) == 0) {}
 }
@@ -91,7 +96,9 @@ void uart_send_string(const char *string)
             break;
         }
 
+        /* block until there is space in buffer */
         uart_wait_for_buffer_empty();
+
         COMTX = next_symbol;
     }
 }

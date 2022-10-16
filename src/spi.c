@@ -18,14 +18,6 @@ static bool spi_is_initialized = false;
 static void spi_wait_for_space_in_tx_fifo(void);
 
 /*
- * @brief Blocks until there is space in FIFO.
- */
-static void spi_wait_for_space_in_tx_fifo(void)
-{
-    while(SPISTA & 0x8) {}
-}
-
-/*
  * @brief Initializes the SPI peripheral.
  *
  * @note  Pin0.1 = SCK
@@ -83,17 +75,25 @@ extern void spi_wait_for_tx_complete(void)
 }
 
 /*
+ * @brief Blocks until there is space in FIFO.
+ */
+static void spi_wait_for_space_in_tx_fifo(void)
+{
+    while(SPISTA & 0x8) {}
+}
+
+/*
  * @brief Sends data through SPI.
  */
 extern void spi_send_data(const uint8_t data)
 {
-    /* check if peripheral is initialized before sending data */
     if(spi_is_initialized == false)
     {
         RUNTIME_ERROR("Spi is not initialized!");
         return; /* for unit tests */
     }
 
+    /* block until there is space in fifo */
     spi_wait_for_space_in_tx_fifo();
 
     SPITX = data;
