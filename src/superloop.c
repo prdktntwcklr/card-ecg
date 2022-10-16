@@ -6,6 +6,7 @@
 #include "runtime_error.h"
 #include "system.h"
 #include "timer.h"
+#include "uart.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -18,6 +19,9 @@
 STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH, display_and_framebuffer_widths_do_not_match);
 STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_height_do_not_match);
 
+/*
+ * @brief Runs once at the beginning of the program.
+ */
 extern void superloop_init(void)
 {
     /* system_init() must be called first */
@@ -28,15 +32,11 @@ extern void superloop_init(void)
     timer_init();
     display_init();
     framebuffer_init();
-
-#if 0
-    fb_handle_t fb = framebuffer_get();
-    framebuffer_clear(fb);
-    framebuffer_draw_image(fb, logo);
-    display_send_framebuffer(fb);
-#endif
 }
 
+/*
+ * @brief Runs continuously.
+ */
 extern bool superloop_run(void)
 {
     static uint32_t deadline = ONE_SEC_IN_MS;
