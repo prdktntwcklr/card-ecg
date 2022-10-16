@@ -57,13 +57,13 @@ static void adc_deinit(void)
  *
  * @note  Currently only supports 50 and 60 Hz.
  */
-void adc_set_rate(const uint16_t rate)
+void adc_set_rate(const uint16_t adc_rate)
 {
-    if(rate == 50)
+    if(adc_rate == 50)
     {
         ADCFLT = 127;
     }
-    else if(rate == 60)
+    else if(adc_rate == 60)
     {
         ADCFLT = 126;
     }
@@ -72,4 +72,78 @@ void adc_set_rate(const uint16_t rate)
         RUNTIME_ERROR("Adc rate not supported!");
         return;
     }
+}
+
+/*
+ * @brief Sets the gain of the ADC.
+ */
+void adc_set_gain(const uint16_t adc_gain)
+{
+    /* store contents of register */
+    uint16_t adc0con_reg = ADC0CON;
+
+    /* clear gain bits */
+    adc0con_reg &= ~ADC0CON_GAIN;
+
+    switch(adc_gain)
+    {
+        case 1:
+        {
+            adc0con_reg |= ADC0CON_GAIN_1;
+            break;
+        }
+        case 2:
+        {
+            adc0con_reg |= ADC0CON_GAIN_2;
+            break;
+        }
+        case 4:
+        {
+            adc0con_reg |= ADC0CON_GAIN_4;
+            break;
+        }
+        case 8:
+        {
+            adc0con_reg |= ADC0CON_GAIN_8;
+            break;
+        }
+        case 16:
+        {
+            adc0con_reg |= ADC0CON_GAIN_16;
+            break;
+        }
+        case 32:
+        {
+            adc0con_reg |= ADC0CON_GAIN_32;
+            break;
+        }
+        case 64:
+        {
+            adc0con_reg |= ADC0CON_GAIN_64;
+            break;
+        }
+        case 128:
+        {
+            adc0con_reg |= ADC0CON_GAIN_128;
+            break;
+        }
+        case 256:
+        {
+            adc0con_reg |= ADC0CON_GAIN_256;
+            break;
+        }
+        case 512:
+        {
+            adc0con_reg |= ADC0CON_GAIN_512;
+            break;
+        }
+        default:
+        {
+            /* gain not supported, return without changing register */
+            RUNTIME_ERROR("Adc gain not supported!");
+            return;
+        }
+    }
+
+    ADC0CON = adc0con_reg;
 }
