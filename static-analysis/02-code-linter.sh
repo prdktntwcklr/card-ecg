@@ -12,7 +12,7 @@ echo ""
 
 $checker --enable=all --suppress=missingInclude --inline-suppr \
          --suppressions-list=cppc-supp.txt --language=c \
-		 --output-file=$dummy_file -I../inc ../src
+         --output-file=$dummy_file -I../inc ../src
 
 echo ""
 echo " ========================================================= "
@@ -24,18 +24,18 @@ results=$(cat $dummy_file | sed "/^^/d")
 rm $dummy_file
 
 if [[ $results ]]; then
-	echo "     FAIL                                                  " 
+    echo "     FAIL                                                  " 
     echo "     $checker has found problems!                          " 
     echo " ========================================================= "
-	echo ""
+    echo ""
     echo "$results"
-	echo ""
-	exit 1
+    echo ""
+    exit 1
 else
-	echo "     SUCCESS                                               "
-	echo "     $checker says code is OK!                             "
+    echo "     SUCCESS                                               "
+    echo "     $checker says code is OK!                             "
     echo " ========================================================= "
-	echo ""
+    echo ""
 fi
 
 exit 0

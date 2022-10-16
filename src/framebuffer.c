@@ -232,11 +232,11 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
  */
 void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t *image)
 {
-	for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
-	{
-		for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
-		{
-			framebuffer_change_pixel(framebuffer, x_pos, y_pos, image_get_pixel(image, x_pos, y_pos));
-		}
-	}
+    for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
+    {
+        for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
+        {
+            framebuffer_change_pixel(framebuffer, x_pos, y_pos, image_get_pixel(image, x_pos, y_pos));
+        }
+    }
 }

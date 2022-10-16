@@ -27,16 +27,16 @@ void tearDown(void)
  */
 static void dump_framebuffer(fb_handle_t framebuffer)
 {
-	for(uint8_t y = 0; y < FRAMEBUFFER_HEIGHT; y++)
-	{
-		for(uint8_t x = 0; x < FRAMEBUFFER_WIDTH; x++)
-		{
-			image_get_pixel((uint8_t*) framebuffer, x, y) ? printf("#") : printf(".");
-		}
-		
+    for(uint8_t y = 0; y < FRAMEBUFFER_HEIGHT; y++)
+    {
+        for(uint8_t x = 0; x < FRAMEBUFFER_WIDTH; x++)
+        {
+            image_get_pixel((uint8_t*) framebuffer, x, y) ? printf("#") : printf(".");
+        }
+        
         /* end of a line reached, switch to next line */
-		printf("\n");
-	}	    
+        printf("\n");
+    }        
 }
 
 void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
