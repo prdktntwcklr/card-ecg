@@ -13,9 +13,10 @@
 
 static bool uart_is_initialized = false;
 
-#define DL_VAL (0x0021U)
-#define M_VAL       (1U)
-#define N_VAL      (21U)
+/* Values for a baud rate of 9600, see p81 of datasheet */
+#define BAUD_9600_DL (0x0021U)
+#define BAUD_9600_M       (1U)
+#define BAUD_9600_N      (21U)
 
 #define MAX_UART_LENGTH (100U)
 
@@ -32,16 +33,16 @@ void uart_init(void)
     /* bit 7 of COMCON0 has to be set before accessing COMDIV0 and COMDIV1 */
     COMCON0 |= (1 << 7);
 
-    /* DL for baud rate of 9600 is 0x21, see p81 of datasheet */
-    uint16_t dl = DL_VAL;
+    /* set DL value */
+    uint16_t dl = BAUD_9600_DL;
     COMDIV0 = dl & (0xFF);
     COMDIV1 = (dl >> 8) & (0xFF);
 
     /* clear bit 7 of COMCON0 after accessing COMDIV0 and COMDIV1 */
     COMCON0 &= ~(1 << 7);
 
-    /* M is 1, N is 21 */
-    COMDIV2 |= (M_VAL << 11) | (N_VAL << 0);
+    /* set M and N values */
+    COMDIV2 |= (BAUD_9600_M << 11) | (BAUD_9600_N << 0);
 
     /* set word length as 8 bits */
     COMCON0 |= (1 << 1) | (1 << 0);
@@ -55,7 +56,7 @@ void uart_init(void)
  *
  * @note  Used for unit testing.
  */
-void uart_deinit(void)
+static void uart_deinit(void)
 {
     uart_is_initialized = false;
 }
@@ -70,9 +71,9 @@ void uart_wait_for_buffer_empty(void)
 }
 
 /*
- * @brief Sends data through UART.
+ * @brief Sends a string through UART.
  */
-void uart_send_data(const char *data)
+void uart_send_string(const char *string)
 {
     if(uart_is_initialized == false)
     {
@@ -82,12 +83,15 @@ void uart_send_data(const char *data)
 
     for(uint8_t i = 0; i < MAX_UART_LENGTH; i++)
     {
-        if(data[i] == 0)
+        char next_symbol = string[i];
+
+        /* check for end of string */
+        if(next_symbol == 0)
         {
             break;
         }
 
         uart_wait_for_buffer_empty();
-        COMTX = data[i];
+        COMTX = next_symbol;
     }
 }

@@ -39,28 +39,27 @@ void test_uart_init_should_initializeUartCorrectly(void)
     TEST_ASSERT_EQUAL_HEX8(0x03, COMCON0);
 }
 
-void test_uart_send_data_should_throwErrorIfUartIsNotInitialized(void)
+void test_uart_send_string_should_throwErrorIfUartIsNotInitialized(void)
 {
-    uart_send_data("Unit Test!");
+    uart_send_string("Test!");
 
     TEST_ASSERT_EQUAL_STRING("Uart is not initialized!", runtime_error_stub_get_last_error());
 }
 
-void test_uart_send_data_should_putDataIntoTxRegister(void)
+void test_uart_send_string_should_putDataIntoTxRegister(void)
 {
     COMSTA0 |= TX_BUF_EMPTY; /* set buf empty bit so that we don't hang in while loop */
 
     uart_init();
 
-    uart_send_data("H");
+    uart_send_string("H");
     TEST_ASSERT_EQUAL_HEX8('H', COMTX);
 
-    uart_send_data("He");
+    uart_send_string("He");
     TEST_ASSERT_EQUAL_HEX8('e', COMTX);
 
-    uart_send_data("Hello");
+    uart_send_string("Hello");
     TEST_ASSERT_EQUAL_HEX8('o', COMTX);
 }
-
 
 #endif // TEST

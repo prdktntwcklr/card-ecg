@@ -4,6 +4,6 @@
 #include <stdint.h>
 
 void uart_init(void);
-void uart_send_data(const char *data);
+void uart_send_string(const char *string);
 
 #endif // UART_H

@@ -197,7 +197,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
     /* print every character of string */
     for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
     {
-        char next_symbol = *(string + i);
+        char next_symbol = string[i];
 
         if(end_of_string_reached(next_symbol))
         {
