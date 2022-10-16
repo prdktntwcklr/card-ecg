@@ -16,12 +16,14 @@ void setUp(void)
     ADCMSKI = 0;
     ADCFLT = 0x0007;  /* default value */
     ADCCFG = 0;
+    IRQEN = 0;
 
     runtime_error_stub_reset();
 }
 
 void tearDown(void)
 {
+    adc_deinit();
 }
 
 void test_adc_init_should_initializeAdcCorrectly(void)
@@ -99,6 +101,22 @@ void test_adc_set_gain_should_throwErrorIfGainNotSupported(void)
 
     /* register should be untouched */
     TEST_ASSERT_EQUAL_HEX16(0x8007, ADC0CON);
+}
+
+void test_adc_start_should_startAdcPeripgeral(void)
+{
+    adc_init();
+    adc_start();
+
+    TEST_ASSERT_EQUAL_HEX8(0x81, ADCMDE);
+    TEST_ASSERT_EQUAL_HEX32(0x00000400, IRQEN);
+}
+
+void test_adc_start_should_throwErrorIfAdcIsNotInitialized(void)
+{
+    adc_start();
+
+    TEST_ASSERT_EQUAL_STRING("Adc is not initialized!", runtime_error_stub_get_last_error());    
 }
 
 #endif // TEST

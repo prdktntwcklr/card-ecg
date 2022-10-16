@@ -52,7 +52,7 @@ void dac_set(const uint16_t dac_value)
     if(dac_value > DAC_MAX_VALUE)
     {
         RUNTIME_ERROR("Dac value > 0x0FFF!");
-        return; /* for unit tests */        
+        return; /* for unit tests */
     }
 
     DAC0DAT = ((uint32_t)dac_value << 16);

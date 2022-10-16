@@ -22,8 +22,9 @@ void adc_init(void)
     ADCMSKI = 0;
 
     /* set ADC clock to 512kHz for normal ADC operation */
-    ADCMDE |= ADCCLKSEL_512KHZ;
+    ADCMDE  |= ADCCLKSEL_512KHZ;
 
+    /* configure ADC peripheral */
     ADC0CON |= ADC0CON_ADC0EN | ADC0CON_AMP_CM_AVDD_DIV_2  | \
                ADC0CON_CHANNEL_DIFF_0_1 | ADC0CON_REF_INT | \
                ADC0CON_GAIN_1;
@@ -53,6 +54,33 @@ static void adc_deinit(void)
 #endif
 
 /*
+ * @brief Starts the ADC in continous mode and enables ADC interrupts.
+ */
+void adc_start(void)
+{
+    if(adc_is_initialized == false)
+    {
+        RUNTIME_ERROR("Adc is not initialized!");
+        return; /* for unit tests */        
+    }
+
+    /* store contents of register */
+    uint8_t adcmde_reg = ADCMDE;
+
+    /* clear ADC operation mode configuration bits */
+    adcmde_reg &= ~(0x7);
+
+    /* set ADC to ADC continous conversion mode */
+    adcmde_reg |= ADCMDE_CONTINUOUS;
+
+    /* write back to register */
+    ADCMDE = adcmde_reg;
+
+    /* enable ADC interrupts */
+    IRQEN |= ADC_BIT;
+}
+
+/*
  * @brief Sets the ADC rate.
  *
  * @note  Currently only supports 50 and 60 Hz.
@@ -70,12 +98,14 @@ void adc_set_rate(const uint16_t adc_rate)
     else
     {
         RUNTIME_ERROR("Adc rate not supported!");
-        return;
+        return; /* for unit tests */
     }
 }
 
 /*
  * @brief Sets the gain of the ADC.
+ *
+ * @note  Only certain values are supported.
  */
 void adc_set_gain(const uint16_t adc_gain)
 {
@@ -141,9 +171,10 @@ void adc_set_gain(const uint16_t adc_gain)
         {
             /* gain not supported, return without changing register */
             RUNTIME_ERROR("Adc gain not supported!");
-            return;
+            return; /* for unit tests */
         }
     }
 
+    /* update register */
     ADC0CON = adc0con_reg;
 }
