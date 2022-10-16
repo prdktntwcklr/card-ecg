@@ -16,7 +16,7 @@
 #define RESET_PIN_NO (2UL)
 #define DC_PIN_NO    (4UL)
 
-/* Flag to check if peripheral is initialized or not */
+/* flag to check if peripheral is initialized or not */
 static bool display_is_initialized = false;
 
 /* Private function declarations */
@@ -210,14 +210,12 @@ extern void display_deinit(void)
  */
 void display_send_framebuffer(const uint8_t *data)
 {
-    /* check for null pointer */
     if(!data)
     {
         RUNTIME_ERROR("Null pointer received!");
         return; /* for unit tests */
     }
 
-    /* check if peripheral is initialized before sending data */
     if(display_is_initialized == false)
     {
         RUNTIME_ERROR("Display is not initialized!");
