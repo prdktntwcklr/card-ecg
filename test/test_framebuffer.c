@@ -3,6 +3,8 @@
 #include "unity.h"
 
 #include <stdbool.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "framebuffer.h"
 #include "framebuffer.c" /* hack to test static functions */
@@ -37,6 +39,55 @@ static void dump_framebuffer(fb_handle_t framebuffer)
         /* end of a line reached, switch to next line */
         printf("\n");
     }        
+}
+
+/*
+ * @brief Checks if a line in the framebuffer matches the expectation.
+ */
+static void check_framebuffer_line(fb_handle_t framebuffer, const uint8_t line, const char *expected)
+{
+    /* open file for writing */
+    FILE* tmp = fopen("tmp.txt", "w");
+
+    if(!tmp)
+    {
+        fprintf(stderr, "couldn't create tmpfile: %s (errno = %d)\n", strerror(errno), errno);
+        TEST_FAIL();
+    }
+
+    for(uint8_t x = 0; x < strlen(expected); x++)
+    {
+        image_get_pixel((uint8_t*) framebuffer, x, line) ? fprintf(tmp, "#") : fprintf(tmp, ".");
+    }
+
+    fclose(tmp);
+
+    /* open file for reading */
+    tmp = fopen("tmp.txt", "r");
+
+    if(!tmp)
+    {
+        fprintf(stderr, "couldn't open tmpfile: %s (errno = %d)\n", strerror(errno), errno);
+        TEST_FAIL();
+    }
+
+    /* copy file contents to buffer */
+    const int length = strlen(expected) + 1;
+    char actual[length];
+
+    fgets(actual, length, tmp);
+    fclose(tmp);
+
+    /* delete file */
+    int err_no = remove("tmp.txt");
+
+    if(err_no != 0)
+    {
+        fprintf(stderr, "Failed to delete tmpfile: %s (errno = %d)\n", strerror(errno), errno);
+        TEST_FAIL();        
+    }
+
+    TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
 
 void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
@@ -90,6 +141,39 @@ void test_framebuffer_change_pixel_should_throwErrorIfOutsideOfLimits(void)
     TEST_ASSERT_EQUAL_STRING("Outside of framebuffer limits!", runtime_error_stub_get_last_error());
 }
 
+void test_framebuffer_change_pixel_should_changePixelCorrectly(void)
+{
+    framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_get();
+
+    framebuffer_change_pixel(framebuffer, 0, 0, true);
+    framebuffer_change_pixel(framebuffer, 3, 3, true);
+    framebuffer_change_pixel(framebuffer, 6, 29, false);
+
+    TEST_ASSERT_TRUE(image_get_pixel((uint8_t*) framebuffer, 0, 0));
+    TEST_ASSERT_FALSE(image_get_pixel((uint8_t*) framebuffer, 0, 1)) ;
+    TEST_ASSERT_TRUE(image_get_pixel((uint8_t*) framebuffer, 3, 3)) ;
+    TEST_ASSERT_FALSE(image_get_pixel((uint8_t*) framebuffer, 4, 5)) ;
+    TEST_ASSERT_FALSE(image_get_pixel((uint8_t*) framebuffer, 6, 29)) ;
+}
+
+void test_framebuffer_draw_symbol_should_drawSymbolCorrectly(void)
+{
+    framebuffer_init();
+    fb_handle_t framebuffer = framebuffer_get();
+
+    framebuffer_draw_symbol(framebuffer, 0, 0, 'A');
+
+    check_framebuffer_line(framebuffer, 0, "...#...");
+    check_framebuffer_line(framebuffer, 1, "..#.#..");
+    check_framebuffer_line(framebuffer, 2, ".#...#.");
+    check_framebuffer_line(framebuffer, 3, ".#...#.");
+    check_framebuffer_line(framebuffer, 4, ".#####.");
+    check_framebuffer_line(framebuffer, 5, ".#...#.");
+    check_framebuffer_line(framebuffer, 6, ".#...#.");
+    check_framebuffer_line(framebuffer, 7, ".......");
+}
+
 void test_end_of_string_reached_should_returnCorrectValues(void)
 {
     TEST_ASSERT_FALSE(end_of_string_reached('a'));
@@ -136,19 +220,6 @@ void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
     fb_handle_t framebuffer = framebuffer_get();
 
     TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
-}
-
-void test_framebuffer_dump(void)
-{
-    TEST_IGNORE_MESSAGE("TODO: Find a way to test framebuffer dumps.");
-
-    framebuffer_init();
-
-    fb_handle_t framebuffer = framebuffer_get();
-
-    framebuffer_draw_string(framebuffer, 0, 0, "Hello World!");
-
-    dump_framebuffer(framebuffer);
 }
 
 #endif // TEST
