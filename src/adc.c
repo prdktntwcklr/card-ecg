@@ -25,7 +25,7 @@ void adc_init(void)
     ADCMDE  |= ADCCLKSEL_512KHZ;
 
     /* configure ADC peripheral */
-    ADC0CON |= ADC0CON_ADC0EN | ADC0CON_AMP_CM_AVDD_DIV_2  | \
+    ADC0CON |= ADC0CON_ADC0EN | ADC0CON_AMP_CM_AVDD_DIV_2 | \
                ADC0CON_CHANNEL_DIFF_0_1 | ADC0CON_REF_INT | \
                ADC0CON_GAIN_1;
 
@@ -105,7 +105,7 @@ void adc_set_rate(const uint16_t adc_rate)
 /*
  * @brief Sets the gain of the ADC.
  *
- * @note  Only certain values are supported.
+ * @note  Only certain values are supported, see p46.
  */
 void adc_set_gain(const uint16_t adc_gain)
 {
