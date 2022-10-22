@@ -120,7 +120,14 @@ void test_framebuffer_clear_should_clearTheFramebuffer(void)
     }
 }
 
-void test_framebuffer_get_after_init_should_returnPointerToClearedFramebuffer(void)
+void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
+{
+    fb_handle_t framebuffer = framebuffer_get();
+
+    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
+}
+
+void test_framebuffer_get_should_returnPointerToClearedFramebufferAfterInit(void)
 {
     framebuffer_init();
     fb_handle_t framebuffer = framebuffer_get();
@@ -215,11 +222,21 @@ void test_whitespace_at_line_beginning_should_returnCorrectValues(void)
     TEST_ASSERT_FALSE(whitespace_at_line_beginning(0, 'X'));
 }
 
-void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
+void test_framebuffer_draw_string_should_drawStringCorrectly(void)
 {
+    framebuffer_init();
     fb_handle_t framebuffer = framebuffer_get();
 
-    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
+    framebuffer_draw_string(framebuffer, 0, 0, "Test.");
+
+    check_framebuffer_line(framebuffer, 0, ".#####.................#.........");
+    check_framebuffer_line(framebuffer, 1, "...#...................#.........");
+    check_framebuffer_line(framebuffer, 2, "...#.....###....###...###........");
+    check_framebuffer_line(framebuffer, 3, "...#....#...#..#.......#.........");
+    check_framebuffer_line(framebuffer, 4, "...#....#####...###....#.........");
+    check_framebuffer_line(framebuffer, 5, "...#....#..........#...#..#...##.");
+    check_framebuffer_line(framebuffer, 6, "...#.....###...####.....##....##.");
+    check_framebuffer_line(framebuffer, 7, ".................................");
 }
 
 #endif // TEST
