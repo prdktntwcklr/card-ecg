@@ -51,7 +51,7 @@ static void check_framebuffer_line(fb_handle_t framebuffer, const uint8_t line, 
 
     if(!tmp)
     {
-        fprintf(stderr, "couldn't create tmpfile: %s (errno = %d)\n", strerror(errno), errno);
+        fprintf(stderr, "Failed to create tmpfile: %s (errno = %d)\n", strerror(errno), errno);
         TEST_FAIL();
     }
 
@@ -67,7 +67,7 @@ static void check_framebuffer_line(fb_handle_t framebuffer, const uint8_t line, 
 
     if(!tmp)
     {
-        fprintf(stderr, "couldn't open tmpfile: %s (errno = %d)\n", strerror(errno), errno);
+        fprintf(stderr, "Failed to open tmpfile: %s (errno = %d)\n", strerror(errno), errno);
         TEST_FAIL();
     }
 
