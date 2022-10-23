@@ -90,20 +90,15 @@ static void check_framebuffer_line(fb_handle_t framebuffer, const uint8_t line, 
     TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
 
-void test_framebuffer_init_should_throwErrorIfCalledTwice(void)
+void test_framebuffer_init_should_onlyInitializeOneInstance(void)
 {
     framebuffer_init();
+    fb_handle_t framebuffer1 = framebuffer_get();
+
     framebuffer_init();
+    fb_handle_t framebuffer2 = framebuffer_get();
 
-    TEST_ASSERT_EQUAL_STRING("Framebuffer is already initialized!", runtime_error_stub_get_last_error());
-}
-
-void test_framebuffer_get_should_returnFramebufferHandlerIfFramebufferIsInitialized(void)
-{
-    framebuffer_init();
-    fb_handle_t framebuffer = framebuffer_get();
-
-    TEST_ASSERT_EQUAL_STRING("No Error!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_EQUAL(framebuffer1, framebuffer2);
 }
 
 void test_framebuffer_clear_should_clearTheFramebuffer(void)

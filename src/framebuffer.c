@@ -20,7 +20,7 @@ static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
 static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol);
 
 #ifdef TEST
-__attribute__((unused)) static void framebuffer_deinit(void);
+static void framebuffer_deinit(void);
 #endif
 
 /*
@@ -28,15 +28,12 @@ __attribute__((unused)) static void framebuffer_deinit(void);
  */
 void framebuffer_init(void)
 {
-    if(framebuffer_ptr)
+    if(!framebuffer_ptr)
     {
-        RUNTIME_ERROR("Framebuffer is already initialized!");
-        return; /* for unit tests */
+        framebuffer_ptr = (fb_handle_t) framebuffer_array;
+
+        framebuffer_clear(framebuffer_ptr);
     }
-
-    framebuffer_ptr = (fb_handle_t) framebuffer_array;
-
-    framebuffer_clear(framebuffer_ptr);
 }
 
 #ifdef TEST
@@ -48,11 +45,6 @@ void framebuffer_init(void)
 /* cppcheck-suppress unusedFunction */
 static void framebuffer_deinit(void)
 {
-    if(framebuffer_ptr)
-    {
-        framebuffer_clear(framebuffer_ptr);
-    }
-
     framebuffer_ptr = 0;
 }
 #endif
