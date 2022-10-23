@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include <errno.h>
 
 #include "framebuffer.h"
 #include "framebuffer.c" /* hack to test static functions */
