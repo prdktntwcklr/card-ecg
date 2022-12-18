@@ -1,4 +1,4 @@
-#+---------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 #
 #  Copyright (c) 2010 Anton Gusev aka AHTOXA
 #
@@ -29,7 +29,7 @@ OBJCOPY     = $(TOOL)objcopy
 OBJDUMP     = $(TOOL)objdump
 SIZE        = $(TOOL)size -d
 RM          = rm -rf
-MD          = mkdir -p
+MD          = mkdir
 
 # dirs
 SRCDIR      = $(BASE)/src
@@ -121,16 +121,19 @@ $(OBJDIR)/%.o: %.S makefile
 	@echo --- assembling $<...
 	$(AS) -c $(AFLAGS) -o $@ $<
 
-dirs: $(OBJDIR) $(LSTDIR) $(EXEDIR)
+dirs: $(OUTDIR) $(OBJDIR) $(LSTDIR) $(EXEDIR)
+
+$(OUTDIR):
+	-@$(MD) "$(OUTDIR)"
 
 $(OBJDIR):
-	-@$(MD) $(OBJDIR)
+	-@$(MD) "$(OBJDIR)"
 
 $(LSTDIR):
-	-@$(MD) $(LSTDIR)
+	-@$(MD) "$(LSTDIR)"
 
 $(EXEDIR):
-	-@$(MD) $(EXEDIR)
+	-@$(MD) "$(EXEDIR)"
 
 clean:
 	@echo --- cleaning up...

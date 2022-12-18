@@ -2,8 +2,6 @@
 
 #include "unity.h"
 
-#define EXTERN 
-
 #include "ring_buffer.h"
 
 void setUp(void)
@@ -27,12 +25,23 @@ void test_ring_buffer_should_notReturnDataIfEmpty(void)
     uint8_t byte = 0; // byte to hold the data from the ring buffer
 
     TEST_ASSERT_FALSE(ring_buffer_get(&byte));
+    TEST_ASSERT_EQUAL(0, byte);
 }
 
 void test_ring_buffer_should_noLongerBeEmptyAfterPut(void)
 {
     TEST_ASSERT_TRUE(ring_buffer_put('A'));
     TEST_ASSERT_FALSE(ring_buffer_is_empty());
+}
+
+void test_ring_buffer_should_resetBackToEmpty(void)
+{
+    TEST_ASSERT_TRUE(ring_buffer_put('A'));
+    TEST_ASSERT_FALSE(ring_buffer_is_empty());
+
+    ring_buffer_reset();
+
+    TEST_ASSERT_TRUE(ring_buffer_is_empty());
 }
 
 void test_ring_buffer_should_getBackCorrectDataAfterPut(void)
@@ -66,7 +75,9 @@ void test_ring_buffer_should_signalFullCorrectly(void)
     TEST_ASSERT_TRUE(ring_buffer_put(62));
     TEST_ASSERT_TRUE(ring_buffer_is_full());
 
+    /* adding another byte at this point should fail */
     TEST_ASSERT_FALSE(ring_buffer_put(63));
+    TEST_ASSERT_TRUE(ring_buffer_is_full());
 }
 
 #endif // TEST
