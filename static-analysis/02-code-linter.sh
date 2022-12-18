@@ -12,7 +12,7 @@ echo ""
 
 $checker --enable=all --suppress=missingInclude --inline-suppr \
          --suppressions-list=cppc-supp.txt --language=c \
-         --output-file=$dummy_file -I../inc ../src
+         --output-file=$dummy_file -I../inc ../src -DTEST
 
 echo ""
 echo " ========================================================= "
