@@ -17,7 +17,7 @@ static bool spi_is_initialized = false;
 /* static function prototypes */
 static void spi_wait_for_space_in_tx_fifo(void);
 
-/*
+/**
  * @brief Initializes the SPI peripheral.
  *
  * @note  Pin0.1 = SCK
@@ -55,7 +55,7 @@ extern void spi_init(const uint32_t bit_rate)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Deinitilizes the SPI module.
  *
  * @note  Used for unit testing.
@@ -66,7 +66,7 @@ static void spi_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Blocks until transmit FIFO is empty.
  */
 extern void spi_wait_for_tx_complete(void)
@@ -74,7 +74,7 @@ extern void spi_wait_for_tx_complete(void)
     while(SPISTA & 0xE) {}
 }
 
-/*
+/**
  * @brief Blocks until there is space in FIFO.
  */
 static void spi_wait_for_space_in_tx_fifo(void)
@@ -82,7 +82,7 @@ static void spi_wait_for_space_in_tx_fifo(void)
     while(SPISTA & 0x8) {}
 }
 
-/*
+/**
  * @brief Sends data through SPI.
  */
 extern void spi_send_data(const uint8_t data)

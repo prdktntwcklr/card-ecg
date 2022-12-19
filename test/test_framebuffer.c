@@ -23,7 +23,7 @@ void tearDown(void)
     runtime_error_stub_reset();
 }
 
-/*
+/**
  * @brief Dumps the framebuffer to the screen.
  *
  * @note  Could be used for comparing expected to actual output.
@@ -42,7 +42,7 @@ static void dump_framebuffer(fb_handle_t framebuffer)
     }        
 }
 
-/*
+/**
  * @brief Checks if a line in the framebuffer matches the expectation.
  */
 static void check_framebuffer_line(fb_handle_t framebuffer, const uint8_t line, const char *expected)

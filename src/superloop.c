@@ -19,7 +19,7 @@
 STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH, display_and_framebuffer_widths_do_not_match);
 STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_heights_do_not_match);
 
-/*
+/**
  * @brief Runs once at the beginning of the program.
  */
 extern void superloop_init(void)
@@ -34,7 +34,7 @@ extern void superloop_init(void)
     framebuffer_init();
 }
 
-/*
+/**
  * @brief Runs continuously.
  */
 extern bool superloop_run(void)

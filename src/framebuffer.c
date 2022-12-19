@@ -23,7 +23,7 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
 static void framebuffer_deinit(void);
 #endif
 
-/*
+/**
  * @brief Initializes the framebuffer and clears it.
  */
 void framebuffer_init(void)
@@ -37,7 +37,7 @@ void framebuffer_init(void)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Denitializes the framebuffer.
  *
  * @note  Helper function for unit testing.
@@ -49,7 +49,7 @@ static void framebuffer_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Clears the whole framebuffer.
  *
  * @note  Passing the framebuffer handle as a parameter allows unit tests
@@ -69,7 +69,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
     }
 }
 
-/*
+/**
  * @brief Returns the framebuffer.
  */
 fb_handle_t framebuffer_get(void)
@@ -83,7 +83,7 @@ fb_handle_t framebuffer_get(void)
     return framebuffer_ptr;
 }
 
-/*
+/**
  * @brief Changes (sets or resets) a single pixel of the framebuffer.
  *
  * @note  Passing the framebuffer handle as a parameter allows unit tests
@@ -113,7 +113,7 @@ void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const ui
     }
 }
 
-/*
+/**
  * @brief Draws a single symbol (character) to the framebuffer.
  *
  * @note  Passing the framebuffer handle as a parameter allows unit tests
@@ -132,7 +132,7 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uin
     }
 }
 
-/*
+/**
  * @brief Checks if we have reached the end of the string.
  */
 static bool end_of_string_reached(const char next_symbol)
@@ -140,7 +140,7 @@ static bool end_of_string_reached(const char next_symbol)
     return (next_symbol == 0);
 }
 
-/*
+/**
  * @brief Checks if the x position for the next symbol goes
  *        beyond the end of the line.
  */
@@ -149,7 +149,7 @@ static bool end_of_line_reached(const uint8_t next_x_pos)
     return ((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH);
 }
 
-/*
+/**
  * @brief Checks if the y position for the next symbol goes
  *        beyond the edge of the framebuffer.
  */
@@ -158,7 +158,7 @@ static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos)
     return ((next_y_pos + FONT_HEIGHT) > FRAMEBUFFER_HEIGHT);
 }
 
-/*
+/**
  * @brief Checks if the next symbol is a whitespace at the beginning of a line.
  */
 static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol)
@@ -166,7 +166,7 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
     return ((next_x_pos == 0) && (next_symbol == ' '));
 }
 
-/*
+/**
  * @brief Outputs a string to the framebuffer.
  *
  * @note  Passing the framebuffer handle as a parameter allows unit tests
@@ -216,7 +216,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
     }
 }
 
-/*
+/**
  * @brief Draws an image to the framebuffer.
  *
  * @note  Passing the framebuffer handle as a parameter allows unit tests

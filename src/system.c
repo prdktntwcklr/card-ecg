@@ -10,7 +10,7 @@
 STATIC_ASSERT(CPU_CLK == 10240000UL, cpu_clk_should_be_10240_khz);
 STATIC_ASSERT(INT_OSC == 32768UL, int_osc_should_be_32768_hz);
 
-/*
+/**
  * @brief Initializes the system by setting power and clock peripherals.
  */
 extern void system_init(void)

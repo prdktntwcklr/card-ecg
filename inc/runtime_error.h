@@ -3,7 +3,7 @@
 
 void runtime_error(const char *msg);
 
-/*
+/**
  * @brief Generates runtime asserts. Unit test-friendly.
  */
 #define RUNTIME_ERROR(msg)        \
@@ -12,7 +12,7 @@ void runtime_error(const char *msg);
         runtime_error(msg);       \
     } while (0)
 
-/*
+/**
  * @brief Generates a static assert.
  *
  * @ref   https://stackoverflow.com/questions/3385515/static-assert-in-c

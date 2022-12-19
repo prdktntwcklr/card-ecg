@@ -25,7 +25,7 @@ static void uart_wait_for_buffer_empty(void);
 /* max number of characters allowed to send */
 #define MAX_UART_LENGTH (100U) /* characters */
 
-/*
+/**
  * @brief Initializes the UART module. Uses a fixed baud rate of 9600.
  *
  * @note  Pin1.1 = SOUT
@@ -56,7 +56,7 @@ void uart_init(void)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Deinitializes the UART module.
  *
  * @note  Used for unit testing.
@@ -67,7 +67,7 @@ static void uart_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Blocks until transmit buffer is empty.
  */
 static void uart_wait_for_buffer_empty(void)
@@ -75,8 +75,10 @@ static void uart_wait_for_buffer_empty(void)
     while((COMSTA0 & TX_BUF_EMPTY) == 0) {}
 }
 
-/*
+/**
  * @brief Sends a string through UART.
+ * 
+ * @todo  Should be interrupt-based by getting characters from ring buffer.
  */
 void uart_send_string(const char *string)
 {

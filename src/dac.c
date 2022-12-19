@@ -16,7 +16,7 @@
 /* flag to check if peripheral is initialized or not */
 static bool dac_is_initialized = false;
 
-/*
+/**
  * @brief Initializes the DAC.
  */
 extern void dac_init(void)
@@ -27,7 +27,7 @@ extern void dac_init(void)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Deinitializes the DAC.
  *
  * @note  Used for unit testing.
@@ -40,7 +40,7 @@ static void dac_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Sets the DAC output to some value.
  */
 void dac_set(const uint16_t dac_value)
