@@ -12,7 +12,7 @@ echo ""
 
 $checker --enable=all --suppress=missingInclude --inline-suppr \
          --suppressions-list=suppression-file.txt --language=c \
-         --output-file=$dummy_file -I../inc ../src -DTEST
+         --output-file=$dummy_file -I../../inc ../../src -DTEST
 
 echo ""
 echo " ========================================================= "

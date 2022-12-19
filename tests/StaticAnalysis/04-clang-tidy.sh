@@ -7,6 +7,6 @@ echo "     using clang-tidy ...                                  "
 echo " ========================================================= "
 echo ""
 
-clang-tidy ../src/* -checks=*,-hicpp-signed-bitwise,-llvm-header-guard,-readability-avoid-const-params-in-decls,-readability-magic-numbers,-cppcoreguidelines-avoid-magic-numbers -header-filter=.* -- -nostdlibinc --target=arm -I../inc -I../common
+clang-tidy ../../src/* -checks=*,-hicpp-signed-bitwise,-llvm-header-guard,-readability-avoid-const-params-in-decls,-readability-magic-numbers,-cppcoreguidelines-avoid-magic-numbers -header-filter=.* -- -nostdlibinc --target=arm -I../../inc -I../../common
 
 echo ""
