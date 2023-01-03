@@ -33,7 +33,7 @@ jobs:
               cd tests/StaticAnalysis
               chmod +x 01-code-complexity.sh
               ./01-code-complexity.sh
-  code-linter:
+  cppcheck:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -48,8 +48,8 @@ jobs:
       - name: run code linter tool
         run: |
              cd tests/StaticAnalysis
-             chmod +x 02-code-linter.sh
-             ./02-code-linter.sh
+             chmod +x 02-cppcheck.sh
+             ./02-cppcheck.sh
   unit-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5

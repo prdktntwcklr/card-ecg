@@ -5,7 +5,6 @@
 void my_assert_failed(const char *file, int line)
 {
     /* TODO: output string to screen or uart */
-
     UNUSED(file);
     UNUSED(line);
 
