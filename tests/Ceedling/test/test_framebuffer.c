@@ -11,7 +11,7 @@
 #include "framebuffer.c" /* hack to test static functions */
 #include "font.h"
 #include "image.h"
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
@@ -20,7 +20,6 @@ void setUp(void)
 void tearDown(void)
 {
     framebuffer_deinit();
-    runtime_error_stub_reset();
 }
 
 /**
@@ -118,9 +117,7 @@ void test_framebuffer_clear_should_clearTheFramebuffer(void)
 
 void test_framebuffer_get_should_throwErrorIfFramebufferIsNotInitialized(void)
 {
-    fb_handle_t framebuffer = framebuffer_get();
-
-    TEST_ASSERT_EQUAL_STRING("Framebuffer must be initialized first!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(framebuffer_get());
 }
 
 void test_framebuffer_get_should_returnPointerToClearedFramebufferAfterInit(void)
@@ -139,9 +136,7 @@ void test_framebuffer_change_pixel_should_throwErrorIfOutsideOfLimits(void)
     framebuffer_init();
     fb_handle_t framebuffer = framebuffer_get();
 
-    framebuffer_change_pixel(framebuffer, 0, 200, true);
-
-    TEST_ASSERT_EQUAL_STRING("Outside of framebuffer limits!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(framebuffer_change_pixel(framebuffer, 0, 200, true));
 }
 
 void test_framebuffer_change_pixel_should_changePixelCorrectly(void)

@@ -1,5 +1,5 @@
 #include "system.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"

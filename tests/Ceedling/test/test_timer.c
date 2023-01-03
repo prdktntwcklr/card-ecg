@@ -7,7 +7,7 @@
 #include "testable_mcu_registers.h"
 #include "timer.h"
 #include "timer.c" /* hack to test static functions */
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
@@ -93,9 +93,7 @@ void test_timer_deadline_reached_should_handleDeadlinesCorrectly(void)
 
 void test_deadline_reached_should_throwErrorIfTimerIsNotInitialized(void)
 {
-    timer_deadline_reached(1000);
-
-    TEST_ASSERT_EQUAL_STRING("Timer is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(timer_deadline_reached(1000));
 }
 
 #endif // TEST

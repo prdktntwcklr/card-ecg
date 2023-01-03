@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 
 #ifndef TEST
@@ -26,12 +26,7 @@ static void spi_wait_for_space_in_tx_fifo(void);
  */
 extern void spi_init(const uint32_t bit_rate)
 {
-    /* check for division by zero */
-    if(bit_rate == 0)
-    {
-        RUNTIME_ERROR("Spi bit rate cannot be zero!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(bit_rate != 0U);
 
     /* set bit rate, see p97 of datasheet */
     SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
@@ -87,11 +82,7 @@ static void spi_wait_for_space_in_tx_fifo(void)
  */
 extern void spi_send_data(const uint8_t data)
 {
-    if(spi_is_initialized == false)
-    {
-        RUNTIME_ERROR("Spi is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(spi_is_initialized);
 
     /* block until there is space in fifo */
     spi_wait_for_space_in_tx_fifo();

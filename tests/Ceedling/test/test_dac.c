@@ -7,14 +7,12 @@
 #include "testable_mcu_registers.h"
 #include "dac.h"
 #include "dac.c" /* hack to test static functions */
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
     DAC0CON = 0;
     DAC0DAT = 0;
-
-    runtime_error_stub_reset();
 }
 
 void tearDown(void)
@@ -31,17 +29,14 @@ void test_dac_init_should_initializeDacCorrectly(void)
 
 void test_dac_set_should_throwErrorIfDacIsNotInitialized(void)
 {
-    dac_set(0xAA);
-
-    TEST_ASSERT_EQUAL_STRING("Dac is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(dac_set(0xAA));
 }
 
 void test_dac_set_should_throwErrorIfValueIsTooHigh(void)
 {
     dac_init();
-    dac_set(0x1FFF);
 
-    TEST_ASSERT_EQUAL_STRING("Dac value > 0x0FFF!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(dac_set(0x1FFF));
 }
 
 void test_dac_set_should_setDacToCorrectValue(void)

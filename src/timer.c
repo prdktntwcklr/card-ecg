@@ -1,5 +1,5 @@
 #include "timer.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 
 #ifndef TEST
@@ -98,22 +98,14 @@ static void timer_deinit(void)
  */
 extern bool timer_deadline_reached(const uint32_t deadline)
 {
-    if(timer_is_initialized == false)
-    {
-        RUNTIME_ERROR("Timer is not initialized!");
-        return false; /* for unit tests */
-    }
+    MY_ASSERT(timer_is_initialized);
 
     return ((int32_t)(time_stamp - deadline) >= 0);
 }
 
 extern void timer_delay_10ms(void)
 {
-    if(timer_is_initialized == false)
-    {
-        RUNTIME_ERROR("Timer is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(timer_is_initialized);
 
     uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2);
 
