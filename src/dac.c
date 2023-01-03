@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "runtime_error.h"
+#include "my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -45,17 +45,8 @@ static void dac_deinit(void)
  */
 void dac_set(const uint16_t dac_value)
 {
-    if(dac_is_initialized == false)
-    {
-        RUNTIME_ERROR("Dac is not initialized!");
-        return; /* for unit tests */
-    }
-
-    if(dac_value > DAC_MAX_VALUE)
-    {
-        RUNTIME_ERROR("Dac value > 0x0FFF!");
-        return; /* for unit tests */        
-    }
+    MY_ASSERT(dac_is_initialized);
+    MY_ASSERT(dac_value <= DAC_MAX_VALUE);
 
     DAC0DAT = ((uint32_t)dac_value << 16);
 }

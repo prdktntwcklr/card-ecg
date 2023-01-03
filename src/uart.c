@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 
 #ifndef TEST
@@ -82,11 +82,7 @@ static void uart_wait_for_buffer_empty(void)
  */
 void uart_send_string(const char *string)
 {
-    if(uart_is_initialized == false)
-    {
-        RUNTIME_ERROR("Uart is not initialized!");
-        return; /* for unit tests */        
-    }
+    MY_ASSERT(uart_is_initialized);
 
     for(uint8_t i = 0; i < MAX_UART_LENGTH; i++)
     {

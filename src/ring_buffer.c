@@ -1,7 +1,5 @@
 #include "ring_buffer.h"
-#include "runtime_error.h"
-
-#define UNUSED(x) ((x) = (x))
+#include "my_assert.h"
 
 #if USE_PRINTF || defined (TEST)
 

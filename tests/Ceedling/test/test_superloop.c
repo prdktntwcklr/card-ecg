@@ -12,7 +12,7 @@
 #include "logo.h"
 #include "mock_system.h"
 #include "mock_timer.h"
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {

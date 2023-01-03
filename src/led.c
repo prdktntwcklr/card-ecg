@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "runtime_error.h"
+#include "my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -43,11 +43,7 @@ static void led_deinit(void)
  */
 extern void led_off(void)
 {
-    if(led_is_initialized == false)
-    {
-        RUNTIME_ERROR("Led is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(led_is_initialized);
 
     GP1DAT &= ~(1UL << 21);
 }
@@ -58,11 +54,7 @@ extern void led_off(void)
 /* cppcheck-suppress unusedFunction */
 extern void led_on(void)
 {
-    if(led_is_initialized == false)
-    {
-        RUNTIME_ERROR("Led is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(led_is_initialized);
 
     GP1DAT |= (1UL << 21);
 }
@@ -72,11 +64,7 @@ extern void led_on(void)
  */
 extern void led_toggle(void)
 {
-    if(led_is_initialized == false)
-    {
-        RUNTIME_ERROR("Led is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(led_is_initialized);
 
     GP1DAT ^= (1UL << 21);
 }

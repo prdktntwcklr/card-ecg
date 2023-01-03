@@ -1,7 +1,7 @@
 #include "framebuffer.h"
 #include "font.h"
 #include "image.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 
 #define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
 
@@ -57,11 +57,7 @@ static void framebuffer_deinit(void)
  */
 void framebuffer_clear(fb_handle_t framebuffer)
 {
-    if(!framebuffer)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(framebuffer);
 
     for (uint8_t i = 0; i < (uint8_t) FRAMEBUFFER_ELEMENTS; i++)
     {
@@ -74,11 +70,8 @@ void framebuffer_clear(fb_handle_t framebuffer)
  */
 fb_handle_t framebuffer_get(void)
 {
-    if(!framebuffer_ptr)
-    {
-        RUNTIME_ERROR("Framebuffer must be initialized first!");
-        return 0;
-    }
+    /* framebuffer must be initialized first */
+    MY_ASSERT(framebuffer_ptr);
 
     return framebuffer_ptr;
 }
@@ -91,17 +84,8 @@ fb_handle_t framebuffer_get(void)
  */
 void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const bool set)
 {
-    if(!framebuffer)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
-
-    if(x >= FRAMEBUFFER_WIDTH || y >= FRAMEBUFFER_HEIGHT)
-    {
-        RUNTIME_ERROR("Outside of framebuffer limits!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(framebuffer);
+    MY_ASSERT(x < FRAMEBUFFER_WIDTH && y < FRAMEBUFFER_HEIGHT);
 
     if(set)
     {
@@ -175,12 +159,8 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char ne
 void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const char *string)
 {
     /* #lizard forgives (exclude from code complexity check) */
-    
-    if(!string)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
+
+    MY_ASSERT(string);
 
     /* initialize variables to start position of string */
     uint8_t next_x_pos = x;

@@ -3,7 +3,7 @@
 #include "framebuffer.h"
 #include "led.h"
 #include "logo.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 #include "timer.h"
 #include "uart.h"

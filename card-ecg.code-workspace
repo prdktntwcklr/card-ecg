@@ -17,8 +17,6 @@
 			"timer.h": "c",
 			"my_assert_stub.h": "c",
 			"my_assert.h": "c",
-			"runtime_error_stub.h": "c",
-			"runtime_error.h": "c",
 			"display.h": "c",
 			"spi.h": "c",
 			"framebuffer.h": "c",

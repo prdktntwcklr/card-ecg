@@ -7,7 +7,7 @@
 #include "testable_mcu_registers.h"
 #include "uart.h"
 #include "uart.c" /* hack to test static functions */
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
@@ -17,8 +17,6 @@ void setUp(void)
     COMDIV1 = 0;
     COMDIV2 = 0;
     COMTX = 0;
-
-    runtime_error_stub_reset();
 }
 
 void tearDown(void)
@@ -41,9 +39,7 @@ void test_uart_init_should_initializeUartCorrectly(void)
 
 void test_uart_send_string_should_throwErrorIfUartIsNotInitialized(void)
 {
-    uart_send_string("Test!");
-
-    TEST_ASSERT_EQUAL_STRING("Uart is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(uart_send_string("Test!"));
 }
 
 void test_uart_send_string_should_putDataIntoTxRegister(void)

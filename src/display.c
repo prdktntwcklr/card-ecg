@@ -1,6 +1,6 @@
 #include "display.h"
 #include "display_registers.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "spi.h"
 #include "timer.h"
 
@@ -210,17 +210,8 @@ extern void display_deinit(void)
  */
 void display_send_framebuffer(const uint8_t *data)
 {
-    if(!data)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
-
-    if(display_is_initialized == false)
-    {
-        RUNTIME_ERROR("Display is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(data);
+    MY_ASSERT(display_is_initialized);
 
     display_send_command(SSD1306_COLUMN_ADDR);
     display_send_command(0);

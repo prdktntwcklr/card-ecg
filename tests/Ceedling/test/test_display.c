@@ -9,13 +9,11 @@
 #include "display.c" /* hack to test static functions */
 #include "mock_spi.h"
 #include "mock_timer.h"
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
     GP0DAT = 0x0000ABCD; /* lower two bytes should not be affected */
-
-    runtime_error_stub_reset();
 }
 
 void tearDown(void)
@@ -78,18 +76,14 @@ void test_display_send_framebuffer_should_throwErrorIfNullPointerReceived(void)
 {
     uint8_t *ptr = NULL;
 
-    display_send_framebuffer(ptr);
-
-    TEST_ASSERT_EQUAL_STRING("Null pointer received!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(display_send_framebuffer(ptr));
 }
 
 void test_spi_send_data_should_throwErrorIfSpiIsNotInitialized(void)
 {
     uint8_t data = 0xAA;
 
-    display_send_framebuffer(&data);
-
-    TEST_ASSERT_EQUAL_STRING("Display is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(display_send_framebuffer(&data));
 }
 
 #endif // TEST

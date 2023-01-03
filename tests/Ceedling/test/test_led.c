@@ -7,13 +7,11 @@
 #include "testable_mcu_registers.h"
 #include "led.h"
 #include "led.c" /* hack to test static functions */
-#include "runtime_error_stub.h"
+#include "my_assert_stub.h"
 
 void setUp(void)
 {
     GP1DAT = 0x0000ABCD; /* lower two bytes should not be affected */
-
-    runtime_error_stub_reset();
 }
 
 void tearDown(void)
@@ -69,23 +67,17 @@ void test_led_toggle_should_toggleCorrectLedOnOff(void)
 
 void test_led_off_should_throwErrorIfLedIsNotInitialized(void)
 {
-    led_off();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(led_off());
 }
 
 void test_led_on_should_throwErrorIfLedIsNotInitialized(void)
 {
-    led_on();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(led_on());
 }
 
 void test_led_toggle_should_throwErrorIfLedIsNotInitialized(void)
 {
-    led_toggle();
-
-    TEST_ASSERT_EQUAL_STRING("Led is not initialized!", runtime_error_stub_get_last_error());
+    TEST_ASSERT_FAIL_ASSERT(led_toggle());
 }
 
 #endif // TEST
