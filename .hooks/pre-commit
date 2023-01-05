@@ -11,29 +11,26 @@ fi
 # Test clang-format  
 clangformatout=$(git clang-format --diff --staged -q)  
   
-# Redirect output to stderr
-exec 1>&2  
-  
 if [ "$clangformatout" != "" ]  
 then
+	exec 1>&2
     echo "Format ERROR!"
-    echo "Run git clang-format."
+	echo ""
+    echo "The new code that is added contains differences against"
+	echo "clang-format rules. Please run git clang-format to fix this before"
+	echo "doing a commit."
+	echo ""
     exit 1
 fi
 
-echo " =========================================================== "
-echo "   Trying to build project before committing...              "
-echo " =========================================================== "
-
+# Test if project builds without any errors
 make clean
 make
 
 if [[ $? != 0 ]]; then
+	exec 1>&2
 	echo "Build FAILED!"
+	echo ""
+	echo "Project could not build successfully. Please fix errors first."
 	exit 1
-else
-	echo " =========================================================== "
-	echo "   Build SUCCESSFUL                                          "
-	echo " =========================================================== "
-	exit 0
 fi
