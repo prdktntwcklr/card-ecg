@@ -1,5 +1,7 @@
 #!/bin/sh
 
+log_file=logfile
+
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
 	against=HEAD
@@ -8,7 +10,7 @@ else
 	against=$(git hash-object -t tree /dev/null)
 fi
 
-# Test clang-format  
+# Test clang-format to check for wrong formatting
 clangformatout=$(git clang-format --diff --staged -q)  
   
 if [ "$clangformatout" != "" ]  
@@ -24,13 +26,19 @@ then
 fi
 
 # Test if project builds without any errors
-make clean
-make
+makeclean=$(make clean)
+make >&$log_file
+makeout=$?
 
-if [[ $? != 0 ]]; then
+results=$(cat $log_file)
+rm $log_file
+
+if [[ $makeout != 0 ]]; then
 	exec 1>&2
 	echo "Build FAILED!"
 	echo ""
 	echo "Project could not build successfully. Please fix errors first."
+	echo ""
+	echo "$results"
 	exit 1
 fi
