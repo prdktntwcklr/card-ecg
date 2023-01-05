@@ -8,6 +8,19 @@ else
 	against=$(git hash-object -t tree /dev/null)
 fi
 
+# Test clang-format  
+clangformatout=$(git clang-format --diff --staged -q)  
+  
+# Redirect output to stderr
+exec 1>&2  
+  
+if [ "$clangformatout" != "" ]  
+then
+    echo "Format ERROR!"
+    echo "Run git clang-format."
+    exit 1
+fi
+
 echo " =========================================================== "
 echo "   Trying to build project before committing...              "
 echo " =========================================================== "
@@ -16,13 +29,11 @@ make clean
 make
 
 if [[ $? != 0 ]]; then
-	echo " =========================================================== "
-	echo "   Pre-commit Build FAILED                                   "
-	echo " =========================================================== "
+	echo "Build FAILED!"
 	exit 1
 else
 	echo " =========================================================== "
-	echo "   Pre-commit Build SUCCESSFUL                               "
+	echo "   Build SUCCESSFUL                                          "
 	echo " =========================================================== "
 	exit 0
 fi

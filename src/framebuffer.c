@@ -190,7 +190,8 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
 
         if(!whitespace_at_line_beginning(next_x_pos, next_symbol))
         {
-            framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos, next_symbol);
+            framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos,
+                                    next_symbol);
             next_x_pos += (FONT_WIDTH + 1);
         }
     }
