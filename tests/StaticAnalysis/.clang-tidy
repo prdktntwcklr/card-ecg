@@ -1,5 +1,9 @@
 Checks: '*,
+         -altera-unroll-loops,
+         -bugprone-easily-swappable-parameters,
          -cppcoreguidelines-avoid-magic-numbers,
+         -cppcoreguidelines-avoid-non-const-global-variables,
          -hicpp-signed-bitwise,
          -llvm-header-guard,
+         -readability-identifier-length,
          -readability-magic-numbers'
