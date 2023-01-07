@@ -96,7 +96,7 @@ static void timer_deinit(void)
 /**
  * @brief Returns TRUE if the deadline has been reached or surpassed.
  */
-extern bool timer_deadline_reached(const uint32_t deadline)
+extern bool timer_deadline_reached(uint32_t deadline)
 {
     MY_ASSERT(timer_is_initialized);
 

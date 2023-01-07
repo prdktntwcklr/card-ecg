@@ -16,11 +16,10 @@ STATIC_ASSERT(sizeof(framebuffer_array)
               framebuffer_should_contain_128_elements);
 
 /* helper functions declarations */
-static bool end_of_string_reached(const char next_symbol);
-static bool end_of_line_reached(const uint8_t next_x_pos);
-static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
-static bool whitespace_at_line_beginning(const uint8_t next_x_pos,
-                                         const char next_symbol);
+static bool end_of_string_reached(char next_symbol);
+static bool end_of_line_reached(uint8_t next_x_pos);
+static bool bottom_of_framebuffer_reached(uint8_t next_y_pos);
+static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol);
 
 #ifdef TEST
 static void framebuffer_deinit(void);
@@ -85,8 +84,8 @@ fb_handle_t framebuffer_get(void)
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
-void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x,
-                              const uint8_t y, const bool set)
+void framebuffer_change_pixel(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                              bool set)
 {
     MY_ASSERT(framebuffer);
     MY_ASSERT(x < FRAMEBUFFER_WIDTH && y < FRAMEBUFFER_HEIGHT);
@@ -107,8 +106,8 @@ void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x,
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x,
-                             const uint8_t y, const uint8_t symbol)
+void framebuffer_draw_symbol(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                             uint8_t symbol)
 {
     uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
     
@@ -126,7 +125,7 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x,
 /**
  * @brief Checks if we have reached the end of the string.
  */
-static bool end_of_string_reached(const char next_symbol)
+static bool end_of_string_reached(char next_symbol)
 {
     return (next_symbol == 0);
 }
@@ -135,7 +134,7 @@ static bool end_of_string_reached(const char next_symbol)
  * @brief Checks if the x position for the next symbol goes
  *        beyond the end of the line.
  */
-static bool end_of_line_reached(const uint8_t next_x_pos)
+static bool end_of_line_reached(uint8_t next_x_pos)
 {
     return ((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH);
 }
@@ -144,7 +143,7 @@ static bool end_of_line_reached(const uint8_t next_x_pos)
  * @brief Checks if the y position for the next symbol goes
  *        beyond the edge of the framebuffer.
  */
-static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos)
+static bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
 {
     return ((next_y_pos + FONT_HEIGHT) > FRAMEBUFFER_HEIGHT);
 }
@@ -152,8 +151,7 @@ static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos)
 /**
  * @brief Checks if the next symbol is a whitespace at the beginning of a line.
  */
-static bool whitespace_at_line_beginning(const uint8_t next_x_pos,
-                                         const char next_symbol)
+static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
 {
     return ((next_x_pos == 0) && (next_symbol == ' '));
 }
@@ -164,8 +162,8 @@ static bool whitespace_at_line_beginning(const uint8_t next_x_pos,
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x,
-                             const uint8_t y, const char *string)
+void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                             const char *string)
 {
     /* #lizard forgives (exclude from code complexity check) */
 
@@ -212,7 +210,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x,
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t *image)
+void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image)
 {
     for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
     {

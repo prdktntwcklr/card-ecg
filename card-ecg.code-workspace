@@ -24,7 +24,8 @@
 			"logo.h": "c",
 			"uart.h": "c",
 			"image.h": "c",
-			"ring_buffer.h": "c"
+			"ring_buffer.h": "c",
+			"dac.h": "c"
 		}
 	}
 }

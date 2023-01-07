@@ -24,12 +24,12 @@ static void spi_wait_for_space_in_tx_fifo(void);
  *        Pin0.2 = MISO
  *        Pin0.3 = MOSI
  */
-extern void spi_init(const uint32_t bit_rate)
+extern void spi_init(uint32_t bit_rate)
 {
     MY_ASSERT(bit_rate != 0U);
 
     /* set bit rate, see p97 of datasheet */
-    SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
+    SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1; // NOLINT
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
     GP0CON0 |= (1UL << 12) | (1UL << 8) | (1UL << 4);
@@ -80,7 +80,7 @@ static void spi_wait_for_space_in_tx_fifo(void)
 /**
  * @brief Sends data through SPI.
  */
-extern void spi_send_data(const uint8_t data)
+extern void spi_send_data(uint8_t data)
 {
     MY_ASSERT(spi_is_initialized);
 

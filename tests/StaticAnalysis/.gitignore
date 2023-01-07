@@ -1,2 +1,3 @@
 doxygen/
 00*
+.clang-tidy

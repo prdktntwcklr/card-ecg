@@ -27,8 +27,8 @@ static void display_reset_on(void);
 static void display_reset_off(void);
 static void display_dc_on(void);
 static void display_dc_off(void);
-static void display_send_command(const uint8_t byte);
-static void display_burst_framebuffer(const uint8_t *data);
+static void display_send_command(uint8_t byte);
+static void display_burst_framebuffer(uint8_t *data);
 
 /**
  * @brief Initializes the GPIO pins for the display.
@@ -103,7 +103,7 @@ static void display_dc_off(void)
 /**
  * @brief Sends a command to the display.
  */
-static void display_send_command(const uint8_t byte)
+static void display_send_command(uint8_t byte)
 {
     display_dc_off();
     display_cs_off();
@@ -118,7 +118,7 @@ static void display_send_command(const uint8_t byte)
 /**
  * @brief 
  */
-static void display_burst_framebuffer(const uint8_t *data)
+static void display_burst_framebuffer(uint8_t *data)
 {
     display_cs_off();
 
@@ -208,7 +208,7 @@ extern void display_deinit(void)
 /**
  * @brief Sends the framebuffer to the display.
  */
-void display_send_framebuffer(const uint8_t *data)
+void display_send_framebuffer(uint8_t *data)
 {
     MY_ASSERT(data);
     MY_ASSERT(display_is_initialized);

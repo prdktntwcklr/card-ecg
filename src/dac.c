@@ -43,7 +43,7 @@ static void dac_deinit(void)
 /**
  * @brief Sets the DAC output to some value.
  */
-void dac_set(const uint16_t dac_value)
+void dac_set(uint16_t dac_value)
 {
     MY_ASSERT(dac_is_initialized);
     MY_ASSERT(dac_value <= DAC_MAX_VALUE);

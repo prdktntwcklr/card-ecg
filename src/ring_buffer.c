@@ -54,7 +54,7 @@ extern bool ring_buffer_put(uint8_t byte)
  *
  * @note  Returns true if successfull.
  */
-extern bool ring_buffer_get(uint8_t * byte)
+extern bool ring_buffer_get(uint8_t *byte)
 {    
     bool get_success = false;
 
@@ -113,7 +113,12 @@ extern bool ring_buffer_is_full(void)
 /* stub out beeper functions if USE_PRINTF is false */
 extern void ring_buffer_reset(void) {}
 extern bool ring_buffer_put(uint8_t byte) {UNUSED(byte); return false;}
-extern bool ring_buffer_get(uint8_t * byte) {UNUSED(byte); return false;}
+extern bool ring_buffer_get(uint8_t *byte)
+{
+    UNUSED(byte);
+    *byte = 0;
+    return false;
+}
 extern bool ring_buffer_is_empty(void){return true;}
 extern bool ring_buffer_is_full(void){return true;}
 
