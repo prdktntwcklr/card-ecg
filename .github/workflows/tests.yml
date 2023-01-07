@@ -45,11 +45,28 @@ jobs:
         run: |
              sudo apt-get install -y cppcheck
              cppcheck --version
-      - name: run code linter tool
+      - name: run cppcheck linter
         run: |
              cd tests/StaticAnalysis
              chmod +x 02-cppcheck.sh
              ./02-cppcheck.sh
+  clang-tidy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: get updates
+        run: sudo apt-get update
+      - name: install packages
+        run: |
+             sudo apt-get install -y clang-tidy
+             clang-tidy --version
+      - name: run clang-tidy linter
+        run: |
+             cd tests/StaticAnalysis
+             chmod +x 03-clang-tidy.sh
+             ./03-clang-tidy.sh
   unit-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5

@@ -30,7 +30,6 @@ int testable_main(void)
 }
 
 #ifndef TEST
-/* cppcheck-suppress unusedFunction */
 void IRQHandler(void)
 #else
 /* cppcheck-suppress unusedFunction */

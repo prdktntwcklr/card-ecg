@@ -1,6 +1,6 @@
 #!/bin/bash
 
-checker=cppcheck
+checker=clang-tidy
 dummy_file=dummyfile
 
 echo ""
@@ -10,9 +10,7 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker --enable=all --suppress=missingInclude --inline-suppr \
-         --suppressions-list=.cppcheck --language=c \
-         --output-file=$dummy_file -I../../inc ../../src -DTEST
+$checker ../../src/* -header-filter=.* -- -nostdlibinc --target=arm -I../../inc -I../../common > $dummy_file
 
 echo ""
 echo " ========================================================= "
@@ -39,3 +37,5 @@ else
 fi
 
 exit 0
+
+echo ""
