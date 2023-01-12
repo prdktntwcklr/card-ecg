@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "my_assert.h"
+#include "ring_buffer.h"
 #include "system.h"
 
 #ifndef TEST
@@ -15,7 +16,10 @@
 static bool uart_is_initialized = false;
 
 /* static function prototypes */
+static bool uart_is_interrupt_enabled(void);
 static void uart_wait_for_buffer_empty(void);
+static void uart_enable_interrupt(void);
+static void uart_disable_interrupt(void);
 
 /* values for a baud rate of 9600, see p81 of datasheet */
 #define BAUD_9600_DL (0x0021U)
@@ -24,6 +28,30 @@ static void uart_wait_for_buffer_empty(void);
 
 /* max number of characters allowed to send */
 #define MAX_UART_LENGTH (100U) /* characters */
+
+/**
+ * @brief Enables the UART transmit buffer empty interrupt.
+ */
+static void uart_enable_interrupt(void)
+{
+    COMIEN0 |= COMIEN0_TX_BUF_EMPTY;
+}
+
+/**
+ * @brief Enables the UART transmit buffer empty interrupt.
+ */
+static void uart_disable_interrupt(void)
+{
+    COMIEN0 &= ~COMIEN0_TX_BUF_EMPTY;
+}
+
+/**
+ * @brief Returns true if the UART transmit buffer empty interrupt is enabled.
+ */
+static bool uart_is_interrupt_enabled(void)
+{
+    return ((COMIEN0 & COMIEN0_TX_BUF_EMPTY) == COMIEN0_TX_BUF_EMPTY);
+}
 
 /**
  * @brief Initializes the UART module. Uses a fixed baud rate of 9600.
@@ -51,6 +79,8 @@ void uart_init(void)
 
     /* set word length as 8 bits */
     COMCON0 |= (1 << 1) | (1 << 0);
+
+    ring_buffer_reset();
 
     uart_is_initialized = true;
 }
@@ -94,9 +124,17 @@ void uart_send_string(const char *string)
             break;
         }
 
-        /* block until there is space in buffer */
-        uart_wait_for_buffer_empty();
+        ring_buffer_put(next_symbol);
+    }
 
-        COMTX = next_symbol;
+    if(!uart_is_interrupt_enabled())
+    {
+        char first_symbol;
+
+        ring_buffer_get(&first_symbol);
+
+        COMTX = first_symbol;
+
+        uart_enable_interrupt();
     }
 }
