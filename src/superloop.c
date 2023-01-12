@@ -32,6 +32,9 @@ extern void superloop_init(void)
     timer_init();
     display_init();
     framebuffer_init();
+
+    uart_init();
+    uart_send_string("Hallo Welt!\r\n");
 }
 
 /**
