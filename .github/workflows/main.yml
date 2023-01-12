@@ -1,6 +1,6 @@
 # syntax for this file https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 # help on github actions: https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions
-name: Tests
+name: main-workflow
 
 # Controls when the action will run. 
 on:

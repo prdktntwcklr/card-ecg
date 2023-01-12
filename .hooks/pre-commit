@@ -4,10 +4,10 @@ log_file=logfile
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
-	against=HEAD
+    against=HEAD
 else
-	# Initial commit: diff against an empty tree object
-	against=$(git hash-object -t tree /dev/null)
+    # Initial commit: diff against an empty tree object
+    against=$(git hash-object -t tree /dev/null)
 fi
 
 # Test clang-format to check for wrong formatting
@@ -15,13 +15,13 @@ clangformatout=$(git clang-format --diff --staged -q)
   
 if [ "$clangformatout" != "" ]  
 then
-	exec 1>&2
+    exec 1>&2
     echo "Format ERROR!"
-	echo ""
+    echo ""
     echo "The new code that is added contains differences against"
-	echo "clang-format rules. Please run git clang-format to fix this before"
-	echo "doing a commit."
-	echo ""
+    echo "clang-format rules. Please run git clang-format to fix this before"
+    echo "doing a commit."
+    echo ""
     exit 1
 fi
 
@@ -34,11 +34,11 @@ results=$(cat $log_file)
 rm $log_file
 
 if [[ $makeout != 0 ]]; then
-	exec 1>&2
-	echo "Build FAILED!"
-	echo ""
-	echo "Project could not build successfully. Please fix errors first."
-	echo ""
-	echo "$results"
-	exit 1
+    exec 1>&2
+    echo "Build FAILED!"
+    echo ""
+    echo "Project could not build successfully. Please fix errors first."
+    echo ""
+    echo "$results"
+    exit 1
 fi
