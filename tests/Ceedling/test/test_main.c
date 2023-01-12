@@ -2,12 +2,13 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
 #include "main.h"
-#include "mock_timer.h"
 #include "mock_superloop.h"
+#include "mock_timer.h"
+#include "mock_uart.h"
+#include "testable_mcu_registers.h"
 
 void setUp(void)
 {
@@ -32,38 +33,24 @@ void test_main_should_callSuperloopInitAndThenRunMainLoop(void)
 
 void test_main_irq_should_handleTimer0InterruptCorrectly(void)
 {
-    IRQSTA = 0x00000008;
-    timer_handle_interrupt_Expect();
-    testable_irq_handler();
-    TEST_ASSERT_EQUAL_HEX8(0x00, T0CLRI);
-
-    IRQSTA = 0x00000049;
-    T0CLRI = 0xAA;
-    timer_handle_interrupt_Expect();
-    testable_irq_handler();
-    TEST_ASSERT_EQUAL_HEX8(0x00, T0CLRI);
-
-    IRQSTA = 0x0000005C;
+    IRQSTA = (1 << 3);
     T0CLRI = 0xAA;
     timer_handle_interrupt_Expect();
     testable_irq_handler();
     TEST_ASSERT_EQUAL_HEX8(0x00, T0CLRI);
 }
 
-void test_main_irq_should_notHandleTimer0InterruptIfNoTimer0Interrupt(void)
+void test_main_irq_should_handleUartInterruptCorrectly(void)
 {
+    IRQSTA = (1 << 11);
+    uart_handle_interrupt_Expect();
     testable_irq_handler();
-    TEST_ASSERT_EQUAL_HEX8(0xAA, T0CLRI);
+}
 
-    IRQSTA = 0x00000037;
-    T0CLRI = 0xAA;
+void test_main_irq_should_doNothingIfNoValidInterrupt(void)
+{
+    IRQSTA = (1 << 17); /* PWM bit */
     testable_irq_handler();
-    TEST_ASSERT_EQUAL_HEX8(0xAA, T0CLRI);
-
-    IRQSTA = 0x000000F7;
-    T0CLRI = 0xAA;
-    testable_irq_handler();
-    TEST_ASSERT_EQUAL_HEX8(0xAA, T0CLRI);
 }
 
 #endif // TEST

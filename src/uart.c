@@ -17,7 +17,6 @@ static bool uart_is_initialized = false;
 
 /* static function prototypes */
 static bool uart_is_interrupt_enabled(void);
-static void uart_wait_for_buffer_empty(void);
 static void uart_enable_interrupt(void);
 static void uart_disable_interrupt(void);
 
@@ -91,19 +90,12 @@ void uart_init(void)
  *
  * @note  Used for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 static void uart_deinit(void)
 {
     uart_is_initialized = false;
 }
 #endif
-
-/**
- * @brief Blocks until transmit buffer is empty.
- */
-static void uart_wait_for_buffer_empty(void)
-{
-    while((COMSTA0 & TX_BUF_EMPTY) == 0) {}
-}
 
 /**
  * @brief Sends a string through UART.
@@ -116,7 +108,7 @@ void uart_send_string(const char *string)
 
     for(uint8_t i = 0; i < MAX_UART_LENGTH; i++)
     {
-        char next_symbol = string[i];
+        uint8_t next_symbol = (uint8_t)string[i];
 
         /* check for end of string */
         if(next_symbol == 0)
@@ -129,7 +121,7 @@ void uart_send_string(const char *string)
 
     if(!uart_is_interrupt_enabled())
     {
-        char first_symbol;
+        uint8_t first_symbol = 0;
 
         ring_buffer_get(&first_symbol);
 
@@ -137,4 +129,12 @@ void uart_send_string(const char *string)
 
         uart_enable_interrupt();
     }
+}
+
+/**
+ * @brief Handles the UART interrupt.
+ */
+void uart_handle_interrupt(void)
+{
+    /* TODO: Implement UART interrupt handler. */
 }

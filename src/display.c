@@ -199,6 +199,7 @@ void display_init(void)
  *
  * @note  Used for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 extern void display_deinit(void)
 {
     display_is_initialized = false;

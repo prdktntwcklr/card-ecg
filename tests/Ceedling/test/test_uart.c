@@ -45,24 +45,6 @@ void test_uart_send_string_should_throwErrorIfUartIsNotInitialized(void)
     TEST_ASSERT_FAIL_ASSERT(uart_send_string("Test!"));
 }
 
-// void test_uart_send_string_should_putDataIntoTxRegister(void)
-// {
-//     COMSTA0 |= TX_BUF_EMPTY; /* set buf empty bit so that we don't hang in
-//     while loop */
-
-//     ring_buffer_reset_Expect();
-//     uart_init();
-
-//     uart_send_string("H");
-//     TEST_ASSERT_EQUAL_HEX8('H', COMTX);
-
-//     uart_send_string("He");
-//     TEST_ASSERT_EQUAL_HEX8('e', COMTX);
-
-//     uart_send_string("Hello");
-//     TEST_ASSERT_EQUAL_HEX8('o', COMTX);
-// }
-
 void test_uart_is_interrupt_enabled_should_returnCorrectValues(void)
 {
     TEST_ASSERT_FALSE(uart_is_interrupt_enabled());
