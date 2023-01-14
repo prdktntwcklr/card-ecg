@@ -136,5 +136,20 @@ void uart_send_string(const char *string)
  */
 void uart_handle_interrupt(void)
 {
-    /* TODO: Implement UART interrupt handler. */
+    /* check if we are receiving the correct interrupt */
+    if((COMIID0 & COMIID_TX_BUF_EMPTY) == COMIID_TX_BUF_EMPTY)
+    {
+        /* send the next symbol over UART */
+        uint8_t next_symbol = 0;
+
+        if(ring_buffer_get(&next_symbol))
+        {
+            COMTX = next_symbol;
+        }
+        else /* could not get next symbol, ring buffer is empty */
+        {
+            /* stop sending by turning off interrupt */
+            uart_disable_interrupt();
+        }
+    }
 }

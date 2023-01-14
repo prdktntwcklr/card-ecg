@@ -19,6 +19,7 @@ void setUp(void)
     COMDIV2 = 0;
     COMTX = 0;
     COMIEN0 = 0;
+    COMIID0 = 0;
 }
 
 void tearDown(void)
@@ -101,6 +102,30 @@ void test_uart_send_string_should_putStringIntoBuffer(void)
 
     /* ring buffer should be empty now */
     TEST_ASSERT_TRUE(ring_buffer_is_empty());
+}
+
+void test_uart_send_string_should_beHandledCorrectlyInInterrupt(void)
+{
+    uart_init();
+    uart_send_string("Hello!");
+
+    TEST_ASSERT_EQUAL('H', COMTX);
+    TEST_ASSERT_TRUE(uart_is_interrupt_enabled());
+
+    COMIID0 = COMIID_TX_BUF_EMPTY;
+    uart_handle_interrupt();
+    TEST_ASSERT_EQUAL('e', COMTX);
+    uart_handle_interrupt();
+    TEST_ASSERT_EQUAL('l', COMTX);
+    uart_handle_interrupt();
+    TEST_ASSERT_EQUAL('l', COMTX);
+    uart_handle_interrupt();
+    TEST_ASSERT_EQUAL('o', COMTX);
+    uart_handle_interrupt();
+    TEST_ASSERT_EQUAL('!', COMTX);
+    uart_handle_interrupt();
+
+    TEST_ASSERT_FALSE(uart_is_interrupt_enabled());
 }
 
 #endif // TEST
