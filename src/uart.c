@@ -137,7 +137,7 @@ void uart_send_string(const char *string)
 /**
  * @brief Handles the UART interrupt.
  */
-void uart_handle_interrupt(void)
+extern void uart_handle_interrupt(void)
 {
     /* check if we are receiving the correct interrupt */
     if((COMIID0 & COMIID_TX_BUF_EMPTY) == COMIID_TX_BUF_EMPTY)
