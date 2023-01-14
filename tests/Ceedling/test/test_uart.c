@@ -20,6 +20,7 @@ void setUp(void)
     COMTX = 0;
     COMIEN0 = 0;
     COMIID0 = 0;
+    IRQEN = 0;
 }
 
 void tearDown(void)
@@ -39,6 +40,8 @@ void test_uart_init_should_initializeUartCorrectly(void)
     TEST_ASSERT_EQUAL_HEX16(0x0815, COMDIV2);
 
     TEST_ASSERT_EQUAL_HEX8(0x03, COMCON0);
+
+    TEST_ASSERT_EQUAL_HEX32((1 << 11), IRQEN);
 }
 
 void test_uart_send_string_should_throwErrorIfUartIsNotInitialized(void)

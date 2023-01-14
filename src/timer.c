@@ -75,7 +75,7 @@ extern void timer_init(void)
     T0CON = T0_10MHZ | T0_DIV_256 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
 
     /* enable Timer0 interrupt */
-    IRQEN = TIMER0_BIT;
+    IRQEN |= TIMER0_BIT;
 
     timer_is_initialized = true;
 }

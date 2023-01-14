@@ -79,6 +79,9 @@ void uart_init(void)
     /* set word length as 8 bits */
     COMCON0 |= (1 << 1) | (1 << 0);
 
+    /* enable uart-related interrupts */
+    IRQEN |= UART_BIT;
+
     ring_buffer_reset();
 
     uart_is_initialized = true;
@@ -125,9 +128,9 @@ void uart_send_string(const char *string)
 
         ring_buffer_get(&first_symbol);
 
-        COMTX = first_symbol;
-
         uart_enable_interrupt();
+
+        COMTX = first_symbol;
     }
 }
 
@@ -142,7 +145,9 @@ void uart_handle_interrupt(void)
         /* send the next symbol over UART */
         uint8_t next_symbol = 0;
 
-        if(ring_buffer_get(&next_symbol))
+        bool more_to_send = ring_buffer_get(&next_symbol);
+
+        if(more_to_send)
         {
             COMTX = next_symbol;
         }
