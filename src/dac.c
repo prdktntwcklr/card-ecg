@@ -32,6 +32,7 @@ extern void dac_init(void)
  *
  * @note  Used for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 static void dac_deinit(void)
 {
     DAC0CON &= ~DAC0_NORMAL_OPERATION;

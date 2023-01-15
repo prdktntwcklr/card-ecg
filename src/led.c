@@ -32,6 +32,7 @@ extern void led_init(void)
  *
  * @note  Used for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 static void led_deinit(void)
 {
     led_is_initialized = false;

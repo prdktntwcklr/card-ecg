@@ -93,7 +93,6 @@ all: dirs $(ELF) $(HEX) $(LSS) size
 
 size: $(ELF)
 	$(SIZE) $(ELF)
-	@echo "Errors: none"
 
 test:
 	ceedling clobber
