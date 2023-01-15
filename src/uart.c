@@ -1,8 +1,5 @@
 #include "uart.h"
 
-#include <stdbool.h>
-#include <stdint.h>
-
 #include "my_assert.h"
 #include "ring_buffer.h"
 #include "system.h"
@@ -17,7 +14,6 @@
 static bool uart_is_initialized = false;
 
 /* static function prototypes */
-static bool uart_is_interrupt_enabled(void);
 static void uart_enable_interrupt(void);
 static void uart_disable_interrupt(void);
 
@@ -48,7 +44,7 @@ static void uart_disable_interrupt(void)
 /**
  * @brief Returns true if the UART transmit buffer empty interrupt is enabled.
  */
-static bool uart_is_interrupt_enabled(void)
+extern bool uart_is_interrupt_enabled(void)
 {
     return ((COMIEN0 & COMIEN0_TX_BUF_EMPTY) == COMIEN0_TX_BUF_EMPTY);
 }

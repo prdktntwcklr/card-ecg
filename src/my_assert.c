@@ -1,6 +1,7 @@
 #include "my_assert.h"
 #include "display.h"
 #include "framebuffer.h"
+#include "uart.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -10,9 +11,14 @@
 
 void my_assert_failed(const char *file, int line)
 {
-    /* TODO: output string to screen or uart */
     UNUSED(file);
     UNUSED(line);
+
+    /* TODO: add filename and line number */
+    uart_send_string("ASSERT failed!\r\n");
+
+    /* wait for UART to finish sending */
+    while(uart_is_interrupt_enabled()) {}
 
     /* after sending message, disable all interrupts */
     IRQCLR = 0xFFFF;
