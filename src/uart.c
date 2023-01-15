@@ -1,6 +1,7 @@
 #include "uart.h"
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "my_assert.h"
 #include "ring_buffer.h"
@@ -128,9 +129,9 @@ void uart_send_string(const char *string)
 
         ring_buffer_get(&first_symbol);
 
-        uart_enable_interrupt();
-
         COMTX = first_symbol;
+
+        uart_enable_interrupt();
     }
 }
 
