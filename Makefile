@@ -10,6 +10,8 @@
 #
 #----------------------------------------------------------------------------
 
+SHELL       = /bin/bash
+
 # program name
 TARGET      = card-ecg
 TOOL        = arm-none-eabi-
@@ -29,7 +31,7 @@ OBJCOPY     = $(TOOL)objcopy
 OBJDUMP     = $(TOOL)objdump
 SIZE        = $(TOOL)size -d
 RM          = rm -rf
-MD          = mkdir
+MD          = mkdir -p -v
 
 # dirs
 SRCDIR      = $(BASE)/src
@@ -87,22 +89,21 @@ LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
 LD_FLAGS   += -specs=nosys.specs
 
-.PHONY: all dirs clean size test
+VPATH      := $(DIRS)
+
+.PHONY: all dirs clean size
 
 all: dirs $(ELF) $(HEX) $(LSS) size
 
 size: $(ELF)
+	@echo --- running size tool...
 	$(SIZE) $(ELF)
 
-test:
-	ceedling clobber
-	ceedling test:all
-
-$(LSS): $(ELF) makefile
+$(LSS): $(ELF)
 	@echo --- making asm-lst...
 	$(OBJDUMP) -dC $(ELF) > $(LSS)	
 
-$(ELF):	$(OBJS) makefile
+$(ELF):	$(OBJS)
 	@echo --- linking...
 	$(LD) $(OBJS) $(LD_FLAGS) -o $(ELF)
 
@@ -110,30 +111,21 @@ $(HEX): $(ELF)
 	@echo --- creating hex...
 	$(OBJCOPY) -O ihex $(ELF) $(HEX)
 
-VPATH := $(DIRS)
-
-$(OBJDIR)/%.o: %.c makefile
+$(OBJDIR)/%.o: %.c
 	@echo --- compiling $<...
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-$(OBJDIR)/%.o: %.S makefile
+$(OBJDIR)/%.o: %.S
 	@echo --- assembling $<...
 	$(AS) -c $(AFLAGS) -o $@ $<
 
-dirs: $(OUTDIR) $(OBJDIR) $(LSTDIR) $(EXEDIR)
-
-$(OUTDIR):
+dirs:
+	@echo --- creating directories...
 	-@$(MD) "$(OUTDIR)"
-
-$(OBJDIR):
 	-@$(MD) "$(OBJDIR)"
-
-$(LSTDIR):
 	-@$(MD) "$(LSTDIR)"
-
-$(EXEDIR):
 	-@$(MD) "$(EXEDIR)"
 
 clean:
-	@echo --- cleaning up...
-	-@$(RM) $(OUTDIR)
+	@echo --- cleaning up output files...
+	-$(RM) $(OUTDIR)

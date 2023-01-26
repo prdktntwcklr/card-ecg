@@ -1,87 +1,71 @@
-# syntax for this file https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-# help on github actions: https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions
 name: main-workflow
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main, dev ]
   pull_request:
     branches: [ main, dev ]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build-hex:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: build docker image
+        run:  docker compose build
+      - name: build hex file
+        run:  docker compose run --rm build-hex
+      - name: upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: hex-file
+          path: output/exe/card-ecg.hex
   complexity-check:
     runs-on: ubuntu-latest
+    needs: build-hex # project has to build successfully before complexity check
     timeout-minutes: 5
     steps:
-      - name: checkout repo
+      - name: checkout code
         uses: actions/checkout@v3
-      - name: get updates
-        run:  sudo apt-get update
-      - name: install packages
-        run:  |
-              sudo apt-get install -y python3-pip
-              pip install lizard
-              lizard --version
-      - name: run complexity check tool
-        run:  |
-              cd tests/StaticAnalysis
-              chmod +x 01-code-complexity.sh
-              ./01-code-complexity.sh
+      - name: build docker image
+        run:  docker compose build
+      - name: run complexity check
+        run:  docker compose run --rm complexity-check
   cppcheck:
     runs-on: ubuntu-latest
+    needs: build-hex # project has to build successfully before static analysis
     timeout-minutes: 5
     steps:
-      - name: checkout repo
+      - name: checkout code
         uses: actions/checkout@v3
-      - name: get updates
-        run: sudo apt-get update
-      - name: install packages
-        run: |
-             sudo apt-get install -y cppcheck
-             cppcheck --version
-      - name: run cppcheck linter
-        run: |
-             cd tests/StaticAnalysis
-             chmod +x 02-cppcheck.sh
-             ./02-cppcheck.sh
+      - name: build docker image
+        run:  docker compose build
+      - name: run cppcheck
+        run:  docker compose run --rm cppcheck
   clang-tidy:
     runs-on: ubuntu-latest
+    needs: build-hex # project has to build successfully before static analysis
     timeout-minutes: 5
     steps:
-      - name: checkout repo
+      - name: checkout code
         uses: actions/checkout@v3
-      - name: get updates
-        run: sudo apt-get update
-      - name: install packages
-        run: |
-             sudo apt-get install -y clang-tidy
-             clang-tidy --version
-      - name: run clang-tidy linter
-        run: |
-             cd tests/StaticAnalysis
-             chmod +x 03-clang-tidy.sh
-             ./03-clang-tidy.sh
+      - name: build docker image
+        run:  docker compose build
+      - name: run clang-tidy
+        run:  docker compose run --rm clang-tidy
   unit-tests:
     runs-on: ubuntu-latest
+    needs: build-hex # project has to build successfully before unit tests
     timeout-minutes: 5
     steps:
-      - name: checkout repo
+      - name: checkout code
         uses: actions/checkout@v3
-      - name: get updates
-        run:  sudo apt-get update
-      - name: install packages
-        run:  |
-              sudo apt-get install -y make ruby
-              sudo gem install ceedling
-              ceedling version
-      - name: run all unit tests
-        run: |
-             cd tests/Ceedling
-             chmod +x 01-unit-tests.sh
-             ./01-unit-tests.sh
+      - name: build docker image
+        run:  docker compose build
+      - name: run unit tests
+        run:  docker compose run --rm unit-tests
