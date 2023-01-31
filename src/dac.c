@@ -19,6 +19,7 @@ static bool dac_is_initialized = false;
 /**
  * @brief Initializes the DAC.
  */
+/* cppcheck-suppress unusedFunction */
 extern void dac_init(void)
 {
     DAC0CON |= DAC0_NORMAL_OPERATION;
@@ -44,6 +45,7 @@ static void dac_deinit(void)
 /**
  * @brief Sets the DAC output to some value.
  */
+/* cppcheck-suppress unusedFunction */
 void dac_set(uint16_t dac_value)
 {
     MY_ASSERT(dac_is_initialized);

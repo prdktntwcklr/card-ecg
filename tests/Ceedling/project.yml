@@ -9,7 +9,7 @@
   :use_exceptions: TRUE
   :use_test_preprocessor: TRUE
   :use_auxiliary_dependencies: TRUE
-  :build_root: test-build
+  :build_root: build
 #  :release_build: TRUE
   :test_file_prefix: test_
   :which_ceedling: gem
@@ -73,9 +73,12 @@
 :gcov:
   :reports:
     - HtmlDetailed
+    - Text
   :gcovr:
     :html_medium_threshold: 75
     :html_high_threshold: 90
+    :text_artifact_filename: code-coverage.txt
+    :report_root: "../.."
 
 #:tools:
 # Ceedling defaults to using gcc for compiling, linking, etc.
@@ -100,4 +103,5 @@
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
+    - gcov
 ...

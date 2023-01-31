@@ -42,3 +42,11 @@ services:
     - build-image
     volumes:
     - ./:/app
+  code-coverage:
+    image: card-ecg
+    command: bash -c "cd tests/Ceedling && chmod +x 02-code-coverage.sh && \
+                      ./02-code-coverage.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app

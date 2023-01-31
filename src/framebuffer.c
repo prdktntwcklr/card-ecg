@@ -70,6 +70,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
 /**
  * @brief Returns the framebuffer.
  */
+/* cppcheck-suppress unusedFunction */
 fb_handle_t framebuffer_get(void)
 {
     /* framebuffer must be initialized first */
@@ -162,6 +163,7 @@ static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
+/* cppcheck-suppress unusedFunction */
 void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
                              const char *string)
 {
@@ -210,6 +212,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
  * @note  Passing the framebuffer handle as a parameter allows unit tests
  *        to inject a fake framebuffer here.
  */
+/* cppcheck-suppress unusedFunction */
 void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image)
 {
     for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)

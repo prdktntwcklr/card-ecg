@@ -209,6 +209,7 @@ extern void display_deinit(void)
 /**
  * @brief Sends the framebuffer to the display.
  */
+/* cppcheck-suppress unusedFunction */
 void display_send_framebuffer(uint8_t *data)
 {
     MY_ASSERT(data);
