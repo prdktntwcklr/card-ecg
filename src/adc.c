@@ -1,8 +1,7 @@
 #include "adc.h"
+#include "my_assert.h"
 
 #include <stdbool.h>
-
-#include "runtime_error.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -58,11 +57,7 @@ static void adc_deinit(void)
  */
 void adc_start(void)
 {
-    if(adc_is_initialized == false)
-    {
-        RUNTIME_ERROR("Adc is not initialized!");
-        return; /* for unit tests */        
-    }
+    MY_ASSERT(adc_is_initialized);
 
     /* store contents of register */
     uint8_t adcmde_reg = ADCMDE;
@@ -97,8 +92,8 @@ void adc_set_rate(const uint16_t adc_rate)
     }
     else
     {
-        RUNTIME_ERROR("Adc rate not supported!");
-        return; /* for unit tests */
+        /* adc_rate not supported */
+        MY_ERROR();
     }
 }
 
@@ -169,9 +164,8 @@ void adc_set_gain(const uint16_t adc_gain)
         }
         default:
         {
-            /* gain not supported, return without changing register */
-            RUNTIME_ERROR("Adc gain not supported!");
-            return; /* for unit tests */
+            /* gain not supported */
+            MY_ERROR();
         }
     }
 

@@ -2,12 +2,12 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
-#include "adc.h"
 #include "adc.c" /* hack to test static functions */
-#include "runtime_error_stub.h"
+#include "adc.h"
+#include "my_assert_stub.h"
+#include "testable_mcu_registers.h"
 
 void setUp(void)
 {
@@ -17,8 +17,6 @@ void setUp(void)
     ADCFLT = 0x0007;  /* default value */
     ADCCFG = 0;
     IRQEN = 0;
-
-    runtime_error_stub_reset();
 }
 
 void tearDown(void)
@@ -48,14 +46,9 @@ void test_adc_set_rate_should_setSupportedRatesCorrectly(void)
 
 void test_adc_set_rate_should_throwErrorIfRateNotSupported(void)
 {
-    adc_set_rate(60);
-    TEST_ASSERT_EQUAL_INT(126, ADCFLT);
-
-    adc_set_rate(256);
-    TEST_ASSERT_EQUAL_STRING("Adc rate not supported!", runtime_error_stub_get_last_error());
-
-    /* register should be untouched */
-    TEST_ASSERT_EQUAL_INT(126, ADCFLT);
+    TEST_ASSERT_FAIL_ASSERT(adc_set_rate(0));
+    TEST_ASSERT_FAIL_ASSERT(adc_set_rate(70));
+    TEST_ASSERT_FAIL_ASSERT(adc_set_rate(256));
 }
 
 void test_adc_set_gain_should_setSupportedGainsCorrectly(void)
@@ -93,14 +86,9 @@ void test_adc_set_gain_should_setSupportedGainsCorrectly(void)
 
 void test_adc_set_gain_should_throwErrorIfGainNotSupported(void)
 {
-    adc_set_gain(128);
-    TEST_ASSERT_EQUAL_HEX16(0x8007, ADC0CON);
-
-    adc_set_gain(333);
-    TEST_ASSERT_EQUAL_STRING("Adc gain not supported!", runtime_error_stub_get_last_error());
-
-    /* register should be untouched */
-    TEST_ASSERT_EQUAL_HEX16(0x8007, ADC0CON);
+    TEST_ASSERT_FAIL_ASSERT(adc_set_gain(0));
+    TEST_ASSERT_FAIL_ASSERT(adc_set_gain(3));
+    TEST_ASSERT_FAIL_ASSERT(adc_set_gain(13));
 }
 
 void test_adc_start_should_startAdcPeripgeral(void)
@@ -114,9 +102,7 @@ void test_adc_start_should_startAdcPeripgeral(void)
 
 void test_adc_start_should_throwErrorIfAdcIsNotInitialized(void)
 {
-    adc_start();
-
-    TEST_ASSERT_EQUAL_STRING("Adc is not initialized!", runtime_error_stub_get_last_error());    
+    TEST_ASSERT_FAIL_ASSERT(adc_start());
 }
 
 #endif // TEST
