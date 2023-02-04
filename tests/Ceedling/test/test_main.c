@@ -5,6 +5,7 @@
 #define EXTERN
 
 #include "main.h"
+#include "mock_adc.h"
 #include "mock_superloop.h"
 #include "mock_timer.h"
 #include "mock_uart.h"
