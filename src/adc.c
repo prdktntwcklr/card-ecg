@@ -76,6 +76,20 @@ void adc_start(void)
 }
 
 /*
+ * @brief Stops the ADC.
+ */
+void adc_stop(void)
+{
+    MY_ASSERT(adc_is_initialized);
+
+    /* power down ADC*/
+    ADCMDE = ~0x07;
+
+    /* disable ADC interrupts */
+    IRQEN &= ~ADC_BIT;
+}
+
+/*
  * @brief Sets the ADC rate.
  *
  * @note  Currently only supports 50 and 60 Hz.
