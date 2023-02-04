@@ -99,8 +99,6 @@ static void uart_deinit(void)
 
 /**
  * @brief Sends a string through UART.
- * 
- * @todo  Should be interrupt-based by getting characters from ring buffer.
  */
 void uart_send_string(const char *string)
 {
