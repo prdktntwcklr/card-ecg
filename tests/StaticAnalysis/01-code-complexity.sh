@@ -20,7 +20,7 @@ echo " ========================================================= "
 echo ""
 
 results=$(lizard -w -Tnloc=$NLOC -Tcyclomatic_complexity=$CCN \
-          -Tparameter_count=$PAR -Tlength=$LEN --languages c ../src)
+          -Tparameter_count=$PAR -Tlength=$LEN --languages c ../../src)
 
 echo "Running lizard..."
 
@@ -30,18 +30,18 @@ echo "     RESULTS                                               "
 echo ""
 
 if [[ $results ]]; then
-	echo "     FAIL                                                  " 
-	echo "     Consider refactoring the following functions:         "
+    echo "     FAIL                                                  " 
+    echo "     Consider refactoring the following functions:         "
     echo " ========================================================= "
-	echo ""
+    echo ""
     echo "$results"
-	echo ""
-	exit 1
+    echo ""
+    exit 1
 else
-	echo "     SUCCESS                                               "
-	echo "     Your code does not exceed any thresholds.             "
+    echo "     SUCCESS                                               "
+    echo "     Your code does not exceed any thresholds.             "
     echo " ========================================================= "
-	echo ""
+    echo ""
 fi
 
 exit 0

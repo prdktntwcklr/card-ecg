@@ -1,5 +1,5 @@
 #include "timer.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 
 #ifndef TEST
@@ -23,7 +23,7 @@ static volatile uint32_t time_stamp = 0;
 /* flag to check if peripheral is initialized or not */
 static bool timer_is_initialized = false;
 
-/*
+/**
  * @brief Returns the current time stamp value.
  */
 static uint32_t timer_get_stamp(void)
@@ -36,7 +36,7 @@ static uint32_t timer_get_stamp(void)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Sets the time stamp to a given value.
  *
  * @note  Helper function for unit testing.
@@ -51,7 +51,7 @@ static void timer_set_stamp(const uint32_t value)
 #endif
 
 #ifdef TEST
-/*
+/**
  * @brief Increments the time stamp by a given value.
  *
  * @note  Helper function for unit testing.
@@ -65,7 +65,7 @@ static void timer_increment_stamp(const uint32_t value)
 }
 #endif
 
-/*
+/**
  * @brief Initializes the Timer0 peripheral.
  */
 extern void timer_init(void)
@@ -75,13 +75,13 @@ extern void timer_init(void)
     T0CON = T0_10MHZ | T0_DIV_256 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
 
     /* enable Timer0 interrupt */
-    IRQEN = TIMER0_BIT;
+    IRQEN |= TIMER0_BIT;
 
     timer_is_initialized = true;
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Deinitializes the timer module.
  *
  * @note  Helper function for unit testing.
@@ -93,34 +93,26 @@ static void timer_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Returns TRUE if the deadline has been reached or surpassed.
  */
-extern bool timer_deadline_reached(const uint32_t deadline)
+extern bool timer_deadline_reached(uint32_t deadline)
 {
-    if(timer_is_initialized == false)
-    {
-        RUNTIME_ERROR("Timer is not initialized!");
-        return false; /* for unit tests */
-    }
+    MY_ASSERT(timer_is_initialized);
 
     return ((int32_t)(time_stamp - deadline) >= 0);
 }
 
 extern void timer_delay_10ms(void)
 {
-    if(timer_is_initialized == false)
-    {
-        RUNTIME_ERROR("Timer is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(timer_is_initialized);
 
     uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2);
 
     while(!timer_deadline_reached(deadline)) {}
 }
 
-/*
+/**
  * @brief Handles the Timer0 interrupt.
  */
 extern void timer_handle_interrupt(void)

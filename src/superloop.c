@@ -3,7 +3,7 @@
 #include "framebuffer.h"
 #include "led.h"
 #include "logo.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 #include "timer.h"
 #include "uart.h"
@@ -19,7 +19,7 @@
 STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH, display_and_framebuffer_widths_do_not_match);
 STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_heights_do_not_match);
 
-/*
+/**
  * @brief Runs once at the beginning of the program.
  */
 extern void superloop_init(void)
@@ -32,9 +32,12 @@ extern void superloop_init(void)
     timer_init();
     display_init();
     framebuffer_init();
+
+    uart_init();
+    uart_send_string("Hallo Welt!\r\n");
 }
 
-/*
+/**
  * @brief Runs continuously.
  */
 extern bool superloop_run(void)

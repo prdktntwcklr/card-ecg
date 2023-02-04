@@ -4,6 +4,6 @@
 #include <stdint.h>
 
 void dac_init(void);
-void dac_set(const uint16_t dac_value);
+void dac_set(uint16_t dac_value);
 
 #endif // DAC_H

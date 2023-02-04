@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 void timer_init(void);
-bool timer_deadline_reached(const uint32_t deadline);
+bool timer_deadline_reached(uint32_t deadline);
 void timer_delay_10ms(void);
 void timer_handle_interrupt(void);
 

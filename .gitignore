@@ -1,6 +1,5 @@
 .vscode/
+*.code-workspace
 *.lnk
-hardware/
+docs/
 output/
-static-analysis/doxygen/
-test-build/
