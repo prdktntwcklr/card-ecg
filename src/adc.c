@@ -15,6 +15,7 @@ static bool adc_is_initialized = false;
 /*
  * @brief Initializes the ADC.
  */
+/* cppcheck-suppress unusedFunction */
 void adc_init(void)
 {
     /* disable all ADC interrupts */
@@ -46,6 +47,7 @@ void adc_init(void)
  *
  * @note  Used for unit testing.
  */
+/* cppcheck-suppress unusedFunction */
 static void adc_deinit(void)
 {
     adc_is_initialized = false;
@@ -55,6 +57,7 @@ static void adc_deinit(void)
 /*
  * @brief Starts the ADC in continous mode and enables ADC interrupts.
  */
+/* cppcheck-suppress unusedFunction */
 void adc_start(void)
 {
     MY_ASSERT(adc_is_initialized);
@@ -78,6 +81,7 @@ void adc_start(void)
 /*
  * @brief Stops the ADC.
  */
+/* cppcheck-suppress unusedFunction */
 void adc_stop(void)
 {
     MY_ASSERT(adc_is_initialized);
@@ -90,11 +94,22 @@ void adc_stop(void)
 }
 
 /*
+ * @brief Gets a value read in by the ADC.
+ */
+/* cppcheck-suppress unusedFunction */
+int32_t adc_get(void)
+{
+    /* TODO: implement this function */
+
+    return 0;
+}
+
+/*
  * @brief Sets the ADC rate.
  *
  * @note  Currently only supports 50 and 60 Hz.
  */
-void adc_set_rate(const uint16_t adc_rate)
+void adc_set_rate(uint16_t adc_rate)
 {
     if(adc_rate == 50)
     {
@@ -116,7 +131,8 @@ void adc_set_rate(const uint16_t adc_rate)
  *
  * @note  Only certain values are supported, see p46.
  */
-void adc_set_gain(const uint16_t adc_gain)
+/* cppcheck-suppress unusedFunction */
+void adc_set_gain(uint16_t adc_gain)
 {
     /* store contents of register */
     uint16_t adc0con_reg = ADC0CON;
@@ -185,4 +201,12 @@ void adc_set_gain(const uint16_t adc_gain)
 
     /* update register */
     ADC0CON = adc0con_reg;
+}
+
+/**
+ * @brief Handles the ADC interrupt.
+ */
+extern void adc_handle_interrupt(void)
+{
+    /* TODO: implement this function */
 }

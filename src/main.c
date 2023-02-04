@@ -1,4 +1,5 @@
 #include "main.h"
+#include "adc.h"
 #include "superloop.h"
 #include "timer.h"
 #include "uart.h"
@@ -47,5 +48,9 @@ void testable_irq_handler(void)
     else if((irq_status & UART_BIT) == UART_BIT)
     {
         uart_handle_interrupt();
+    }
+    else if((irq_status & ADC_BIT) == ADC_BIT)
+    {
+        adc_handle_interrupt();
     }
 }

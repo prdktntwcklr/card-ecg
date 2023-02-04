@@ -110,7 +110,7 @@ void test_adc_stop_should_throwErrorIfAdcIsNotInitialized(void)
     TEST_ASSERT_FAIL_ASSERT(adc_stop());
 }
 
-void test_adc_stop_shouldTurnOffAdcAndAdcInterrupt(void)
+void test_adc_stop_should_turnOffAdcAndAdcInterrupt(void)
 {
     adc_init();
 
@@ -121,6 +121,11 @@ void test_adc_stop_shouldTurnOffAdcAndAdcInterrupt(void)
 
     TEST_ASSERT_EQUAL_HEX8(0xF8, ADCMDE);
     TEST_ASSERT_EQUAL_HEX32(0xFFFFFBFF, IRQEN);
+}
+
+void test_adc_get_should_returnDataFromAdc(void)
+{
+    TEST_ASSERT_EQUAL_INT32(0, adc_get());
 }
 
 #endif // TEST
