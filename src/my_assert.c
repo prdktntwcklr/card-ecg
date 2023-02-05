@@ -2,6 +2,7 @@
 #include "display.h"
 #include "framebuffer.h"
 #include "uart.h"
+#include "uart_drv.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -18,7 +19,7 @@ void my_assert_failed(const char *file, int line)
     uart_send_string("ASSERT failed!\r\n");
 
     /* wait for UART to finish sending */
-    while(uart_is_interrupt_enabled()) {}
+    while(uart_drv_is_interrupt_enabled()) {}
 
     /* after sending message, disable all interrupts */
     IRQCLR = 0xFFFF;
