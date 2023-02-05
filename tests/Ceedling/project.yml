@@ -36,7 +36,8 @@
   :source:
     - ../../src/**
   :include:
-    - ../../inc/**  
+    - ../../inc/**
+    - ../../third-party/**
   :support:
     - test/support
   :libraries: []

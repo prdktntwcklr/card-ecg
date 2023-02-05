@@ -1,6 +1,7 @@
 #include "my_assert.h"
 #include "display.h"
 #include "framebuffer.h"
+#include "my_printf.h"
 #include "uart.h"
 #include "uart_drv.h"
 
@@ -16,7 +17,7 @@ void my_assert_failed(const char *file, int line)
     UNUSED(line);
 
     /* TODO: add filename and line number */
-    uart_send_string("ASSERT failed!\r\n");
+    MY_PRINTF("ASSERT in %s:%d\r\n", file, line);
 
     /* wait for UART to finish sending */
     while(uart_drv_is_interrupt_enabled()) {}

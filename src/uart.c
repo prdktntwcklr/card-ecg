@@ -1,9 +1,10 @@
 #include "uart.h"
-
 #include "my_assert.h"
 #include "ring_buffer.h"
 #include "system.h"
 #include "uart_drv.h"
+
+#ifndef NPRINTF /* NPRINTF not defined -- printf enabled */
 
 /* flag to check if peripheral is initialized or not */
 static bool uart_is_initialized = false;
@@ -39,38 +40,6 @@ static void uart_deinit(void)
 #endif
 
 /**
- * @brief Sends a string through UART.
- */
-void uart_send_string(const char *string)
-{
-    MY_ASSERT(uart_is_initialized);
-
-    for(uint8_t i = 0; i < MAX_UART_LENGTH; i++)
-    {
-        uint8_t next_symbol = (uint8_t)string[i];
-
-        /* check for end of string */
-        if(next_symbol == 0)
-        {
-            break;
-        }
-
-        ring_buffer_put(next_symbol);
-    }
-
-    if(!uart_drv_is_interrupt_enabled())
-    {
-        uint8_t first_symbol = 0;
-
-        ring_buffer_get(&first_symbol);
-
-        uart_drv_send_byte(first_symbol);
-
-        uart_drv_enable_interrupt();
-    }
-}
-
-/**
  * @brief Handles the UART interrupt.
  */
 extern void uart_handle_interrupt(void)
@@ -94,3 +63,38 @@ extern void uart_handle_interrupt(void)
         }
     }
 }
+
+/**
+ * @brief Putchar implementation for using printf library.
+ */
+/* cppcheck-suppress unusedFunction */
+void putchar_(char c)
+{
+    MY_ASSERT(uart_is_initialized);
+
+    ring_buffer_put(c);
+
+    if(!uart_drv_is_interrupt_enabled())
+    {
+        uint8_t first_symbol = 0;
+
+        ring_buffer_get(&first_symbol);
+
+        uart_drv_send_byte(first_symbol);
+
+        uart_drv_enable_interrupt();
+    }
+}
+
+#else /* NPRINTF defined -- printf disabled */
+
+/* stub out uart functions if printf is not used */
+extern void uart_init(void)
+{
+}
+extern void uart_handle_interrupt(void)
+{
+}
+
+#endif
+/*** end of file ***/

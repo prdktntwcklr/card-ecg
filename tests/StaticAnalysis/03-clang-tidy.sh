@@ -10,7 +10,7 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker ../../src/* -header-filter=.* -- -nostdlibinc -mfloat-abi=soft --target=arm -I../../inc -I../../common > $dummy_file
+$checker ../../src/* -header-filter=.* -- -nostdlibinc -mfloat-abi=soft --target=arm -I../../inc -I../../common -I../../third-party > $dummy_file
 
 echo ""
 echo " ========================================================= "
