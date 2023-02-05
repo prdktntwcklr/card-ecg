@@ -11,3 +11,4 @@ bool ring_buffer_is_empty(void);
 bool ring_buffer_is_full(void);
 
 #endif // RING_BUFFER_H
+/*** end of file ***/

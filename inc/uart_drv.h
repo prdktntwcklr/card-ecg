@@ -12,3 +12,4 @@ void uart_drv_send_byte(uint8_t byte);
 bool is_tx_buf_empty_interrupt(void);
 
 #endif // UART_DRV_H
+/*** end of file ***/

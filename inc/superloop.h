@@ -7,3 +7,4 @@ void superloop_init(void);
 bool superloop_run(void);
 
 #endif // SUPERLOOP_H
+/*** end of file ***/

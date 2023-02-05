@@ -53,3 +53,4 @@ void dac_set(uint16_t dac_value)
 
     DAC0DAT = ((uint32_t)dac_value << 16);
 }
+/*** end of file ***/

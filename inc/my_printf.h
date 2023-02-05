@@ -8,4 +8,5 @@
 
 #define MY_PRINTF(...) ((void)0U)
 
-#endif
+#endif /* NPRINTF */
+/*** end of file ***/

@@ -21,3 +21,4 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
 void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image);
 
 #endif // FRAMEBUFFER_H
+/*** end of file ***/

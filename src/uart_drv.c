@@ -78,3 +78,4 @@ __inline__ extern bool is_tx_buf_empty_interrupt(void)
 {
     return ((COMIID0 & COMIID_TX_BUF_EMPTY) == COMIID_TX_BUF_EMPTY);
 }
+/*** end of file ***/

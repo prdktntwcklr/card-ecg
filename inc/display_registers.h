@@ -49,3 +49,4 @@
 #define SSD1306_SET_VERTICAL_SCROLL_AREA             (0xA3)
 
 #endif // DISPLAY_REGISTERS_H
+/*** end of file ***/

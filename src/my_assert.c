@@ -28,3 +28,4 @@ void my_assert_failed(const char *file, int line)
     /* hang in while loop */
     while(1) {}
 }
+/*** end of file ***/

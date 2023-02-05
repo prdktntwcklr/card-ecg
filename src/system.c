@@ -20,3 +20,4 @@ extern void system_init(void)
     POWCON0 = CLK_10240_KHZ | CORE_POWER_ON | PERIPH_POWER_ON | PLL_POWER_ON;
     POWKEY2 = POWKEY2_KEY;
 }
+/*** end of file ***/

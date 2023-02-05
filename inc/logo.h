@@ -6,3 +6,4 @@
 extern const uint8_t logo[];
 
 #endif // LOGO_H
+/*** end of file ***/

@@ -89,12 +89,8 @@ void putchar_(char c)
 #else /* NPRINTF defined -- printf disabled */
 
 /* stub out uart functions if printf is not used */
-extern void uart_init(void)
-{
-}
-extern void uart_handle_interrupt(void)
-{
-}
+extern void uart_init(void) {}
+extern void uart_handle_interrupt(void) {}
 
-#endif
+#endif /* NPRINTF */
 /*** end of file ***/

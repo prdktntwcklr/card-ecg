@@ -224,3 +224,4 @@ void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image)
         }
     }
 }
+/*** end of file ***/

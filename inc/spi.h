@@ -8,3 +8,4 @@ void spi_wait_for_tx_complete(void);
 void spi_send_data(uint8_t data);
 
 #endif // SPI_H
+/*** end of file ***/

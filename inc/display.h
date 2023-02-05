@@ -10,3 +10,4 @@ void display_init(void);
 void display_send_framebuffer(uint8_t *data);
 
 #endif // DISPLAY_H
+/*** end of file ***/

@@ -8,3 +8,4 @@ void uart_init(void);
 void uart_handle_interrupt(void);
 
 #endif // UART_H
+/*** end of file ***/

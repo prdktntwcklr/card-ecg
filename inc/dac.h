@@ -7,3 +7,4 @@ void dac_init(void);
 void dac_set(uint16_t dac_value);
 
 #endif // DAC_H
+/*** end of file ***/

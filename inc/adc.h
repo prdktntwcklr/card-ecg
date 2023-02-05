@@ -12,3 +12,4 @@ void adc_set_gain(uint16_t adc_gain);
 void adc_handle_interrupt(void);
 
 #endif // ADC_H
+/*** end of file ***/

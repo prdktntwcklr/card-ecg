@@ -3,11 +3,11 @@
 
 void my_assert_failed(const char *file, int line);
 
-#ifdef NASSERT           /* NASSERT defined -- asserts disabled */
+#ifdef NASSERT /* NASSERT defined -- asserts disabled */
 
 #define MY_ASSERT(ignore) ((void)0U)
 
-#else                    /* NASSERT not defined -- asserts enabled */
+#else /* NASSERT not defined -- asserts enabled */
 
 /**
  * @brief Used for runtime asserts.
@@ -26,7 +26,7 @@ void my_assert_failed(const char *file, int line);
         }                                                                      \
     } while(0)
 
-#endif                   /* NASSERT */
+#endif /* NASSERT */
 
 #define MY_ERROR() MY_ASSERT(0)
 
@@ -46,4 +46,5 @@ void my_assert_failed(const char *file, int line);
 #define STATIC_ASSERT(cond,msg)
 #endif
 
-#endif // MY_ASSERT_H
+#endif /* MY_ASSERT_H */
+/*** end of file ***/

@@ -10,3 +10,4 @@ void timer_delay_10ms(void);
 void timer_handle_interrupt(void);
 
 #endif // TIMER_H
+/*** end of file ***/
