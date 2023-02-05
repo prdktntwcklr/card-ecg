@@ -14,16 +14,16 @@ void my_assert_failed(const char *file, int line);
  *
  * @ref   https://barrgroup.com/embedded-systems/how-to/design-by-contract-for-embedded-software
  */
-#define MY_ASSERT(expr)                           \
-    do                                            \
-    {                                             \
-        if(expr)                                  \
-        {                                         \
-        }                                         \
-        else                                      \
-        {                                         \
-            my_assert_failed(__FILE__, __LINE__); \
-        }                                         \
+#define MY_ASSERT(expr)                                                        \
+    do                                                                         \
+    {                                                                          \
+        if(expr)                                                               \
+        {                                                                      \
+        }                                                                      \
+        else                                                                   \
+        {                                                                      \
+            my_assert_failed(__FILE__, __LINE__);                              \
+        }                                                                      \
     } while(0)
 
 #endif                   /* NASSERT */

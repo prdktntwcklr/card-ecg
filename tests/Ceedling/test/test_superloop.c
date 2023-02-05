@@ -32,7 +32,6 @@ void test_superloop_init_should_initializePeripherals(void)
     display_init_Expect();
     framebuffer_init_Expect();
     uart_init_Expect();
-    uart_send_string_Expect("Hallo Welt!\r\n");
 
     superloop_init();
 }

@@ -4,6 +4,7 @@
 #include "led.h"
 #include "logo.h"
 #include "my_assert.h"
+#include "my_printf.h"
 #include "system.h"
 #include "timer.h"
 #include "uart.h"
@@ -34,7 +35,6 @@ extern void superloop_init(void)
     framebuffer_init();
 
     uart_init();
-    uart_send_string("Hallo Welt!\r\n");
 }
 
 /**
