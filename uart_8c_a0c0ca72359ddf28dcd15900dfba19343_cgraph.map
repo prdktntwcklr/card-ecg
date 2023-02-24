@@ -1,0 +1,6 @@
+<map id="uart_init" name="uart_init">
+<area shape="rect" id="node1" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="5,56,81,83"/>
+<area shape="rect" id="node2" href="$ring__buffer_8c.html#a5eb864d4aa771d0062c739623015396c" title="Resets the ring buffer to default state." alt="" coords="160,5,292,32"/>
+<area shape="rect" id="node3" href="$uart__drv_8c.html#ad40d6eb8cc841db03d229080a16044b6" title="Enables the UART transmit buffer empty interrupt." alt="" coords="129,56,323,83"/>
+<area shape="rect" id="node4" href="$uart__drv_8c.html#a8156558601ce01cc8ebd993c31a4a742" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="174,107,278,133"/>
+</map>

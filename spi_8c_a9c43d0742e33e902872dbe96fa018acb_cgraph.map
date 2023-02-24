@@ -1,0 +1,4 @@
+<map id="spi_send_data" name="spi_send_data">
+<area shape="rect" id="node1" title="Sends data through SPI." alt="" coords="5,13,120,39"/>
+<area shape="rect" id="node2" href="$spi_8c.html#ac3fb1651ad60d0280aea4c1f596d3266" title="Blocks until there is space in FIFO." alt="" coords="168,5,315,47"/>
+</map>

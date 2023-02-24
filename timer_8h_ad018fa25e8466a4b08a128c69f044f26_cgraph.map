@@ -1,0 +1,5 @@
+<map id="timer_delay_10ms" name="timer_delay_10ms">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="196,5,375,32"/>
+<area shape="rect" id="node3" href="$timer_8c.html#aa8b68634398f2241c635f10c50651026" title="Returns the current time stamp value." alt="" coords="219,56,352,83"/>
+</map>

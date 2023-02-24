@@ -1,0 +1,6 @@
+<map id="display_reset_off" name="display_reset_off">
+<area shape="rect" id="node1" title="Turns the reset pin off." alt="" coords="493,31,627,57"/>
+<area shape="rect" id="node2" href="$display__drv_8c.html#a8a9333feb4ed2e6837fc1571323b352b" title="Initializes the GPIO pins for the display." alt="" coords="313,5,445,32"/>
+<area shape="rect" id="node3" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="168,31,265,57"/>
+<area shape="rect" id="node4" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,31,120,57"/>
+</map>

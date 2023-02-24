@@ -1,0 +1,7 @@
+<map id="ring_buffer_is_empty" name="ring_buffer_is_empty">
+<area shape="rect" id="node1" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="528,31,687,57"/>
+<area shape="rect" id="node2" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="360,31,480,57"/>
+<area shape="rect" id="node3" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="191,5,270,32"/>
+<area shape="rect" id="node4" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,56,312,83"/>
+<area shape="rect" id="node5" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,56,101,83"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="display_cs_on" name="display_cs_on">
+<area shape="rect" id="node1" title="Turns the CS pin on." alt="" coords="648,31,761,57"/>
+<area shape="rect" id="node2" href="$display_8c.html#adbd67ddaef663b560f256e4c7f7c4aee" title="Sends the data of the framebuffer to the display." alt="" coords="407,5,600,32"/>
+<area shape="rect" id="node4" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="414,56,593,83"/>
+<area shape="rect" id="node3" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,5,359,32"/>
+<area shape="rect" id="node5" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,56,312,83"/>
+<area shape="rect" id="node6" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,56,120,83"/>
+</map>

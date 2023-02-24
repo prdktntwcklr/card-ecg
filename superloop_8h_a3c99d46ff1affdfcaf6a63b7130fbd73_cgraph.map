@@ -1,0 +1,29 @@
+<map id="superloop_init" name="superloop_init">
+<area shape="rect" id="node1" title="Runs once at the beginning of the program." alt="" coords="5,411,120,437"/>
+<area shape="rect" id="node2" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="183,157,280,184"/>
+<area shape="rect" id="node18" href="$framebuffer_8c.html#ae4c7eb1c41e9949b7c789f15104e8fb3" title="Initializes the framebuffer and clears it." alt="" coords="168,335,295,361"/>
+<area shape="rect" id="node20" href="$led_8c.html#a7eb4d382bdd4b42c57dbb7154d03ac66" title="Initializes the LED." alt="" coords="196,385,267,412"/>
+<area shape="rect" id="node22" href="$system_8c.html#a43f5e0d6db0fb41a437cc9096b32e9b5" title="Initializes the system by setting power and clock peripherals." alt="" coords="182,436,281,463"/>
+<area shape="rect" id="node23" href="$timer_8c.html#a7b8ab79df77b57475a5494f5f81c3bd9" title="Initializes the Timer0 peripheral." alt="" coords="189,487,274,513"/>
+<area shape="rect" id="node24" href="$uart_8c.html#a0c0ca72359ddf28dcd15900dfba19343" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="193,537,269,564"/>
+<area shape="rect" id="node3" href="$display__drv_8c.html#a8a9333feb4ed2e6837fc1571323b352b" title="Initializes the GPIO pins for the display." alt="" coords="373,208,505,235"/>
+<area shape="rect" id="node6" href="$display__drv_8c.html#ad8cee790d6c631526f153b9334df04af" title="Turns the reset pin off." alt="" coords="612,157,745,184"/>
+<area shape="rect" id="node7" href="$display__drv_8c.html#a15083a21eec67ce3909bee510ffeca07" title="Turns the reset pin on." alt="" coords="373,5,505,32"/>
+<area shape="rect" id="node8" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="350,284,529,311"/>
+<area shape="rect" id="node14" href="$spi_8c.html#ac0aa177752afc8cef4aa586143711465" title="Initializes the SPI peripheral." alt="" coords="405,56,474,83"/>
+<area shape="rect" id="node15" href="$timer_8c.html#ad018fa25e8466a4b08a128c69f044f26" title=" " alt="" coords="368,107,511,133"/>
+<area shape="rect" id="node4" href="$display__drv_8c.html#a673d9b473b529ed0be43ddd2d2a564d7" title="Turns the CS pin off." alt="" coords="621,208,736,235"/>
+<area shape="rect" id="node5" href="$display__drv_8c.html#a3179ef2d6f25be813d07a38ec839758c" title="Turns the DC pin off." alt="" coords="621,259,736,285"/>
+<area shape="rect" id="node9" href="$display__drv_8c.html#a7479ba359792e685997a0f922d7cafb6" title="Turns the CS pin on." alt="" coords="622,411,735,437"/>
+<area shape="rect" id="node10" href="$display__drv_8c.html#afaa62d2c34da53a65dba2eec2d86cacf" title="Turns the DC pin on." alt="" coords="621,461,736,488"/>
+<area shape="rect" id="node11" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="621,309,736,336"/>
+<area shape="rect" id="node13" href="$spi_8c.html#a574aaedb801473f28d916beb3ec788b3" title="Blocks until transmit FIFO is empty." alt="" coords="584,360,773,387"/>
+<area shape="rect" id="node12" href="$spi_8c.html#ac3fb1651ad60d0280aea4c1f596d3266" title="Blocks until there is space in FIFO." alt="" coords="821,302,968,343"/>
+<area shape="rect" id="node16" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="589,56,768,83"/>
+<area shape="rect" id="node17" href="$timer_8c.html#aa8b68634398f2241c635f10c50651026" title="Returns the current time stamp value." alt="" coords="612,107,745,133"/>
+<area shape="rect" id="node19" href="$framebuffer_8c.html#a990aabfecebcb504a778d823063a5895" title="Clears the whole framebuffer." alt="" coords="370,335,509,361"/>
+<area shape="rect" id="node21" href="$led_8c.html#a429f05b7eac928971c19e37ddc7079be" title="Turns the LED off." alt="" coords="406,385,473,412"/>
+<area shape="rect" id="node25" href="$ring__buffer_8c.html#a5eb864d4aa771d0062c739623015396c" title="Resets the ring buffer to default state." alt="" coords="373,487,505,513"/>
+<area shape="rect" id="node26" href="$uart__drv_8c.html#ad40d6eb8cc841db03d229080a16044b6" title="Enables the UART transmit buffer empty interrupt." alt="" coords="343,537,536,564"/>
+<area shape="rect" id="node27" href="$uart__drv_8c.html#a8156558601ce01cc8ebd993c31a4a742" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="387,588,491,615"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="spi_init" name="spi_init">
+<area shape="rect" id="node1" title="Initializes the SPI peripheral." alt="" coords="313,5,383,32"/>
+<area shape="rect" id="node2" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="168,5,265,32"/>
+<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+</map>
