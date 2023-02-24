@@ -58,5 +58,5 @@ jobs:
         run:  docker compose run --rm unit-tests
       - name: check code coverage
         run:  docker compose run --rm code-coverage
-      - name: output code coverage report
-        run:  cat ./tests/Ceedling/build/artifacts/gcov/code-coverage.txt
+      - name: add code coverage to job summary
+        run:  cat tests/Ceedling/build/artifacts/gcov/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY

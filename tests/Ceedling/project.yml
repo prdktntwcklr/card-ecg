@@ -75,10 +75,10 @@
   :reports:
     - HtmlDetailed
     - Text
+    - Cobertura
   :gcovr:
     :html_medium_threshold: 75
     :html_high_threshold: 90
-    :text_artifact_filename: code-coverage.txt
     :report_root: "../.."
 
 #:tools:
