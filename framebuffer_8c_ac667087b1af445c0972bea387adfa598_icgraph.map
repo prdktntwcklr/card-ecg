@@ -1,0 +1,4 @@
+<map id="bottom_of_framebuffer_reached" name="bottom_of_framebuffer_reached">
+<area shape="rect" id="node1" title="Checks if the y position for the next symbol goes beyond the edge of the framebuffer." alt="" coords="236,5,409,47"/>
+<area shape="rect" id="node2" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,13,188,39"/>
+</map>

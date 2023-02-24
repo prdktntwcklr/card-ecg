@@ -1,0 +1,6 @@
+<map id="display_gpio_init" name="display_gpio_init">
+<area shape="rect" id="node1" title="Initializes the GPIO pins for the display." alt="" coords="5,56,137,83"/>
+<area shape="rect" id="node2" href="$display__drv_8c.html#a673d9b473b529ed0be43ddd2d2a564d7" title="Turns the CS pin off." alt="" coords="195,5,309,32"/>
+<area shape="rect" id="node3" href="$display__drv_8c.html#a3179ef2d6f25be813d07a38ec839758c" title="Turns the DC pin off." alt="" coords="195,56,309,83"/>
+<area shape="rect" id="node4" href="$display__drv_8c.html#ad8cee790d6c631526f153b9334df04af" title="Turns the reset pin off." alt="" coords="185,107,319,133"/>
+</map>

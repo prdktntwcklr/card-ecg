@@ -1,0 +1,4 @@
+<map id="ring_buffer_put" name="ring_buffer_put">
+<area shape="rect" id="node1" title="Adds value in byte to the ring buffer." alt="" coords="132,5,252,32"/>
+<area shape="rect" id="node2" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="5,5,84,32"/>
+</map>

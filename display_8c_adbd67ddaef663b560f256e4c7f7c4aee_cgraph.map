@@ -1,0 +1,8 @@
+<map id="display_burst_framebuffer" name="display_burst_framebuffer">
+<area shape="rect" id="node1" title="Sends the data of the framebuffer to the display." alt="" coords="5,81,199,108"/>
+<area shape="rect" id="node2" href="$display__drv_8c.html#a673d9b473b529ed0be43ddd2d2a564d7" title="Turns the CS pin off." alt="" coords="284,5,399,32"/>
+<area shape="rect" id="node3" href="$display__drv_8c.html#a7479ba359792e685997a0f922d7cafb6" title="Turns the CS pin on." alt="" coords="285,56,398,83"/>
+<area shape="rect" id="node4" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="284,107,399,133"/>
+<area shape="rect" id="node6" href="$spi_8c.html#a574aaedb801473f28d916beb3ec788b3" title="Blocks until transmit FIFO is empty." alt="" coords="247,157,436,184"/>
+<area shape="rect" id="node5" href="$spi_8c.html#ac3fb1651ad60d0280aea4c1f596d3266" title="Blocks until there is space in FIFO." alt="" coords="484,99,631,141"/>
+</map>

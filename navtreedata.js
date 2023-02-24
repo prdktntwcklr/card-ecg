@@ -24,12 +24,24 @@
 */
 var NAVTREE =
 [
-  [ "Card ECG", "index.html", ]
+  [ "Card ECG", "index.html", [
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ],
+      [ "Globals", "globals.html", [
+        [ "All", "globals.html", "globals_dup" ],
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
+    ] ]
+  ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"adc_8c.html",
+"timer_8c.html#a65d71e442369b992c878db434008c7be"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
