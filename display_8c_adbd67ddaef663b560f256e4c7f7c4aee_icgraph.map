@@ -1,4 +1,0 @@
-<map id="display_burst_framebuffer" name="display_burst_framebuffer">
-<area shape="rect" id="node1" title="Sends the data of the framebuffer to the display." alt="" coords="244,5,437,32"/>
-<area shape="rect" id="node2" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="5,5,196,32"/>
-</map>

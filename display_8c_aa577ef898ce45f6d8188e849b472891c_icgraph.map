@@ -1,6 +1,0 @@
-<map id="display_send_command" name="display_send_command">
-<area shape="rect" id="node1" title="Sends a command to the display." alt="" coords="407,31,585,57"/>
-<area shape="rect" id="node2" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,5,312,32"/>
-<area shape="rect" id="node4" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,56,359,83"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
-</map>

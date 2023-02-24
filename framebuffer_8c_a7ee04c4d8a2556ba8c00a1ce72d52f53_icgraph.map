@@ -1,4 +1,0 @@
-<map id="framebuffer_draw_symbol" name="framebuffer_draw_symbol">
-<area shape="rect" id="node1" title="Draws a single symbol (character) to the framebuffer." alt="" coords="236,5,429,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,5,188,32"/>
-</map>

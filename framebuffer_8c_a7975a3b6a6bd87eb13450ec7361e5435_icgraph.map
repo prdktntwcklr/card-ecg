@@ -1,4 +1,0 @@
-<map id="end_of_line_reached" name="end_of_line_reached">
-<area shape="rect" id="node1" title="Checks if the x position for the next symbol goes beyond the end of the line." alt="" coords="236,5,392,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,5,188,32"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="framebuffer_draw_image" name="framebuffer_draw_image">
-<area shape="rect" id="node1" title="Draws an image to the framebuffer." alt="" coords="5,42,192,69"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#ae21269ad59409a9986b18453405cbae5" title="Changes (sets or resets) a single pixel of the framebuffer." alt="" coords="240,5,393,47"/>
-<area shape="rect" id="node3" href="$image_8c.html#a0ad9436e06a64979855eeb09982fadca" title="Returns true if the pixel at x and y coordinates is set." alt="" coords="252,71,381,98"/>
-</map>

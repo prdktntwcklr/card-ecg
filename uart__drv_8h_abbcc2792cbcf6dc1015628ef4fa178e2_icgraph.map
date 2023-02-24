@@ -1,5 +1,0 @@
-<map id="is_tx_buf_empty_interrupt" name="is_tx_buf_empty_interrupt">
-<area shape="rect" id="node1" title=" " alt="" coords="360,5,553,32"/>
-<area shape="rect" id="node2" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,5,312,32"/>
-<area shape="rect" id="node3" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,5,101,32"/>
-</map>

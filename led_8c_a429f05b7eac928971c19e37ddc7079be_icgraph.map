@@ -1,5 +1,0 @@
-<map id="led_off" name="led_off">
-<area shape="rect" id="node1" title="Turns the LED off." alt="" coords="287,5,353,32"/>
-<area shape="rect" id="node2" href="$led_8c.html#a7eb4d382bdd4b42c57dbb7154d03ac66" title="Initializes the LED." alt="" coords="168,5,239,32"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
-</map>

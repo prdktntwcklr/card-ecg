@@ -1,8 +1,0 @@
-<map id="uart_handle_interrupt" name="uart_handle_interrupt">
-<area shape="rect" id="node1" title="Handles the UART interrupt." alt="" coords="5,81,168,108"/>
-<area shape="rect" id="node2" href="$uart__drv_8c.html#a5637d638688474425ad9c526450faaeb" title=" " alt="" coords="216,5,409,32"/>
-<area shape="rect" id="node3" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="253,56,373,83"/>
-<area shape="rect" id="node5" href="$uart__drv_8c.html#ad40d6eb8cc841db03d229080a16044b6" title="Enables the UART transmit buffer empty interrupt." alt="" coords="216,107,409,133"/>
-<area shape="rect" id="node6" href="$uart__drv_8c.html#a7d0ded7e12feacc884cc54cb5d424786" title="Sends a byte of data over UART." alt="" coords="237,157,388,184"/>
-<area shape="rect" id="node4" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="457,56,616,83"/>
-</map>

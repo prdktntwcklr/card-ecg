@@ -1,4 +1,0 @@
-<map id="uart_drv_enable_interrupt" name="uart_drv_enable_interrupt">
-<area shape="rect" id="node1" title="Enables the UART transmit buffer empty interrupt." alt="" coords="132,5,323,32"/>
-<area shape="rect" id="node2" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="5,5,84,32"/>
-</map>
