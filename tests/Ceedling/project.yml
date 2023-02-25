@@ -50,6 +50,7 @@
   :test:
     - *common_defines
     - TEST
+    - NPRINTF
   :test_preprocess:
     - *common_defines
     - TEST

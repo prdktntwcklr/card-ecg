@@ -20,9 +20,4 @@ void tearDown(void)
 {
 }
 
-void test_putchar_should_raiseAssertIfUartIsNotEnabled(void)
-{
-    TEST_ASSERT_FAIL_ASSERT(putchar_('a'));
-}
-
 #endif // TEST

@@ -2,7 +2,7 @@
 #include "my_assert.h"
 #include "system.h"
 
-#ifndef NPRINTF /* NPRINTF not defined -- printf enabled */
+#ifndef NRINGBUF /* NRINGBUF not defined -- ring buffer enabled */
 
 #define RING_SIZE (64U)
 STATIC_ASSERT(RING_SIZE >= 2U, ring_size_cannot_be_less_than_two);
@@ -109,14 +109,14 @@ extern bool ring_buffer_is_full(void)
     return buffer_full;
 }
 
-#else /* NPRINTF defined -- printf disabled */
+#else /* NRINGBUF defined -- ring buffer disabled */
 
-/* stub out ring buffer functions if printf is not used */
+/* stub out ring buffer functions if ring buffer is not used */
 extern void ring_buffer_reset(void) {}
 extern bool ring_buffer_put(uint8_t byte) {UNUSED(byte); return false;}
 extern bool ring_buffer_get(uint8_t *byte) {UNUSED(byte); *byte = 0; return false;}
 extern bool ring_buffer_is_empty(void){return true;}
 extern bool ring_buffer_is_full(void){return true;}
 
-#endif
+#endif /* NRINGBUF */
 /*** end of file ***/

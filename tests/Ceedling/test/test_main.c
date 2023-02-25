@@ -9,6 +9,7 @@
 #include "mock_superloop.h"
 #include "mock_timer.h"
 #include "mock_uart.h"
+#include "my_assert_stub.h"
 #include "testable_mcu_registers.h"
 
 void setUp(void)

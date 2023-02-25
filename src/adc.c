@@ -208,6 +208,10 @@ void adc_set_gain(uint16_t adc_gain)
  */
 extern void adc_handle_interrupt(void)
 {
-    /* TODO: implement this function */
+    /* check if primary adc result is ready */
+    if(ADCSTA & ADC0RDY)
+    {
+        /* TODO: implement this function */
+    }
 }
 /*** end of file ***/

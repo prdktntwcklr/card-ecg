@@ -35,6 +35,8 @@ extern void superloop_init(void)
     framebuffer_init();
 
     uart_init();
+
+    MY_PRINTF("superloop_init() complete.\r\n");
 }
 
 /**
