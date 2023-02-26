@@ -1,73 +1,65 @@
 #include "framebuffer.h"
 #include "font.h"
 #include "image.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 
 #define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
 
 #define ASCII_OFFSET          (32U)
 #define MAX_STRING_LENGTH    (100U)
 
-static fb_handle_t framebuffer_ptr;
+static fb_handle_t framebuffer_ptr = 0;
 static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 
-bool framebuffer_is_initialized = false;
-
-STATIC_ASSERT(sizeof(framebuffer_array) == (128UL * sizeof(framebuffer_array[0])), framebuffer_should_contain_128_elements);
+STATIC_ASSERT(sizeof(framebuffer_array)
+                  == (128UL * sizeof(framebuffer_array[0])),
+              framebuffer_should_contain_128_elements);
 
 /* helper functions declarations */
-static bool end_of_string_reached(const char next_symbol);
-static bool end_of_line_reached(const uint8_t next_x_pos);
-static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos);
-static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol);
+static bool end_of_string_reached(char next_symbol);
+static bool end_of_line_reached(uint8_t next_x_pos);
+static bool bottom_of_framebuffer_reached(uint8_t next_y_pos);
+static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol);
 
 #ifdef TEST
-__attribute__((unused)) static void framebuffer_deinit(void);
+static void framebuffer_deinit(void);
 #endif
 
-/*
+/**
  * @brief Initializes the framebuffer and clears it.
  */
 void framebuffer_init(void)
 {
-    if(framebuffer_is_initialized == true)
+    if(!framebuffer_ptr)
     {
-        RUNTIME_ERROR("Framebuffer is already initialized!");
-        return; /* for unit tests */
+        framebuffer_ptr = (fb_handle_t) framebuffer_array;
+
+        framebuffer_clear(framebuffer_ptr);
     }
-
-    framebuffer_ptr = (fb_handle_t) framebuffer_array;
-
-    framebuffer_clear(framebuffer_ptr);
-
-    framebuffer_is_initialized = true;
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Denitializes the framebuffer.
  *
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-__attribute__((unused)) static void framebuffer_deinit(void)
+static void framebuffer_deinit(void)
 {
-    framebuffer_is_initialized = false;
-
     framebuffer_ptr = 0;
 }
 #endif
 
-/*
+/**
  * @brief Clears the whole framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
 void framebuffer_clear(fb_handle_t framebuffer)
 {
-    if(!framebuffer)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(framebuffer);
 
     for (uint8_t i = 0; i < (uint8_t) FRAMEBUFFER_ELEMENTS; i++)
     {
@@ -75,36 +67,29 @@ void framebuffer_clear(fb_handle_t framebuffer)
     }
 }
 
-/*
+/**
  * @brief Returns the framebuffer.
  */
+/* cppcheck-suppress unusedFunction */
 fb_handle_t framebuffer_get(void)
 {
-    if(framebuffer_is_initialized == false)
-    {
-        RUNTIME_ERROR("Framebuffer must be initialized first!");
-        return 0;
-    }
+    /* framebuffer must be initialized first */
+    MY_ASSERT(framebuffer_ptr);
 
     return framebuffer_ptr;
 }
 
-/*
+/**
  * @brief Changes (sets or resets) a single pixel of the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const bool set)
+void framebuffer_change_pixel(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                              bool set)
 {
-    if(!framebuffer)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
-
-    if(x >= FRAMEBUFFER_WIDTH || y >= FRAMEBUFFER_HEIGHT)
-    {
-        RUNTIME_ERROR("Outside of framebuffer limits!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(framebuffer);
+    MY_ASSERT(x < FRAMEBUFFER_WIDTH && y < FRAMEBUFFER_HEIGHT);
 
     if(set)
     {
@@ -116,10 +101,14 @@ void framebuffer_change_pixel(fb_handle_t framebuffer, const uint8_t x, const ui
     }
 }
 
-/*
+/**
  * @brief Draws a single symbol (character) to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const uint8_t symbol)
+void framebuffer_draw_symbol(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                             uint8_t symbol)
 {
     uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
     
@@ -127,57 +116,60 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, const uint8_t x, const uin
     {
         for (uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
         {
-            framebuffer_change_pixel(framebuffer, dx + x, dy + y, image_get_pixel(dx, dy, &ssd1306xled_font6x8[ascii_symbol]));
+            framebuffer_change_pixel(
+                framebuffer, dx + x, dy + y,
+                image_get_pixel(&ssd1306xled_font6x8[ascii_symbol], dx, dy));
         }
     }
 }
 
-/*
+/**
  * @brief Checks if we have reached the end of the string.
  */
-static bool end_of_string_reached(const char next_symbol)
+static bool end_of_string_reached(char next_symbol)
 {
     return (next_symbol == 0);
 }
 
-/*
+/**
  * @brief Checks if the x position for the next symbol goes
  *        beyond the end of the line.
  */
-static bool end_of_line_reached(const uint8_t next_x_pos)
+static bool end_of_line_reached(uint8_t next_x_pos)
 {
     return ((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH);
 }
 
-/*
+/**
  * @brief Checks if the y position for the next symbol goes
  *        beyond the edge of the framebuffer.
  */
-static bool bottom_of_framebuffer_reached(const uint8_t next_y_pos)
+static bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
 {
     return ((next_y_pos + FONT_HEIGHT) > FRAMEBUFFER_HEIGHT);
 }
 
-/*
+/**
  * @brief Checks if the next symbol is a whitespace at the beginning of a line.
  */
-static bool whitespace_at_line_beginning(const uint8_t next_x_pos, const char next_symbol)
+static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
 {
     return ((next_x_pos == 0) && (next_symbol == ' '));
 }
 
-/*
+/**
  * @brief Outputs a string to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uint8_t y, const char* string)
+/* cppcheck-suppress unusedFunction */
+void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
+                             const char *string)
 {
     /* #lizard forgives (exclude from code complexity check) */
-    
-    if(!string)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
+
+    MY_ASSERT(string);
 
     /* initialize variables to start position of string */
     uint8_t next_x_pos = x;
@@ -186,7 +178,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
     /* print every character of string */
     for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
     {
-        char next_symbol = *(string + i);
+        char next_symbol = string[i];
 
         if(end_of_string_reached(next_symbol))
         {
@@ -207,22 +199,29 @@ void framebuffer_draw_string(fb_handle_t framebuffer, const uint8_t x, const uin
 
         if(!whitespace_at_line_beginning(next_x_pos, next_symbol))
         {
-            framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos, next_symbol);
+            framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos,
+                                    next_symbol);
             next_x_pos += (FONT_WIDTH + 1);
         }
     }
 }
 
-/*
+/**
  * @brief Draws an image to the framebuffer.
+ *
+ * @note  Passing the framebuffer handle as a parameter allows unit tests
+ *        to inject a fake framebuffer here.
  */
-void framebuffer_draw_image(fb_handle_t framebuffer, const uint8_t* image)
+/* cppcheck-suppress unusedFunction */
+void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image)
 {
-	for (uint32_t dx = 0; dx < FRAMEBUFFER_WIDTH; dx++)
-	{
-		for (uint32_t dy = 0; dy < FRAMEBUFFER_HEIGHT; dy++)
-		{
-			framebuffer_change_pixel(framebuffer, dx, dy, image_get_pixel(dx, dy, image));
-		}
-	}
+    for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
+    {
+        for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
+        {
+            framebuffer_change_pixel(framebuffer, x_pos, y_pos,
+                                     image_get_pixel(image, x_pos, y_pos));
+        }
+    }
 }
+/*** end of file ***/

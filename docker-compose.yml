@@ -1,0 +1,52 @@
+services:
+  build-image:
+    image: card-ecg
+    command: bash -c "echo build-image completed."
+    build: .
+  build-hex:
+    image: card-ecg
+    command: bash -c "make clean && make"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app
+  complexity-check:
+    image: card-ecg
+    command: bash -c "cd tests/StaticAnalysis && \ 
+                      chmod +x 01-code-complexity.sh && ./01-code-complexity.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app
+  cppcheck:
+    image: card-ecg
+    command: bash -c "cd tests/StaticAnalysis && chmod +x 02-cppcheck.sh && \
+                      ./02-cppcheck.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app
+  clang-tidy:
+    image: card-ecg
+    command: bash -c "cd tests/StaticAnalysis && chmod +x 03-clang-tidy.sh && \
+                      ./03-clang-tidy.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app
+  unit-tests:
+    image: card-ecg
+    command: bash -c "cd tests/Ceedling && chmod +x 01-unit-tests.sh && \
+                      ./01-unit-tests.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app
+  code-coverage:
+    image: card-ecg
+    command: bash -c "cd tests/Ceedling && chmod +x 02-code-coverage.sh && \
+                      ./02-code-coverage.sh"
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app

@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "system.h"
 
 #ifndef TEST
@@ -17,31 +17,19 @@ static bool spi_is_initialized = false;
 /* static function prototypes */
 static void spi_wait_for_space_in_tx_fifo(void);
 
-/*
- * @brief Blocks until there is space in FIFO.
- */
-static void spi_wait_for_space_in_tx_fifo(void)
-{
-    while(SPISTA & 0x8) {}
-}
-
-/*
+/**
  * @brief Initializes the SPI peripheral.
  *
  * @note  Pin0.1 = SCK
  *        Pin0.2 = MISO
  *        Pin0.3 = MOSI
  */
-extern void spi_init(const uint32_t bit_rate)
+extern void spi_init(uint32_t bit_rate)
 {
-    /* check for division by zero */
-    if(bit_rate == 0)
-    {
-        RUNTIME_ERROR("Spi bit rate cannot be zero!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(bit_rate != 0U);
 
     /* set bit rate, see p97 of datasheet */
+    /* cppcheck-suppress zerodivcond */
     SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
@@ -59,10 +47,23 @@ extern void spi_init(const uint32_t bit_rate)
     SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
              SPICPO  | SPICPH | SPIMEN | SPIEN;
 
-    spi_is_initialized = true;             
+    spi_is_initialized = true;
 }
 
-/*
+#ifdef TEST
+/**
+ * @brief Deinitilizes the SPI module.
+ *
+ * @note  Used for unit testing.
+ */
+/* cppcheck-suppress unusedFunction */
+static void spi_deinit(void)
+{
+    spi_is_initialized = false;
+}
+#endif
+
+/**
  * @brief Blocks until transmit FIFO is empty.
  */
 extern void spi_wait_for_tx_complete(void)
@@ -70,19 +71,24 @@ extern void spi_wait_for_tx_complete(void)
     while(SPISTA & 0xE) {}
 }
 
-/*
+/**
+ * @brief Blocks until there is space in FIFO.
+ */
+static void spi_wait_for_space_in_tx_fifo(void)
+{
+    while(SPISTA & 0x8) {}
+}
+
+/**
  * @brief Sends data through SPI.
  */
-extern void spi_send_data(const uint8_t data)
+extern void spi_send_data(uint8_t data)
 {
-    /* check if peripheral is initialized before sending data */
-    if(spi_is_initialized == false)
-    {
-        RUNTIME_ERROR("Spi is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(spi_is_initialized);
 
+    /* block until there is space in fifo */
     spi_wait_for_space_in_tx_fifo();
 
     SPITX = data;
 }
+/*** end of file ***/

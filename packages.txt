@@ -1,0 +1,9 @@
+clang-tidy
+cppcheck
+gcc
+gcc-arm-none-eabi
+gcovr
+make
+python3
+python3-pip
+ruby

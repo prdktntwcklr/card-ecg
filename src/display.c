@@ -1,109 +1,23 @@
 #include "display.h"
+#include "display_drv.h"
 #include "display_registers.h"
-#include "runtime_error.h"
+#include "my_assert.h"
 #include "spi.h"
 #include "timer.h"
 
 #include <stdbool.h>
 
-#ifndef TEST
-#include "aduc706x.h"
-#else
-#include "testable_mcu_registers.h"
-#endif
-
-#define CS_PIN_NO    (0UL)
-#define RESET_PIN_NO (2UL)
-#define DC_PIN_NO    (4UL)
-
-/* Flag to check if peripheral is initialized or not */
+/* flag to check if peripheral is initialized or not */
 static bool display_is_initialized = false;
 
-/* Private function declarations */
-static void display_gpio_init(void);
-static void display_cs_on(void);
-static void display_cs_off(void);
-static void display_reset_on(void);
-static void display_reset_off(void);
-static void display_dc_on(void);
-static void display_dc_off(void);
-static void display_send_command(const uint8_t byte);
-static void display_burst_framebuffer(const uint8_t *data);
+/* private function declarations */
+static void display_send_command(uint8_t byte);
+static void display_burst_framebuffer(uint8_t *data);
 
-/*
- * @brief Initializes the GPIO pins for the display.
- *
- * @note  Pin0.0 = CS
- *        Pin0.2 = RESET
- *        Pin0.4 = DC
- */
-static void display_gpio_init(void)
-{
-    /* configure P0.0 as an output and turn off */
-    GP0DAT |= (1UL << (24 + CS_PIN_NO));
-    display_cs_off();
-
-    /* configure P0.2 as an output and turn off */
-    GP0DAT |= (1UL << (24 + RESET_PIN_NO));
-    display_reset_off();
-
-    /* configure P0.4 as an output and turn off */
-    GP0DAT |= (1UL << (24 + DC_PIN_NO));
-    display_dc_off();
-}
-
-/*
- * @brief Turns the CS pin on.
- */
-static void display_cs_on(void)
-{
-    GP0DAT |= (1UL << (16 + CS_PIN_NO));
-}
-
-/*
- * @brief Turns the CS pin off.
- */
-static void display_cs_off(void)
-{
-    GP0DAT &= ~(1UL << (16 + CS_PIN_NO));
-}
-
-/*
- * @brief Turns the reset pin on.
- */
-static void display_reset_on(void)
-{
-    GP0DAT |= (1UL << (16 + RESET_PIN_NO));
-}
-
-/*
- * @brief Turns the reset pin off.
- */
-static void display_reset_off(void)
-{
-    GP0DAT &= ~(1UL << (16 + RESET_PIN_NO));
-}
-
-/*
- * @brief Turns the DC pin on.
- */
-static void display_dc_on(void)
-{
-    GP0DAT |= (1UL << (16 + DC_PIN_NO));
-}
-
-/*
- * @brief Turns the DC pin off.
- */
-static void display_dc_off(void)
-{
-    GP0DAT &= ~(1UL << (16 + DC_PIN_NO));
-}
-
-/*
+/**
  * @brief Sends a command to the display.
  */
-static void display_send_command(const uint8_t byte)
+static void display_send_command(uint8_t byte)
 {
     display_dc_off();
     display_cs_off();
@@ -115,10 +29,10 @@ static void display_send_command(const uint8_t byte)
     display_dc_on();
 }
 
-/*
- * @brief 
+/**
+ * @brief Sends the data of the framebuffer to the display.
  */
-static void display_burst_framebuffer(const uint8_t *data)
+static void display_burst_framebuffer(uint8_t *data)
 {
     display_cs_off();
 
@@ -134,7 +48,7 @@ static void display_burst_framebuffer(const uint8_t *data)
     display_cs_on();
 }
 
-/*
+/**
  * @brief Called by the application to initialize the display.
  *
  * @ref   https://www.avrfreaks.net/forum/ssd1306-lcd-initialization-commands
@@ -142,7 +56,6 @@ static void display_burst_framebuffer(const uint8_t *data)
 void display_init(void)
 {
     /* #lizard forgives (exclude from code complexity check) */
-
     spi_init(5120000);
     display_gpio_init();
 
@@ -193,24 +106,27 @@ void display_init(void)
     display_is_initialized = true;
 }
 
-/*
+#ifdef TEST
+/**
+ * @brief Deinitializes the display.
+ *
+ * @note  Used for unit testing.
+ */
+/* cppcheck-suppress unusedFunction */
+extern void display_deinit(void)
+{
+    display_is_initialized = false;
+}
+#endif
+
+/**
  * @brief Sends the framebuffer to the display.
  */
-void display_send_framebuffer(const uint8_t *data)
+/* cppcheck-suppress unusedFunction */
+void display_send_framebuffer(uint8_t *data)
 {
-    /* check for null pointer */
-    if(!data)
-    {
-        RUNTIME_ERROR("Null pointer received!");
-        return; /* for unit tests */
-    }
-
-    /* check if peripheral is initialized before sending data */
-    if(display_is_initialized == false)
-    {
-        RUNTIME_ERROR("Display is not initialized!");
-        return; /* for unit tests */
-    }
+    MY_ASSERT(data);
+    MY_ASSERT(display_is_initialized);
 
     display_send_command(SSD1306_COLUMN_ADDR);
     display_send_command(0);
@@ -221,3 +137,4 @@ void display_send_framebuffer(const uint8_t *data)
     
     display_burst_framebuffer(data);
 }
+/*** end of file ***/
