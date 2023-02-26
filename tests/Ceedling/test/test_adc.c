@@ -17,6 +17,7 @@ void setUp(void)
     ADCFLT = 0x0007;  /* default value */
     ADCCFG = 0;
     IRQEN = 0;
+    ADC0DAT = 0;
 }
 
 void tearDown(void)
@@ -123,8 +124,16 @@ void test_adc_stop_should_turnOffAdcAndAdcInterrupt(void)
     TEST_ASSERT_EQUAL_HEX32(0xFFFFFBFF, IRQEN);
 }
 
-void test_adc_get_should_returnDataFromAdc(void)
+void test_adc_get_should_returnCorrectDataFromAdc(void)
 {
+    adc_init();
+
+    ADC0DAT = 0;
+    adc_handle_interrupt();
+    TEST_ASSERT_EQUAL_INT32(0, adc_get());
+
+    ADC0DAT = 0x1234;
+    adc_handle_interrupt();
     TEST_ASSERT_EQUAL_INT32(0, adc_get());
 }
 

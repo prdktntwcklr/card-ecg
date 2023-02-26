@@ -9,10 +9,13 @@
 #include "testable_mcu_registers.h"
 #endif
 
+/* holds the data from the ADC */
+static int32_t adc_data = 0;
+
 /* flag to check if peripheral is initialized or not */
 static bool adc_is_initialized = false;
 
-/*
+/**
  * @brief Initializes the ADC.
  */
 /* cppcheck-suppress unusedFunction */
@@ -42,7 +45,7 @@ void adc_init(void)
 }
 
 #ifdef TEST
-/*
+/**
  * @brief Deinitializes the ADC.
  *
  * @note  Used for unit testing.
@@ -54,7 +57,7 @@ static void adc_deinit(void)
 }
 #endif
 
-/*
+/**
  * @brief Starts the ADC in continous mode and enables ADC interrupts.
  */
 /* cppcheck-suppress unusedFunction */
@@ -68,7 +71,7 @@ void adc_start(void)
     /* clear ADC operation mode configuration bits */
     adcmde_reg &= ~(0x7);
 
-    /* set ADC to ADC continous conversion mode */
+    /* set ADC to continous conversion mode */
     adcmde_reg |= ADCMDE_CONTINUOUS;
 
     /* write back to register */
@@ -78,7 +81,7 @@ void adc_start(void)
     IRQEN |= ADC_BIT;
 }
 
-/*
+/**
  * @brief Stops the ADC.
  */
 /* cppcheck-suppress unusedFunction */
@@ -93,18 +96,26 @@ void adc_stop(void)
     IRQEN &= ~ADC_BIT;
 }
 
-/*
+/**
  * @brief Gets a value read in by the ADC.
  */
 /* cppcheck-suppress unusedFunction */
 int32_t adc_get(void)
 {
-    /* TODO: implement this function */
+    MY_ASSERT(adc_is_initialized);
 
-    return 0;
+    /* disable ADC interrupts before accessing data */
+    IRQEN &= ~ADC_BIT;
+
+    int32_t temp_data = adc_data;
+
+    /* reenable ADC interrupts */
+    IRQEN |= ADC_BIT;
+
+    return temp_data;
 }
 
-/*
+/**
  * @brief Sets the ADC rate.
  *
  * @note  Currently only supports 50 and 60 Hz.
@@ -126,7 +137,7 @@ void adc_set_rate(uint16_t adc_rate)
     }
 }
 
-/*
+/**
  * @brief Sets the gain of the ADC.
  *
  * @note  Only certain values are supported, see p46.
@@ -194,7 +205,7 @@ void adc_set_gain(uint16_t adc_gain)
         }
         default:
         {
-            /* gain not supported */
+            /* adc_gain not supported */
             MY_ERROR();
         }
     }
@@ -211,7 +222,7 @@ extern void adc_handle_interrupt(void)
     /* check if primary adc result is ready */
     if(ADCSTA & ADC0RDY)
     {
-        /* TODO: implement this function */
+        adc_data = ADC0DAT;
     }
 }
 /*** end of file ***/
