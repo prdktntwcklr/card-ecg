@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['cpu_5fclk_16',['CPU_CLK',['../system_8h.html#a830fd4b906cd391487712d11740c065f',1,'system.h']]],
-  ['cs_5fpin_5fno_17',['CS_PIN_NO',['../display__drv_8c.html#a40b14dbfdeb91c2213ea0210d36bdab2',1,'display_drv.c']]],
-  ['ctastr_18',['CTASTR',['../my__assert_8h.html#a8dcc70900e14b0a9cbf95a7511fbd0ca',1,'my_assert.h']]],
-  ['ctastr2_19',['CTASTR2',['../my__assert_8h.html#a75f0afbcbfb26edba8f1e962cbbd6d49',1,'my_assert.h']]]
+  ['cpu_5fclk_17',['CPU_CLK',['../system_8h.html#a830fd4b906cd391487712d11740c065f',1,'system.h']]],
+  ['cs_5fpin_5fno_18',['CS_PIN_NO',['../display__drv_8c.html#a40b14dbfdeb91c2213ea0210d36bdab2',1,'display_drv.c']]],
+  ['ctastr_19',['CTASTR',['../my__assert_8h.html#a8dcc70900e14b0a9cbf95a7511fbd0ca',1,'my_assert.h']]],
+  ['ctastr2_20',['CTASTR2',['../my__assert_8h.html#a75f0afbcbfb26edba8f1e962cbbd6d49',1,'my_assert.h']]]
 ];

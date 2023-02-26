@@ -7,5 +7,6 @@ var adc_8c =
     [ "adc_set_rate", "adc_8c.html#a9f34e77e8869e814c97a799c3508f142", null ],
     [ "adc_start", "adc_8c.html#af5ce9946f045a1396ac1a147252a3e76", null ],
     [ "adc_stop", "adc_8c.html#ad20b4babc40e03c144a6195cb44820c0", null ],
+    [ "adc_data", "adc_8c.html#a3356176ce64e4a78809e17dcf3e53f26", null ],
     [ "adc_is_initialized", "adc_8c.html#a0564704d010a9befb78750d6c09135a6", null ]
 ];
