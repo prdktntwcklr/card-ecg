@@ -18,7 +18,6 @@ static bool adc_is_initialized = false;
 /**
  * @brief Initializes the ADC.
  */
-/* cppcheck-suppress unusedFunction */
 void adc_init(void)
 {
     /* disable all ADC interrupts */
@@ -60,7 +59,6 @@ static void adc_deinit(void)
 /**
  * @brief Starts the ADC in continous mode and enables ADC interrupts.
  */
-/* cppcheck-suppress unusedFunction */
 void adc_start(void)
 {
     MY_ASSERT(adc_is_initialized);
@@ -99,7 +97,6 @@ void adc_stop(void)
 /**
  * @brief Gets a value read in by the ADC.
  */
-/* cppcheck-suppress unusedFunction */
 int32_t adc_get(void)
 {
     MY_ASSERT(adc_is_initialized);
@@ -142,7 +139,6 @@ void adc_set_rate(uint16_t adc_rate)
  *
  * @note  Only certain values are supported, see p46.
  */
-/* cppcheck-suppress unusedFunction */
 void adc_set_gain(uint16_t adc_gain)
 {
     /* store contents of register */

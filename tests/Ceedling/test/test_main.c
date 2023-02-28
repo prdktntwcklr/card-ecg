@@ -7,6 +7,7 @@
 #include "main.h"
 #include "mock_adc.h"
 #include "mock_superloop.h"
+#include "mock_system.h"
 #include "mock_timer.h"
 #include "mock_uart.h"
 #include "my_assert_stub.h"
@@ -24,6 +25,7 @@ void tearDown(void)
 
 void test_main_should_callSuperloopInitAndThenRunMainLoop(void)
 {
+    system_init_Expect();
     superloop_init_Expect();
 
     superloop_run_ExpectAndReturn(true);
