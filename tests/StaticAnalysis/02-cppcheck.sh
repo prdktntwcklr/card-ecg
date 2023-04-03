@@ -10,8 +10,8 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker --enable=all --suppress=missingInclude --inline-suppr \
-         --suppressions-list=.cppcheck --language=c \
+$checker --enable=all --suppress=missingInclude --addon=addon.json \
+         --inline-suppr --suppressions-list=.cppcheck --language=c \
          --output-file=$dummy_file -I../../inc ../../src -DTEST
 
 echo ""
