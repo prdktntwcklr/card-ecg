@@ -57,5 +57,9 @@ void testable_irq_handler(void)
     {
         adc_handle_interrupt();
     }
+    else
+    {
+        /* do nothing */
+    }
 }
 /*** end of file ***/

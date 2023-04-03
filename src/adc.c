@@ -119,11 +119,11 @@ int32_t adc_get(void)
  */
 void adc_set_rate(uint16_t adc_rate)
 {
-    if(adc_rate == 50)
+    if(adc_rate == 50U)
     {
         ADCFLT = 127;
     }
-    else if(adc_rate == 60)
+    else if(adc_rate == 60U)
     {
         ADCFLT = 126;
     }
@@ -216,7 +216,7 @@ void adc_set_gain(uint16_t adc_gain)
 extern void adc_handle_interrupt(void)
 {
     /* check if primary adc result is ready */
-    if(ADCSTA & ADC0RDY)
+    if((ADCSTA & ADC0RDY) == ADC0RDY)
     {
         adc_data = ADC0DAT;
     }

@@ -3,12 +3,15 @@
 #include "image.h"
 #include "my_assert.h"
 
+#include <stddef.h>
+
 #define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
 
 #define ASCII_OFFSET          (32U)
 #define MAX_STRING_LENGTH    (100U)
 
-static fb_handle_t framebuffer_ptr = 0;
+static fb_handle_t framebuffer_ptr = NULL;
+
 static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 
 STATIC_ASSERT(sizeof(framebuffer_array)
@@ -30,7 +33,7 @@ static void framebuffer_deinit(void);
  */
 void framebuffer_init(void)
 {
-    if(!framebuffer_ptr)
+    if(framebuffer_ptr == NULL)
     {
         framebuffer_ptr = (fb_handle_t) framebuffer_array;
 
@@ -47,7 +50,7 @@ void framebuffer_init(void)
 /* cppcheck-suppress unusedFunction */
 static void framebuffer_deinit(void)
 {
-    framebuffer_ptr = 0;
+    framebuffer_ptr = NULL;
 }
 #endif
 
@@ -59,9 +62,9 @@ static void framebuffer_deinit(void)
  */
 void framebuffer_clear(fb_handle_t framebuffer)
 {
-    MY_ASSERT(framebuffer);
+    MY_ASSERT(framebuffer != NULL);
 
-    for (uint8_t i = 0; i < (uint8_t) FRAMEBUFFER_ELEMENTS; i++)
+    for (uint8_t i = 0; i < (uint8_t)FRAMEBUFFER_ELEMENTS; i++)
     {
         framebuffer[i] = 0;
     }
@@ -74,7 +77,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
 fb_handle_t framebuffer_get(void)
 {
     /* framebuffer must be initialized first */
-    MY_ASSERT(framebuffer_ptr);
+    MY_ASSERT(framebuffer_ptr != NULL);
 
     return framebuffer_ptr;
 }
@@ -88,16 +91,16 @@ fb_handle_t framebuffer_get(void)
 void framebuffer_change_pixel(fb_handle_t framebuffer, uint8_t x, uint8_t y,
                               bool set)
 {
-    MY_ASSERT(framebuffer);
-    MY_ASSERT(x < FRAMEBUFFER_WIDTH && y < FRAMEBUFFER_HEIGHT);
+    MY_ASSERT(framebuffer != NULL);
+    MY_ASSERT((x < FRAMEBUFFER_WIDTH) && (y < FRAMEBUFFER_HEIGHT));
 
     if(set)
     {
-        framebuffer[x + ((y & 0xF8) << 4)] |= 1 << (y & 7);
+        framebuffer[x + ((y & 0xF8U) << 4)] |= 1U << (y & 7U);
     }
     else
     {
-        framebuffer[x + ((y & 0xF8) << 4)] &= ~(1 << (y & 7));
+        framebuffer[x + ((y & 0xF8U) << 4)] &= ~(1U << (y & 7U));
     }
 }
 
@@ -128,7 +131,7 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, uint8_t x, uint8_t y,
  */
 static bool end_of_string_reached(char next_symbol)
 {
-    return (next_symbol == 0);
+    return (next_symbol == '\0');
 }
 
 /**
@@ -154,7 +157,7 @@ static bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
  */
 static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
 {
-    return ((next_x_pos == 0) && (next_symbol == ' '));
+    return ((next_x_pos == 0U) && (next_symbol == ' '));
 }
 
 /**
@@ -169,7 +172,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
 {
     /* #lizard forgives (exclude from code complexity check) */
 
-    MY_ASSERT(string);
+    MY_ASSERT(string != NULL);
 
     /* initialize variables to start position of string */
     uint8_t next_x_pos = x;
@@ -180,11 +183,6 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
     {
         char next_symbol = string[i];
 
-        if(end_of_string_reached(next_symbol))
-        {
-            break;
-        }
-
         if(end_of_line_reached(next_x_pos))
         {
             /* switch to next line */
@@ -192,7 +190,8 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
             next_y_pos += FONT_HEIGHT;
         }
 
-        if(bottom_of_framebuffer_reached(next_y_pos))
+        if(end_of_string_reached(next_symbol) || 
+           bottom_of_framebuffer_reached(next_y_pos))
         {
             break;
         }
@@ -201,7 +200,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
         {
             framebuffer_draw_symbol(framebuffer, next_x_pos, next_y_pos,
                                     next_symbol);
-            next_x_pos += (FONT_WIDTH + 1);
+            next_x_pos += (FONT_WIDTH + 1U);
         }
     }
 }

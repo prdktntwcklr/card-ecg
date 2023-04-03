@@ -67,18 +67,18 @@ extern void uart_handle_interrupt(void)
 /**
  * @brief Putchar implementation for using printf library.
  */
-/* cppcheck-suppress unusedFunction */
-void putchar_(char c)
+/* cppcheck-suppress * */
+extern void putchar_(char c)
 {
     MY_ASSERT(uart_is_initialized);
 
-    ring_buffer_put(c);
+    (void)ring_buffer_put(c);
 
     if(!uart_drv_is_interrupt_enabled())
     {
         uint8_t first_symbol = 0;
 
-        ring_buffer_get(&first_symbol);
+        (void)ring_buffer_get(&first_symbol);
 
         uart_drv_send_byte(first_symbol);
 
