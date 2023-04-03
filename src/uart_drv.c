@@ -7,9 +7,9 @@
 #endif
 
 /* values for a baud rate of 9600, see p81 of datasheet */
-#define BAUD_9600_DL (0x0021U)
-#define BAUD_9600_M  (1U)
-#define BAUD_9600_N  (21U)
+#define BAUD_9600_DL (0x0021UL)
+#define BAUD_9600_M  (1UL)
+#define BAUD_9600_N  (21UL)
 
 /**
  * @brief Initializes the UART module. Uses a fixed baud rate of 9600.
@@ -22,21 +22,21 @@ extern void uart_drv_init(void)
     GP1CON |= (1UL << 4);
 
     /* bit 7 of COMCON0 has to be set before accessing COMDIV0 and COMDIV1 */
-    COMCON0 |= (1 << 7);
+    COMCON0 |= (1U << 7);
 
     /* set DL value */
-    uint16_t dl = BAUD_9600_DL;
-    COMDIV0 = dl & (0xFF);
-    COMDIV1 = (dl >> 8) & (0xFF);
+    uint16_t dl = (uint16_t)BAUD_9600_DL;
+    COMDIV0 = dl & (0xFFU);
+    COMDIV1 = (dl >> 8U) & (0xFFU);
 
     /* clear bit 7 of COMCON0 after accessing COMDIV0 and COMDIV1 */
-    COMCON0 &= ~(1 << 7);
+    COMCON0 &= ~(1U << 7);
 
     /* set M and N values */
     COMDIV2 |= (BAUD_9600_M << 11) | (BAUD_9600_N << 0);
 
     /* set word length as 8 bits */
-    COMCON0 |= (1 << 1) | (1 << 0);
+    COMCON0 |= (1U << 1) | (1U << 0);
 
     /* enable uart-related interrupts */
     IRQEN |= UART_BIT;

@@ -107,7 +107,7 @@ extern void timer_delay_10ms(void)
 {
     MY_ASSERT(timer_is_initialized);
 
-    uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2);
+    uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2U);
 
     while(!timer_deadline_reached(deadline)) {}
 }
