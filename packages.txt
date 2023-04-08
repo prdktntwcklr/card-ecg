@@ -3,6 +3,7 @@ cppcheck
 gcc
 gcc-arm-none-eabi
 gcovr
+libnewlib-arm-none-eabi
 make
 python3
 python3-pip

@@ -12,8 +12,11 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
 
 # update package information and install required packages
 RUN apt-get update && \
-    xargs -a packages.txt apt-get install -y && \
-    pip install lizard pycobertura && \
-    gem install ceedling && \
-    apt-get autoremove -y && \
-    apt-get clean
+    xargs -a packages.txt apt-get install --no-install-recommends -y && \
+    pip install --no-cache-dir lizard pycobertura && \
+    gem install ceedling
+
+# clean up stale packages
+RUN apt-get clean -y && \
+	apt-get autoremove --purge -y && \
+	rm -rf /var/lib/apt/lists/*
