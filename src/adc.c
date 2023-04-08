@@ -141,6 +141,8 @@ void adc_set_rate(uint16_t adc_rate)
  */
 void adc_set_gain(uint16_t adc_gain)
 {
+    /* #lizard forgives (exclude from code complexity check) */
+
     /* store contents of register */
     uint16_t adc0con_reg = ADC0CON;
 
