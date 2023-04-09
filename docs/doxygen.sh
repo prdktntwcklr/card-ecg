@@ -1,7 +1,7 @@
 #!/bin/bash
 
 documentation_tool=doxygen
-outdir=../../docs
+outdir=.
 
 rm -rf $outdir/html
 

@@ -18,5 +18,5 @@ RUN apt-get update && \
 
 # clean up stale packages
 RUN apt-get clean -y && \
-	apt-get autoremove --purge -y && \
-	rm -rf /var/lib/apt/lists/*
+    apt-get autoremove --purge -y && \
+    rm -rf /var/lib/apt/lists/*
