@@ -39,7 +39,7 @@ jobs:
         run:  docker compose build
       - name: run complexity check
         continue-on-error: true
-        run:  docker compose run --rm complexity-check
+        run:  docker compose run --rm code-complexity
       - name: run cppcheck
         run:  docker compose run --rm cppcheck
       - name: run clang-tidy

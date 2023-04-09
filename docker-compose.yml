@@ -10,42 +10,42 @@ services:
     - build-image
     volumes:
     - ./:/app
-  complexity-check:
+  code-complexity:
     image: card-ecg
     command: bash -c "cd tests/StaticAnalysis && \ 
-                      chmod +x 01-code-complexity.sh && ./01-code-complexity.sh"
+                      chmod +x code-complexity.sh && ./code-complexity.sh"
     depends_on:
     - build-image
     volumes:
     - ./:/app
   cppcheck:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && chmod +x 02-cppcheck.sh && \
-                      ./02-cppcheck.sh"
+    command: bash -c "cd tests/StaticAnalysis && chmod +x cppcheck.sh && \
+                      ./cppcheck.sh"
     depends_on:
     - build-image
     volumes:
     - ./:/app
   clang-tidy:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && chmod +x 03-clang-tidy.sh && \
-                      ./03-clang-tidy.sh"
+    command: bash -c "cd tests/StaticAnalysis && chmod +x clang-tidy.sh && \
+                      ./clang-tidy.sh"
     depends_on:
     - build-image
     volumes:
     - ./:/app
   unit-tests:
     image: card-ecg
-    command: bash -c "cd tests/Ceedling && chmod +x 01-unit-tests.sh && \
-                      ./01-unit-tests.sh"
+    command: bash -c "cd tests/Ceedling && chmod +x unit-tests.sh && \
+                      ./unit-tests.sh"
     depends_on:
     - build-image
     volumes:
     - ./:/app
   code-coverage:
     image: card-ecg
-    command: bash -c "cd tests/Ceedling && chmod +x 02-code-coverage.sh && \
-                      ./02-code-coverage.sh"
+    command: bash -c "cd tests/Ceedling && chmod +x code-coverage.sh && \
+                      ./code-coverage.sh"
     depends_on:
     - build-image
     volumes:
