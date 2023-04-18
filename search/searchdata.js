@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "_abdefilmprstuw",
   3: "adflrstu",
   4: "fr",
-  5: "abcdfimorstu"
+  5: "abcdfimorstu",
+  6: "c"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "functions",
   3: "variables",
   4: "typedefs",
-  5: "defines"
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Functions",
   3: "Variables",
   4: "Typedefs",
-  5: "Macros"
+  5: "Macros",
+  6: "Pages"
 };
 

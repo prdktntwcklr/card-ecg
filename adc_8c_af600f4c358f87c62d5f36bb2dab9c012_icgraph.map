@@ -1,0 +1,4 @@
+<map id="adc_set_gain" name="adc_set_gain">
+<area shape="rect" id="node1" title="Sets the gain of the ADC." alt="" coords="168,5,275,32"/>
+<area shape="rect" id="node2" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+</map>

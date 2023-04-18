@@ -1,5 +1,6 @@
 <map id="superloop_run" name="superloop_run">
-<area shape="rect" id="node1" title="Runs continuously." alt="" coords="5,31,120,57"/>
-<area shape="rect" id="node2" href="$led_8c.html#a487f9f3640c7f6b9b416134274259866" title="Toggles the LED between on and off state." alt="" coords="212,5,303,32"/>
-<area shape="rect" id="node3" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="168,56,347,83"/>
+<area shape="rect" id="node1" title="Runs continuously." alt="" coords="5,56,120,83"/>
+<area shape="rect" id="node2" href="$adc_8c.html#a60b155fef3605a22cb31eeccde3439bd" title="Gets a value read in by the ADC." alt="" coords="221,5,294,32"/>
+<area shape="rect" id="node3" href="$led_8c.html#a487f9f3640c7f6b9b416134274259866" title="Toggles the LED between on and off state." alt="" coords="212,56,303,83"/>
+<area shape="rect" id="node4" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="168,107,347,133"/>
 </map>

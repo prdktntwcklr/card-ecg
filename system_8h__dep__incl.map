@@ -1,9 +1,9 @@
 <map id="system.h" name="system.h">
-<area shape="rect" id="node1" title=" " alt="" coords="271,5,354,32"/>
-<area shape="rect" id="node2" href="$ring__buffer_8c.html" title=" " alt="" coords="5,80,108,107"/>
-<area shape="rect" id="node3" href="$spi_8c.html" title=" " alt="" coords="132,80,184,107"/>
-<area shape="rect" id="node4" href="$superloop_8c.html" title=" " alt="" coords="208,80,305,107"/>
-<area shape="rect" id="node5" href="$system_8c.html" title=" " alt="" coords="329,80,411,107"/>
-<area shape="rect" id="node6" href="$timer_8c.html" title=" " alt="" coords="435,80,502,107"/>
-<area shape="rect" id="node7" href="$uart_8c.html" title=" " alt="" coords="526,80,585,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="253,5,336,32"/>
+<area shape="rect" id="node2" href="$main_8c.html" title=" " alt="" coords="5,80,72,107"/>
+<area shape="rect" id="node3" href="$ring__buffer_8c.html" title=" " alt="" coords="97,80,199,107"/>
+<area shape="rect" id="node4" href="$spi_8c.html" title=" " alt="" coords="223,80,275,107"/>
+<area shape="rect" id="node5" href="$system_8c.html" title=" " alt="" coords="299,80,381,107"/>
+<area shape="rect" id="node6" href="$timer_8c.html" title=" " alt="" coords="405,80,472,107"/>
+<area shape="rect" id="node7" href="$uart_8c.html" title=" " alt="" coords="496,80,555,107"/>
 </map>
