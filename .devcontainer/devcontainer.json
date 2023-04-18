@@ -9,9 +9,6 @@
         "WORKSPACE_DIR": "${containerWorkspaceFolder}",
         "PROMPT_COMMAND": "history -a"
     },
-    "mounts": [
-        "type=bind,source=${localWorkspaceFolder},target=/app"
-    ],
     "customizations": {
         "vscode": {
             "extensions": [
