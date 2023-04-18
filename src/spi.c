@@ -30,7 +30,7 @@ extern void spi_init(uint32_t bit_rate)
 
     /* set bit rate, see p97 of datasheet */
     /* cppcheck-suppress zerodivcond */
-    SPIDIV = (CPU_CLK / (2 * bit_rate)) - 1;
+    SPIDIV = (CPU_CLK / (2UL * bit_rate)) - 1UL;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
     GP0CON0 |= (1UL << 12) | (1UL << 8) | (1UL << 4);
@@ -68,7 +68,7 @@ static void spi_deinit(void)
  */
 extern void spi_wait_for_tx_complete(void)
 {
-    while(SPISTA & 0xE) {}
+    while((SPISTA & 0xE) == 0xE) {}
 }
 
 /**
@@ -76,7 +76,7 @@ extern void spi_wait_for_tx_complete(void)
  */
 static void spi_wait_for_space_in_tx_fifo(void)
 {
-    while(SPISTA & 0x8) {}
+    while((SPISTA & 0x8) == 0x8) {}
 }
 
 /**

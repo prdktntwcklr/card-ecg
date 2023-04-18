@@ -6,6 +6,7 @@
 #include "timer.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /* flag to check if peripheral is initialized or not */
 static bool display_is_initialized = false;
@@ -36,9 +37,9 @@ static void display_burst_framebuffer(uint8_t *data)
 {
     display_cs_off();
 
-    const int size = DISPLAY_WIDTH * DISPLAY_HEIGHT >> 3;
+    const int size = (int)((DISPLAY_WIDTH * DISPLAY_HEIGHT) >> 3);
     
-    for (int i = 0; i < size; i++)
+    for(int i = 0; i < size; i++)
     {
         spi_send_data(data[i]);
     }
@@ -51,7 +52,7 @@ static void display_burst_framebuffer(uint8_t *data)
 /**
  * @brief Called by the application to initialize the display.
  *
- * @ref   https://www.avrfreaks.net/forum/ssd1306-lcd-initialization-commands
+ * @ref   www.avrfreaks.net/forum/ssd1306-lcd-initialization-commands
  */
 void display_init(void)
 {
@@ -67,37 +68,37 @@ void display_init(void)
     display_send_command(SSD1306_DISPLAY_OFF);
     
     display_send_command(SSD1306_SET_DISPLAY_CLOCK_DIV);
-    display_send_command(0x80);
+    display_send_command(0x80U);
 
     display_send_command(SSD1306_SET_MULTIPLEX);
-    display_send_command(0x3F);
+    display_send_command(0x3FU);
 
     display_send_command(SSD1306_SET_DISPLAY_OFFSET);
-    display_send_command(0x0);
+    display_send_command(0x00U);
 
-    display_send_command(SSD1306_SET_START_LINE | 0x0);
+    display_send_command(SSD1306_SET_START_LINE | 0x00U);
 
     display_send_command(SSD1306_CHARGE_PUMP);
-    display_send_command(0x14);
+    display_send_command(0x14U);
 
     display_send_command(SSD1306_MEMORY_MODE);
-    display_send_command(0x00);
+    display_send_command(0x00U);
 
-    display_send_command(SSD1306_SEG_REMAP | 0x1);
+    display_send_command(SSD1306_SEG_REMAP | 0x01U);
 
     display_send_command(SSD1306_COM_SCAN_DEC);
 
     display_send_command(SSD1306_SET_COM_PINS);
-    display_send_command(0x12);
+    display_send_command(0x12U);
 
     display_send_command(SSD1306_SET_CONTRAST);
-    display_send_command(0xCF);
+    display_send_command(0xCFU);
 
     display_send_command(SSD1306_SET_PRECHARGE);
-    display_send_command(0xF1);
+    display_send_command(0xF1U);
 
     display_send_command(SSD1306_SET_VCOMH_DESELECT);
-    display_send_command(0x40);
+    display_send_command(0x40U);
 
     display_send_command(SSD1306_DISPLAYALLON_RESUME);
     display_send_command(SSD1306_DISPLAY_NORMAL);
@@ -113,7 +114,7 @@ void display_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-extern void display_deinit(void)
+static void display_deinit(void)
 {
     display_is_initialized = false;
 }
@@ -125,12 +126,12 @@ extern void display_deinit(void)
 /* cppcheck-suppress unusedFunction */
 void display_send_framebuffer(uint8_t *data)
 {
-    MY_ASSERT(data);
+    MY_ASSERT(data != NULL);
     MY_ASSERT(display_is_initialized);
 
     display_send_command(SSD1306_COLUMN_ADDR);
     display_send_command(0);
-    display_send_command(DISPLAY_WIDTH - 1);
+    display_send_command(DISPLAY_WIDTH - 1U);
     display_send_command(SSD1306_PAGE_ADDR);
     display_send_command(0);
     display_send_command(7);

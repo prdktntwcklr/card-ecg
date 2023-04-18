@@ -6,7 +6,7 @@
   *
   * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
   * Distributed as open source software under MIT License, see LICENSE.txt file.
-  * Please, as a favour, retain the link http://tinusaur.org to The Tinusaur Project.
+  * Please, as a favour, retain the link tinusaur.org to The Tinusaur Project.
   */
 
 #include "font.h"

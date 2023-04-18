@@ -2,6 +2,7 @@
 
 checker=cppcheck
 dummy_file=dummyfile
+addon_file=addon.json
 
 echo ""
 echo " ========================================================= "
@@ -10,8 +11,14 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker --enable=all --suppress=missingInclude --inline-suppr \
-         --suppressions-list=.cppcheck --language=c \
+addon_option=""
+
+if [[ -f "$addon_file" ]]; then
+    addon_option=--addon="$addon_file"
+fi
+
+$checker --enable=all --suppress=missingInclude "$addon_option" \
+         --inline-suppr --suppressions-list=.cppcheck --language=c \
          --output-file=$dummy_file -I../../inc ../../src -DTEST
 
 echo ""

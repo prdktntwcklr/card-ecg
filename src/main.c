@@ -1,6 +1,7 @@
 #include "main.h"
 #include "adc.h"
 #include "superloop.h"
+#include "system.h"
 #include "timer.h"
 #include "uart.h"
 
@@ -21,6 +22,9 @@ int main(void)
 int testable_main(void)
 #endif
 {
+    /* system_init() must be called first */
+    system_init();
+
     superloop_init();
 
     while(superloop_run())
@@ -52,6 +56,10 @@ void testable_irq_handler(void)
     else if((irq_status & ADC_BIT) == ADC_BIT)
     {
         adc_handle_interrupt();
+    }
+    else
+    {
+        /* do nothing */
     }
 }
 /*** end of file ***/

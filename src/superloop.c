@@ -1,11 +1,12 @@
 #include "superloop.h"
+#include "adc.h"
+#include "dac.h"
 #include "display.h"
 #include "framebuffer.h"
 #include "led.h"
 #include "logo.h"
 #include "my_assert.h"
 #include "my_printf.h"
-#include "system.h"
 #include "timer.h"
 #include "uart.h"
 
@@ -25,14 +26,18 @@ STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_heig
  */
 extern void superloop_init(void)
 {
-    /* system_init() must be called first */
-    system_init();
-
-    /* initialize rest of peripherals */
     led_init();
     timer_init();
     display_init();
     framebuffer_init();
+
+    dac_init();
+    dac_set(0xFFF);
+
+    adc_init();
+    adc_set_rate(50);
+    adc_set_gain(4);
+    adc_start();
 
     uart_init();
     MY_PRINTF("superloop_init() complete.\r\n");
@@ -48,6 +53,10 @@ extern bool superloop_run(void)
     if(timer_deadline_reached(deadline))
     {
         deadline += ONE_SEC_IN_MS;
+
+        int32_t adc_new_val = adc_get();
+
+        MY_PRINTF("ADC: %ld\r\n", adc_new_val); // NOLINT
 
         led_toggle();
     }
