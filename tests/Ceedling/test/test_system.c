@@ -2,10 +2,10 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
 #include "system.h"
+#include "testable_mcu_registers.h"
 
 void setUp(void)
 {
@@ -14,9 +14,7 @@ void setUp(void)
     POWKEY2 = 0;
 }
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_system_init_should_initializeSystemRegistersCorrectly(void)
 {

@@ -2,7 +2,7 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
 #include "testable_mcu_registers.h"
 
@@ -18,18 +18,14 @@
 #include "my_assert_stub.h"
 #include "superloop.h"
 
-void setUp(void)
-{
-}
+void setUp(void) {}
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_superloop_run_should_notDoAnythingIfDeadlineNotReached(void)
 {
     timer_deadline_reached_IgnoreAndReturn(false);
-    
+
     superloop_run();
 }
 

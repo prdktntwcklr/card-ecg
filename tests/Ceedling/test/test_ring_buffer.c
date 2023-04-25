@@ -9,9 +9,7 @@ void setUp(void)
     ring_buffer_reset();
 }
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_ring_buffer_should_defaultToEmpty(void)
 {
@@ -49,7 +47,7 @@ void test_ring_buffer_should_getBackCorrectDataAfterPut(void)
     ring_buffer_put('A');
     ring_buffer_put('b');
     ring_buffer_put('C');
-    
+
     uint8_t byte = 0; // byte to hold the data from the ring buffer
 
     TEST_ASSERT_TRUE(ring_buffer_get(&byte));

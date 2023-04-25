@@ -10,9 +10,9 @@
 
 #define TICK_RATE_HZ       (100UL)
 #define TIMER_DIV_VAL      (256UL)
-#define TIMER_RELOAD_VALUE ((CPU_CLK)/((TICK_RATE_HZ) * (TIMER_DIV_VAL)))
+#define TIMER_RELOAD_VALUE ((CPU_CLK) / ((TICK_RATE_HZ) * (TIMER_DIV_VAL)))
 #define ONE_SEC_IN_MS      (1000U)
-#define TIMER_INC_VALUE    ((ONE_SEC_IN_MS)/(TICK_RATE_HZ))
+#define TIMER_INC_VALUE    ((ONE_SEC_IN_MS) / (TICK_RATE_HZ))
 
 STATIC_ASSERT(TIMER_RELOAD_VALUE == 400UL, timer_reload_value_should_be_400);
 STATIC_ASSERT(TIMER_INC_VALUE == 10U, timer_inc_value_should_be_10);
@@ -71,7 +71,7 @@ static void timer_increment_stamp(const uint32_t value)
 extern void timer_init(void)
 {
     /* set up Timer0 */
-    T0LD  = TIMER_RELOAD_VALUE;
+    T0LD = TIMER_RELOAD_VALUE;
     T0CON = T0_10MHZ | T0_DIV_256 | T0_DOWN | T0_ENABLED | T0_PERIODIC;
 
     /* enable Timer0 interrupt */
@@ -109,7 +109,9 @@ extern void timer_delay_10ms(void)
 
     uint32_t deadline = timer_get_stamp() + (TIMER_INC_VALUE * 2U);
 
-    while(!timer_deadline_reached(deadline)) {}
+    while(!timer_deadline_reached(deadline))
+    {
+    }
 }
 
 /**
@@ -119,6 +121,6 @@ extern void timer_handle_interrupt(void)
 {
     time_stamp += TIMER_INC_VALUE;
 
-    T0LD = TIMER_RELOAD_VALUE; 
+    T0LD = TIMER_RELOAD_VALUE;
 }
 /*** end of file ***/

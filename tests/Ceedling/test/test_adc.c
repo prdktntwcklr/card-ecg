@@ -14,7 +14,7 @@ void setUp(void)
     ADCMDE = 0x03;    /* default value */
     ADC0CON = 0x8000; /* default value */
     ADCMSKI = 0;
-    ADCFLT = 0x0007;  /* default value */
+    ADCFLT = 0x0007; /* default value */
     ADCCFG = 0;
     IRQEN = 0;
     ADC0DAT = 0;
@@ -82,7 +82,7 @@ void test_adc_set_gain_should_setSupportedGainsCorrectly(void)
     TEST_ASSERT_EQUAL_HEX16(0x8008, ADC0CON);
 
     adc_set_gain(512);
-    TEST_ASSERT_EQUAL_HEX16(0x8009, ADC0CON);    
+    TEST_ASSERT_EQUAL_HEX16(0x8009, ADC0CON);
 }
 
 void test_adc_set_gain_should_throwErrorIfGainNotSupported(void)

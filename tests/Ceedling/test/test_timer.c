@@ -2,12 +2,12 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
-#include "timer.h"
-#include "timer.c" /* hack to test static functions */
 #include "my_assert_stub.h"
+#include "testable_mcu_registers.h"
+#include "timer.c" /* hack to test static functions */
+#include "timer.h"
 
 void setUp(void)
 {
@@ -29,13 +29,13 @@ void test_timer_init_should_initializeTimerRegistersCorrectly(void)
 
     TEST_ASSERT_EQUAL(400, T0LD);
     TEST_ASSERT_EQUAL_HEX32(0x000004C8, T0CON);
-    TEST_ASSERT_EQUAL_HEX32(0x00000008, IRQEN);    
+    TEST_ASSERT_EQUAL_HEX32(0x00000008, IRQEN);
 }
 
 void test_timer_increment_stamp_should_incrementTimeStampCorrectly(void)
 {
     TEST_ASSERT_EQUAL(0, timer_get_stamp());
-    
+
     timer_increment_stamp(50);
     TEST_ASSERT_EQUAL(50, timer_get_stamp());
 
@@ -43,7 +43,7 @@ void test_timer_increment_stamp_should_incrementTimeStampCorrectly(void)
     TEST_ASSERT_EQUAL(150, timer_get_stamp());
 
     timer_increment_stamp(2300);
-    TEST_ASSERT_EQUAL(2450, timer_get_stamp());   
+    TEST_ASSERT_EQUAL(2450, timer_get_stamp());
 }
 
 void test_timer_handle_interrupt_should_incrementReloadTimerAndTimeStamp(void)
@@ -67,7 +67,7 @@ void test_timer_set_stamp_should_SetTimeStampCorrectly(void)
     TEST_ASSERT_EQUAL(3200, timer_get_stamp());
 
     timer_set_stamp(70);
-    TEST_ASSERT_EQUAL(70, timer_get_stamp());     
+    TEST_ASSERT_EQUAL(70, timer_get_stamp());
 }
 
 void test_timer_deadline_reached_should_handleDeadlinesCorrectly(void)

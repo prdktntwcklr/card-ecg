@@ -1,2 +1,6 @@
 BasedOnStyle: LLVM
+AlignConsecutiveMacros: AcrossEmptyLines
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Allman
 IndentWidth: 4
+SpaceBeforeParens: Never

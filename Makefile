@@ -16,7 +16,7 @@ SHELL       = /bin/bash
 TARGET      = card-ecg
 TOOL        = arm-none-eabi-
 
-# compile options 
+# compile options
 MCU         = arm7tdmi
 CHIP        = ADUC7060
 OPTIMIZE    = -O2
@@ -85,9 +85,9 @@ CFLAGS     += -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls
 CFLAGS     += -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
 
 LD_FLAGS    = -mcpu=$(MCU)
-LD_FLAGS   += -nostartfiles 
+LD_FLAGS   += -nostartfiles
 LD_FLAGS   += -Wl,-Map="$(MAP)",--cref
-LD_FLAGS   += -fno-exceptions -fno-rtti	
+LD_FLAGS   += -fno-exceptions -fno-rtti
 LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
 LD_FLAGS   += -specs=nosys.specs
@@ -104,7 +104,7 @@ size: $(ELF)
 
 $(LSS): $(ELF)
 	@echo --- making asm-lst...
-	$(OBJDUMP) -dC $(ELF) > $(LSS)	
+	$(OBJDUMP) -dC $(ELF) > $(LSS)
 
 $(ELF):	$(OBJS)
 	@echo --- linking...

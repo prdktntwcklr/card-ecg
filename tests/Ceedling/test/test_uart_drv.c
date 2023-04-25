@@ -20,9 +20,7 @@ void setUp(void)
     IRQEN = 0;
 }
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_uart_drv_init_should_initializeUartCorrectly(void)
 {

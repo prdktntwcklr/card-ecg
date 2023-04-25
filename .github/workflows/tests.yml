@@ -8,7 +8,7 @@ on:
 
   # allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 jobs:
   build-hex:
     runs-on: ubuntu-latest
