@@ -44,8 +44,8 @@ extern void spi_init(uint32_t bit_rate)
     SPICON = SPITFLH | SPIRFLH;
 
     /* initialize spi peripheral */
-    SPICON = SPICONT | SPIOEN | SPIZEN | SPITMDE | \
-             SPICPO  | SPICPH | SPIMEN | SPIEN;
+    SPICON =
+        SPICONT | SPIOEN | SPIZEN | SPITMDE | SPICPO | SPICPH | SPIMEN | SPIEN;
 
     spi_is_initialized = true;
 }
@@ -68,7 +68,9 @@ static void spi_deinit(void)
  */
 extern void spi_wait_for_tx_complete(void)
 {
-    while((SPISTA & 0xE) == 0xE) {}
+    while((SPISTA & 0xE) == 0xE)
+    {
+    }
 }
 
 /**
@@ -76,7 +78,9 @@ extern void spi_wait_for_tx_complete(void)
  */
 static void spi_wait_for_space_in_tx_fifo(void)
 {
-    while((SPISTA & 0x8) == 0x8) {}
+    while((SPISTA & 0x8) == 0x8)
+    {
+    }
 }
 
 /**

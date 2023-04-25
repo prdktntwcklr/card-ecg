@@ -2,7 +2,7 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
 #include "testable_mcu_registers.h"
 

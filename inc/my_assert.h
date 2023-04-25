@@ -12,7 +12,8 @@ void my_assert_failed(const char *file, int line);
 /**
  * @brief Used for runtime asserts.
  *
- * @ref   https://barrgroup.com/embedded-systems/how-to/design-by-contract-for-embedded-software
+ * @ref
+ * https://barrgroup.com/embedded-systems/how-to/design-by-contract-for-embedded-software
  */
 #define MY_ASSERT(expr)                                                        \
     do                                                                         \
@@ -30,20 +31,22 @@ void my_assert_failed(const char *file, int line);
 
 #define MY_ERROR() MY_ASSERT(0)
 
-#define UNUSED(x) ((void)(x))
+#define UNUSED(x)  ((void)(x))
 /**
  * @brief Generates a static assert.
  *
  * @ref   https://stackoverflow.com/questions/3385515/static-assert-in-c
  */
 #ifndef TEST
-#define CTASTR2(pre,post) pre ## post
-#define CTASTR(pre,post) CTASTR2(pre,post)
-#define STATIC_ASSERT(cond,msg)                                             \
-    typedef struct { int CTASTR(static_assertion_failed_,msg) : !!(cond); } \
-        CTASTR(static_assertion_failed_,__COUNTER__)
+#define CTASTR2(pre, post) pre##post
+#define CTASTR(pre, post)  CTASTR2(pre, post)
+#define STATIC_ASSERT(cond, msg)                                               \
+    typedef struct                                                             \
+    {                                                                          \
+        int CTASTR(static_assertion_failed_, msg) : !!(cond);                  \
+    } CTASTR(static_assertion_failed_, __COUNTER__)
 #else
-#define STATIC_ASSERT(cond,msg)
+#define STATIC_ASSERT(cond, msg)
 #endif
 
 #endif /* MY_ASSERT_H */

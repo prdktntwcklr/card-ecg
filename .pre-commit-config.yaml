@@ -4,14 +4,14 @@ repos:
     rev: v1.5.1
     hooks:
       - id: remove-tabs
-        exclude: "aduc706x_rom\\.ld$ | Makefile"
+        exclude: "common/.*|Makefile"
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: v1.3.5
     hooks:
       - id: clang-format
         args:
           - -i
-        exclude: "third-party/.*"
+        exclude: "common/.*|third-party/.*|testable_mcu_registers.h"
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:

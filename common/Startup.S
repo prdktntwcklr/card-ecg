@@ -14,23 +14,23 @@
 //*
 //*     Copyright (c) 2003-2015, scmRTOS Team
 //*
-//*     Permission is hereby granted, free of charge, to any person 
-//*     obtaining  a copy of this software and associated documentation 
-//*     files (the "Software"), to deal in the Software without restriction, 
-//*     including without limitation the rights to use, copy, modify, merge, 
-//*     publish, distribute, sublicense, and/or sell copies of the Software, 
-//*     and to permit persons to whom the Software is furnished to do so, 
+//*     Permission is hereby granted, free of charge, to any person
+//*     obtaining  a copy of this software and associated documentation
+//*     files (the "Software"), to deal in the Software without restriction,
+//*     including without limitation the rights to use, copy, modify, merge,
+//*     publish, distribute, sublicense, and/or sell copies of the Software,
+//*     and to permit persons to whom the Software is furnished to do so,
 //*     subject to the following conditions:
 //*
-//*     The above copyright notice and this permission notice shall be included 
+//*     The above copyright notice and this permission notice shall be included
 //*     in all copies or substantial portions of the Software.
 //*
-//*     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-//*     EXPRESS  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-//*     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-//*     IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-//*     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-//*     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+//*     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//*     EXPRESS  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//*     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+//*     IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+//*     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+//*     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 //*     THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //*
 //*     =================================================================
@@ -104,15 +104,15 @@ ResetHandler:
 //-----------------------------------------------------------------------------
         MSR     CPSR_c, #MODE_SYS | NIRQ | NFIQ     // switch to system mode, IRQ & FIQ disabled
         LDR     SP, =__stack_sys
-        MSR     CPSR_c, #MODE_FIQ | NIRQ | NFIQ     // switch to fiq mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_FIQ | NIRQ | NFIQ     // switch to fiq mode, IRQ & FIQ disabled
         LDR     SP, =__stack_fiq
-        MSR     CPSR_c, #MODE_SVC | NIRQ | NFIQ     // switch to supervisor mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_SVC | NIRQ | NFIQ     // switch to supervisor mode, IRQ & FIQ disabled
         LDR     SP, =__stack_svc
-        MSR     CPSR_c, #MODE_UND | NIRQ | NFIQ     // switch to undefined mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_UND | NIRQ | NFIQ     // switch to undefined mode, IRQ & FIQ disabled
         LDR     SP, =__stack_und
-        MSR     CPSR_c, #MODE_ABORT | NIRQ | NFIQ   // switch to abort mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_ABORT | NIRQ | NFIQ   // switch to abort mode, IRQ & FIQ disabled
         LDR     SP, =__stack_abort
-        MSR     CPSR_c, #MODE_IRQ | NIRQ | NFIQ     // switch to irq mode, IRQ & FIQ disabled     
+        MSR     CPSR_c, #MODE_IRQ | NIRQ | NFIQ     // switch to irq mode, IRQ & FIQ disabled
         LDR     SP, =__stack_irq
         MSR     CPSR_c, #MODE_SYS                   // switch to system mode, IRQ & FIQ enabled
         LDR     SP, =__stack_sys
@@ -149,18 +149,18 @@ data_copy_loop:
     .global ExitFunction
     .weak ExitFunction
 ExitFunction:
-        B       ExitFunction   
+        B       ExitFunction
 
 //-----------------------------------------------------------------------------
 //     Default exception handlers.
 //-----------------------------------------------------------------------------
     .section .text.weakIRQHandler, "ax"
-    .weak IRQHandler 
+    .weak IRQHandler
 IRQHandler:
         B       IRQHandler
 
     .section .text.weakFIQHandler, "ax"
-    .weak FIQHandler 
+    .weak FIQHandler
 FIQHandler:
         B       FIQHandler
 
@@ -175,12 +175,12 @@ SWIHandler:
         B       SWIHandler
 
     .section .text.weakPAbortHandler, "ax"
-    .weak PAbortHandler 
+    .weak PAbortHandler
 PAbortHandler:
         B       PAbortHandler
 
     .section .text.weakDAbortHandler, "ax"
-    .weak DAbortHandler 
+    .weak DAbortHandler
 DAbortHandler:
         B       DAbortHandler
 

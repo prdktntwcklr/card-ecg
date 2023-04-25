@@ -31,7 +31,7 @@
 //*
 //******************************************************************************
 #ifndef    ADUC706X_H__
-#define    ADUC706X_H__ 
+#define    ADUC706X_H__
 
 #ifndef    __ASSEMBLER__
 #include <stdint.h>
@@ -62,7 +62,7 @@
 
 
 // Interrupt controller
-enum 
+enum
 {
     ALL_INT_FIQ               = (1UL << 0),
     SWI_BIT                   = (1UL << 1),
@@ -134,7 +134,7 @@ enum
     T0_DIV_16                 = (4UL << 0),
     T0_DIV_256                = (8UL << 0),
     T0_DIV_32768              = (0xFUL << 0),
-    
+
     T0_BINARY                 = (0UL << 4),
     T0_24_HOURS               = (2UL << 4),
     T0_255_HOURS              = (3UL << 4),
@@ -193,7 +193,7 @@ enum
     T1_DIV_16                 = (4UL << 0),
     T1_DIV_256                = (8UL << 0),
     T1_DIV_32768              = (0xFUL <<    0),
-    
+
     T1_BINARY                 = (0UL << 4),
     T1_24_HOURS               = (2UL << 4),
     T1_255_HOURS              = (3UL << 4),
@@ -223,7 +223,7 @@ enum
 {
     T2_RUN_IN_POWERDOWN       = (0UL << 0),
     T2_STOP_IN_POWERDOWN      = (1UL << 0),
-    
+
     T2_WDT_ACTION_RESET       = (0UL << 1),
     T2_WDT_ACTION_IRQ         = (1UL << 1),
 
@@ -255,7 +255,7 @@ enum
     T3_DIV_16                 = (4UL << 0),
     T3_DIV_256                = (8UL << 0),
     T3_DIV_32768              = (0xFUL << 0),
-    
+
     T3_FREE_RUNNING           = (0UL << 6),
     T3_PERIODIC               = (1UL << 6),
 

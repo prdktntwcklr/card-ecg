@@ -19,7 +19,7 @@ static bool led_is_initialized = false;
 extern void led_init(void)
 {
     /* configure P1.5 as an output */
-    GP1DAT |=  (1UL << 29);
+    GP1DAT |= (1UL << 29);
 
     led_is_initialized = true;
 

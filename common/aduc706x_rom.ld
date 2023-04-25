@@ -1,6 +1,6 @@
 /*************************************************
 * linker script for ADuC706x microcontroller
-**************************************************/ 
+**************************************************/
 ENTRY(_start)
 
 IRQ_STACK_SIZE = 0x0080;
@@ -112,7 +112,7 @@ SECTIONS
 		. += SVC_STACK_SIZE;
 		PROVIDE (__stack_svc = .);
 		. += SYS_STACK_SIZE;
-		PROVIDE (__stack_sys = .);	
+		PROVIDE (__stack_sys = .);
 
 	} > RAM
 

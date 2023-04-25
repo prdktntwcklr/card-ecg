@@ -12,7 +12,7 @@ services:
     - ./:/app
   code-complexity:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && \ 
+    command: bash -c "cd tests/StaticAnalysis && \
                       chmod +x code-complexity.sh && ./code-complexity.sh"
     depends_on:
     - build-image

@@ -12,9 +12,7 @@ void setUp(void)
     GP0DAT = 0x0000ABCD; /* lower two bytes should not be affected */
 }
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_display_cs_on_should_setCorrectPin(void)
 {
