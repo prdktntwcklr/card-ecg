@@ -11,10 +11,10 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
     echo $CONTAINER_TIMEZONE > /etc/timezone
 
 # update package information and install required packages
-RUN apt-get update
-RUN xargs -a packages.txt apt-get install --no-install-recommends -y
-RUN pip install --no-cache-dir lizard pycobertura pre-commit
-RUN gem install ceedling
+RUN apt-get update && \
+    xargs -a packages.txt apt-get install --no-install-recommends -y && \
+    pip install --no-cache-dir lizard pycobertura pre-commit && \
+    gem install ceedling
 
 # clean up stale packages
 RUN apt-get clean -y && \
