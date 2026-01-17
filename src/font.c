@@ -1,18 +1,17 @@
- /*
-  * ssd1306xled_font6x8 is by Neven Boyanov
-  *
-  * @created: 2014-08-12
-  * @author:  Neven Boyanov
-  *
-  * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
-  * Distributed as open source software under MIT License, see LICENSE.txt file.
-  * Please, as a favour, retain the link tinusaur.org to The Tinusaur Project.
-  */
+/*
+ * ssd1306xled_font6x8 is by Neven Boyanov
+ *
+ * @created: 2014-08-12
+ * @author:  Neven Boyanov
+ *
+ * Copyright (c) 2015 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+ * Distributed as open source software under MIT License, see LICENSE.txt file.
+ * Please, as a favour, retain the link tinusaur.org to The Tinusaur Project.
+ */
 
 #include "font.h"
 
-const uint8_t ssd1306xled_font6x8[] =
-{
+const uint8_t ssd1306xled_font6x8[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sp
     0x00, 0x00, 0x00, 0x2f, 0x00, 0x00, // !
     0x00, 0x00, 0x07, 0x00, 0x07, 0x00, // "

@@ -32,18 +32,18 @@ extern void ring_buffer_reset(void)
 extern bool ring_buffer_put(uint8_t byte)
 {
     bool put_success = false;
-    
+
     if(!ring_buffer_is_full())
     {
         /* there is room, place character in buffer */
         ring_data[ring_head] = byte;
-        
+
         /* update head position */
         if(++ring_head == ring_max)
         {
             ring_head = 0;
         }
-                
+
         put_success = true;
     }
 
@@ -56,24 +56,24 @@ extern bool ring_buffer_put(uint8_t byte)
  * @note  Returns true if successfull.
  */
 extern bool ring_buffer_get(uint8_t *byte)
-{    
+{
     bool get_success = false;
 
-    /* trying to use MY_ASSERT(byte) will result in compiler warning */    
+    /* trying to use MY_ASSERT(byte) will result in compiler warning */
     if(byte && (!ring_buffer_is_empty()))
     {
         /* ring buffer is not empty */
         *byte = ring_data[ring_tail];
-        
+
         /* update tail position */
         if(++ring_tail == ring_max)
         {
             ring_tail = 0;
         }
-        
+
         get_success = true;
     }
-    
+
     return get_success;
 }
 
@@ -81,14 +81,14 @@ extern bool ring_buffer_get(uint8_t *byte)
  * @brief  Returns true if ring buffer is empty (contains no elements).
  */
 extern bool ring_buffer_is_empty(void)
-{    
+{
     bool buffer_empty = false;
-    
+
     if(ring_head == ring_tail)
     {
         buffer_empty = true;
     }
-    
+
     return buffer_empty;
 }
 
@@ -98,14 +98,14 @@ extern bool ring_buffer_is_empty(void)
 extern bool ring_buffer_is_full(void)
 {
     bool buffer_full = false;
-    
+
     ring_pos_t next_head = (ring_head + 1U) % RING_SIZE;
-    
+
     if(next_head == ring_tail)
     {
         buffer_full = true;
     }
-    
+
     return buffer_full;
 }
 
@@ -113,10 +113,25 @@ extern bool ring_buffer_is_full(void)
 
 /* stub out ring buffer functions if ring buffer is not used */
 extern void ring_buffer_reset(void) {}
-extern bool ring_buffer_put(uint8_t byte) {UNUSED(byte); return false;}
-extern bool ring_buffer_get(uint8_t *byte) {UNUSED(byte); *byte = 0; return false;}
-extern bool ring_buffer_is_empty(void){return true;}
-extern bool ring_buffer_is_full(void){return true;}
+extern bool ring_buffer_put(uint8_t byte)
+{
+    UNUSED(byte);
+    return false;
+}
+extern bool ring_buffer_get(uint8_t *byte)
+{
+    UNUSED(byte);
+    *byte = 0;
+    return false;
+}
+extern bool ring_buffer_is_empty(void)
+{
+    return true;
+}
+extern bool ring_buffer_is_full(void)
+{
+    return true;
+}
 
 #endif /* NRINGBUF */
 /*** end of file ***/

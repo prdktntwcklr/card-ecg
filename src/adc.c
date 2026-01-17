@@ -24,12 +24,11 @@ void adc_init(void)
     ADCMSKI = 0;
 
     /* set ADC clock to 512kHz for normal ADC operation */
-    ADCMDE  |= ADCCLKSEL_512KHZ;
+    ADCMDE |= ADCCLKSEL_512KHZ;
 
     /* configure ADC peripheral */
-    ADC0CON |= ADC0CON_ADC0EN | ADC0CON_AMP_CM_AVDD_DIV_2 | \
-               ADC0CON_CHANNEL_DIFF_0_1 | ADC0CON_REF_INT | \
-               ADC0CON_GAIN_1;
+    ADC0CON |= ADC0CON_ADC0EN | ADC0CON_AMP_CM_AVDD_DIV_2 |
+               ADC0CON_CHANNEL_DIFF_0_1 | ADC0CON_REF_INT | ADC0CON_GAIN_1;
 
     /* enable primary ADC result ready interrupt */
     ADCMSKI |= ADC0RDY_INTEN;
@@ -50,7 +49,7 @@ void adc_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void adc_deinit(void)
+void adc_deinit(void)
 {
     adc_is_initialized = false;
 }
@@ -151,61 +150,61 @@ void adc_set_gain(uint16_t adc_gain)
 
     switch(adc_gain)
     {
-        case 1:
-        {
-            adc0con_reg |= ADC0CON_GAIN_1;
-            break;
-        }
-        case 2:
-        {
-            adc0con_reg |= ADC0CON_GAIN_2;
-            break;
-        }
-        case 4:
-        {
-            adc0con_reg |= ADC0CON_GAIN_4;
-            break;
-        }
-        case 8:
-        {
-            adc0con_reg |= ADC0CON_GAIN_8;
-            break;
-        }
-        case 16:
-        {
-            adc0con_reg |= ADC0CON_GAIN_16;
-            break;
-        }
-        case 32:
-        {
-            adc0con_reg |= ADC0CON_GAIN_32;
-            break;
-        }
-        case 64:
-        {
-            adc0con_reg |= ADC0CON_GAIN_64;
-            break;
-        }
-        case 128:
-        {
-            adc0con_reg |= ADC0CON_GAIN_128;
-            break;
-        }
-        case 256:
-        {
-            adc0con_reg |= ADC0CON_GAIN_256;
-            break;
-        }
-        case 512:
-        {
-            adc0con_reg |= ADC0CON_GAIN_512;
-            break;
-        }
-        default:
-        {
-            /* adc_gain not supported */
-            MY_ERROR();
-        }
+    case 1:
+    {
+        adc0con_reg |= ADC0CON_GAIN_1;
+        break;
+    }
+    case 2:
+    {
+        adc0con_reg |= ADC0CON_GAIN_2;
+        break;
+    }
+    case 4:
+    {
+        adc0con_reg |= ADC0CON_GAIN_4;
+        break;
+    }
+    case 8:
+    {
+        adc0con_reg |= ADC0CON_GAIN_8;
+        break;
+    }
+    case 16:
+    {
+        adc0con_reg |= ADC0CON_GAIN_16;
+        break;
+    }
+    case 32:
+    {
+        adc0con_reg |= ADC0CON_GAIN_32;
+        break;
+    }
+    case 64:
+    {
+        adc0con_reg |= ADC0CON_GAIN_64;
+        break;
+    }
+    case 128:
+    {
+        adc0con_reg |= ADC0CON_GAIN_128;
+        break;
+    }
+    case 256:
+    {
+        adc0con_reg |= ADC0CON_GAIN_256;
+        break;
+    }
+    case 512:
+    {
+        adc0con_reg |= ADC0CON_GAIN_512;
+        break;
+    }
+    default:
+    {
+        /* adc_gain not supported */
+        MY_ERROR();
+    }
     }
 
     /* update register */

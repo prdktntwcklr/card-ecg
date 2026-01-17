@@ -8,6 +8,8 @@ typedef uint8_t *fb_handle_t;
 
 #define FRAMEBUFFER_WIDTH  (128UL)
 #define FRAMEBUFFER_HEIGHT (64UL)
+#define FRAMEBUFFER_ELEMENTS                                                   \
+    ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT) / (8UL * 8UL))
 
 void framebuffer_init(void);
 void framebuffer_clear(fb_handle_t framebuffer);

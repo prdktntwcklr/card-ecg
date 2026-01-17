@@ -19,9 +19,7 @@ void setUp(void)
     T0CLRI = 0xAA; /* dummy value to check if we write to T0CLRI */
 }
 
-void tearDown(void)
-{
-}
+void tearDown(void) {}
 
 void test_main_should_callSuperloopInitAndThenRunMainLoop(void)
 {

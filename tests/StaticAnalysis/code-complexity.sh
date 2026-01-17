@@ -30,7 +30,7 @@ echo "     RESULTS                                               "
 echo ""
 
 if [[ $results ]]; then
-    echo "     FAIL                                                  " 
+    echo "     FAIL                                                  "
     echo "     Consider refactoring the following functions:         "
     echo " ========================================================= "
     echo ""

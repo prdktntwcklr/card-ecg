@@ -2,12 +2,11 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
 #include "led.h"
-#include "led.c" /* hack to test static functions */
 #include "my_assert_stub.h"
+#include "testable_mcu_registers.h"
 
 void setUp(void)
 {
@@ -36,7 +35,7 @@ void test_led_init_should_turnLedOff(void)
 void test_led_off_should_turnCorrectLedOff(void)
 {
     GP1DAT = 0xFFFFABCD;
-    
+
     led_init();
     led_off();
     TEST_ASSERT_EQUAL_HEX32(0xFFDFABCD, GP1DAT);
@@ -62,7 +61,7 @@ void test_led_toggle_should_toggleCorrectLedOnOff(void)
 
     /* toggle on to off */
     led_toggle();
-    TEST_ASSERT_EQUAL_HEX32(0x2000ABCD, GP1DAT);    
+    TEST_ASSERT_EQUAL_HEX32(0x2000ABCD, GP1DAT);
 }
 
 void test_led_off_should_throwErrorIfLedIsNotInitialized(void)

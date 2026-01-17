@@ -2,11 +2,10 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
 #include "testable_mcu_registers.h"
 
-#include "display.c" /* hack to test static functions */
 #include "display.h"
 #include "display_drv.h"
 #include "mock_spi.h"

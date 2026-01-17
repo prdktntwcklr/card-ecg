@@ -2,12 +2,11 @@
 
 #include "unity.h"
 
-#define EXTERN 
+#define EXTERN
 
-#include "testable_mcu_registers.h"
 #include "dac.h"
-#include "dac.c" /* hack to test static functions */
 #include "my_assert_stub.h"
+#include "testable_mcu_registers.h"
 
 void setUp(void)
 {

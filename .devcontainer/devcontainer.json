@@ -18,5 +18,6 @@
                 "terminal.integrated.defaultProfile.linux": "bash"
             }
         }
-    }
+    },
+    "postStartCommand": "pre-commit --version && pre-commit install"
 }

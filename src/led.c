@@ -19,7 +19,7 @@ static bool led_is_initialized = false;
 extern void led_init(void)
 {
     /* configure P1.5 as an output */
-    GP1DAT |=  (1UL << 29);
+    GP1DAT |= (1UL << 29);
 
     led_is_initialized = true;
 
@@ -33,7 +33,7 @@ extern void led_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void led_deinit(void)
+void led_deinit(void)
 {
     led_is_initialized = false;
 }

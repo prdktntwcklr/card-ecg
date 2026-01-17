@@ -20,12 +20,16 @@ void my_assert_failed(const char *file, int line)
     MY_PRINTF("ASSERT in %s:%d\r\n", file, line);
 
     /* wait for UART to finish sending */
-    while(uart_drv_is_interrupt_enabled()) {}
+    while(uart_drv_is_interrupt_enabled())
+    {
+    }
 
     /* after sending message, disable all interrupts */
     IRQCLR = 0xFFFF;
 
     /* hang in while loop */
-    while(1) {}
+    while(1)
+    {
+    }
 }
 /*** end of file ***/

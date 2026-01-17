@@ -18,8 +18,10 @@
 
 #define ONE_SEC_IN_MS (1000U)
 
-STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH, display_and_framebuffer_widths_do_not_match);
-STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT, display_and_framebuffer_heights_do_not_match);
+STATIC_ASSERT(DISPLAY_WIDTH == FRAMEBUFFER_WIDTH,
+              display_and_framebuffer_widths_do_not_match);
+STATIC_ASSERT(DISPLAY_HEIGHT == FRAMEBUFFER_HEIGHT,
+              display_and_framebuffer_heights_do_not_match);
 
 /**
  * @brief Runs once at the beginning of the program.

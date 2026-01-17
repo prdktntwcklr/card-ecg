@@ -5,27 +5,25 @@
 
 #include <stddef.h>
 
-#define FRAMEBUFFER_ELEMENTS ((FRAMEBUFFER_WIDTH * FRAMEBUFFER_HEIGHT)/(8UL * 8UL))
-
-#define ASCII_OFFSET          (32U)
-#define MAX_STRING_LENGTH    (100U)
+#define ASCII_OFFSET      (32U)
+#define MAX_STRING_LENGTH (100U)
 
 static fb_handle_t framebuffer_ptr = NULL;
 
 static uint64_t framebuffer_array[FRAMEBUFFER_ELEMENTS];
 
-STATIC_ASSERT(sizeof(framebuffer_array)
-                  == (128UL * sizeof(framebuffer_array[0])),
+STATIC_ASSERT(sizeof(framebuffer_array) ==
+                  (128UL * sizeof(framebuffer_array[0])),
               framebuffer_should_contain_128_elements);
 
-/* helper functions declarations */
-static bool end_of_string_reached(char next_symbol);
-static bool end_of_line_reached(uint8_t next_x_pos);
-static bool bottom_of_framebuffer_reached(uint8_t next_y_pos);
-static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol);
-
 #ifdef TEST
-static void framebuffer_deinit(void);
+void framebuffer_deinit(void);
+#endif
+
+#ifndef TEST
+#define PRIVATE static
+#else
+#define PRIVATE
 #endif
 
 /**
@@ -35,7 +33,7 @@ void framebuffer_init(void)
 {
     if(framebuffer_ptr == NULL)
     {
-        framebuffer_ptr = (fb_handle_t) framebuffer_array;
+        framebuffer_ptr = (fb_handle_t)framebuffer_array;
 
         framebuffer_clear(framebuffer_ptr);
     }
@@ -48,7 +46,7 @@ void framebuffer_init(void)
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void framebuffer_deinit(void)
+void framebuffer_deinit(void)
 {
     framebuffer_ptr = NULL;
 }
@@ -64,7 +62,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
 {
     MY_ASSERT(framebuffer != NULL);
 
-    for (uint8_t i = 0; i < (uint8_t)FRAMEBUFFER_ELEMENTS; i++)
+    for(uint8_t i = 0; i < (uint8_t)FRAMEBUFFER_ELEMENTS; i++)
     {
         framebuffer[i] = 0;
     }
@@ -114,10 +112,10 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, uint8_t x, uint8_t y,
                              uint8_t symbol)
 {
     uint16_t ascii_symbol = (symbol - ASCII_OFFSET) * FONT_WIDTH;
-    
-    for (uint8_t dx = 0; dx < FONT_WIDTH; dx++)
+
+    for(uint8_t dx = 0; dx < FONT_WIDTH; dx++)
     {
-        for (uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
+        for(uint32_t dy = 0; dy < FONT_HEIGHT; dy++)
         {
             framebuffer_change_pixel(
                 framebuffer, dx + x, dy + y,
@@ -129,7 +127,7 @@ void framebuffer_draw_symbol(fb_handle_t framebuffer, uint8_t x, uint8_t y,
 /**
  * @brief Checks if we have reached the end of the string.
  */
-static bool end_of_string_reached(char next_symbol)
+PRIVATE bool end_of_string_reached(char next_symbol)
 {
     return (next_symbol == '\0');
 }
@@ -138,7 +136,7 @@ static bool end_of_string_reached(char next_symbol)
  * @brief Checks if the x position for the next symbol goes
  *        beyond the end of the line.
  */
-static bool end_of_line_reached(uint8_t next_x_pos)
+PRIVATE bool end_of_line_reached(uint8_t next_x_pos)
 {
     return ((next_x_pos + FONT_WIDTH) > FRAMEBUFFER_WIDTH);
 }
@@ -147,7 +145,7 @@ static bool end_of_line_reached(uint8_t next_x_pos)
  * @brief Checks if the y position for the next symbol goes
  *        beyond the edge of the framebuffer.
  */
-static bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
+PRIVATE bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
 {
     return ((next_y_pos + FONT_HEIGHT) > FRAMEBUFFER_HEIGHT);
 }
@@ -155,7 +153,7 @@ static bool bottom_of_framebuffer_reached(uint8_t next_y_pos)
 /**
  * @brief Checks if the next symbol is a whitespace at the beginning of a line.
  */
-static bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
+PRIVATE bool whitespace_at_line_beginning(uint8_t next_x_pos, char next_symbol)
 {
     return ((next_x_pos == 0U) && (next_symbol == ' '));
 }
@@ -186,11 +184,11 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
         if(end_of_line_reached(next_x_pos))
         {
             /* switch to next line */
-            next_x_pos  = 0; /* lines start at zero x position */
+            next_x_pos = 0; /* lines start at zero x position */
             next_y_pos += FONT_HEIGHT;
         }
 
-        if(end_of_string_reached(next_symbol) || 
+        if(end_of_string_reached(next_symbol) ||
            bottom_of_framebuffer_reached(next_y_pos))
         {
             break;
@@ -214,9 +212,9 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
 /* cppcheck-suppress unusedFunction */
 void framebuffer_draw_image(fb_handle_t framebuffer, uint8_t *image)
 {
-    for (uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
+    for(uint8_t x_pos = 0; x_pos < FRAMEBUFFER_WIDTH; x_pos++)
     {
-        for (uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
+        for(uint32_t y_pos = 0; y_pos < FRAMEBUFFER_HEIGHT; y_pos++)
         {
             framebuffer_change_pixel(framebuffer, x_pos, y_pos,
                                      image_get_pixel(image, x_pos, y_pos));

@@ -33,7 +33,7 @@ void uart_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void uart_deinit(void)
+void uart_deinit(void)
 {
     uart_is_initialized = false;
 }

@@ -8,14 +8,14 @@ on:
 
   # allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 jobs:
   build-hex:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
       - name: checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: determine short GIT hash
         id:   vars
         run:  echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
@@ -24,17 +24,17 @@ jobs:
       - name: build hex file
         run:  docker compose run --rm build-hex
       - name: upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
             name: card-ecg-${{ steps.vars.outputs.sha_short }}
             path: output/exe/card-ecg.hex
   static-analysis:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build-hex # project has to build successfully before static analysis
     timeout-minutes: 5
     steps:
       - name: checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: build docker image
         run:  docker compose build
       - name: run complexity check
@@ -46,12 +46,12 @@ jobs:
         run:  docker compose run --rm clang-tidy
         if: always() # run even if cppcheck fails
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build-hex # project has to build successfully before unit tests
     timeout-minutes: 5
     steps:
       - name: checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: build docker image
         run:  docker compose build
       - name: run unit tests
@@ -59,4 +59,4 @@ jobs:
       - name: check code coverage
         run:  docker compose run --rm code-coverage
       - name: add code coverage to job summary
-        run:  cat tests/Ceedling/build/artifacts/gcov/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
+        run:  cat tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY

@@ -38,14 +38,14 @@ static void display_burst_framebuffer(uint8_t *data)
     display_cs_off();
 
     const int size = (int)((DISPLAY_WIDTH * DISPLAY_HEIGHT) >> 3);
-    
+
     for(int i = 0; i < size; i++)
     {
         spi_send_data(data[i]);
     }
 
     spi_wait_for_tx_complete();
-    
+
     display_cs_on();
 }
 
@@ -66,7 +66,7 @@ void display_init(void)
     timer_delay_10ms(); /* TODO: shorter delay possible? */
 
     display_send_command(SSD1306_DISPLAY_OFF);
-    
+
     display_send_command(SSD1306_SET_DISPLAY_CLOCK_DIV);
     display_send_command(0x80U);
 
@@ -114,7 +114,7 @@ void display_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void display_deinit(void)
+void display_deinit(void)
 {
     display_is_initialized = false;
 }
@@ -135,7 +135,7 @@ void display_send_framebuffer(uint8_t *data)
     display_send_command(SSD1306_PAGE_ADDR);
     display_send_command(0);
     display_send_command(7);
-    
+
     display_burst_framebuffer(data);
 }
 /*** end of file ***/
