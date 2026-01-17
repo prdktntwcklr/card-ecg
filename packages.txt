@@ -3,7 +3,6 @@ clang-tidy
 cppcheck
 gcc
 gcc-arm-none-eabi
-gcovr
 git
 libnewlib-arm-none-eabi
 make
