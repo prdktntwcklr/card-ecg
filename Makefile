@@ -132,3 +132,6 @@ dirs:
 clean:
 	@echo --- cleaning up output files...
 	-$(RM) $(OUTDIR)
+
+tests:
+	cd tests/Ceedling; ./unit-tests.sh

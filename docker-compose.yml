@@ -36,8 +36,7 @@ services:
     - ./:/app
   unit-tests:
     image: card-ecg
-    command: bash -c "cd tests/Ceedling && chmod +x unit-tests.sh && \
-                      ./unit-tests.sh"
+    command: bash -c "make tests"
     depends_on:
     - build-image
     volumes:
