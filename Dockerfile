@@ -13,7 +13,7 @@ RUN apt-get update && \
     xargs -a packages.txt apt-get install --no-install-recommends -y
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --no-deps -r requirements.txt
 
 RUN gem install ceedling
 
