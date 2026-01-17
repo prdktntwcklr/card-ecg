@@ -129,9 +129,11 @@ dirs:
 	-@$(MD) "$(LSTDIR)"
 	-@$(MD) "$(EXEDIR)"
 
+.PHONY: clean
 clean:
 	@echo --- cleaning up output files...
 	-$(RM) $(OUTDIR)
 
+.PHONY: tests
 tests:
 	cd tests/Ceedling; ./unit-tests.sh
