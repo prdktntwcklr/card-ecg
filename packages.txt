@@ -3,12 +3,10 @@ clang-tidy
 cppcheck
 gcc
 gcc-arm-none-eabi
-gcovr
 git
 libnewlib-arm-none-eabi
 make
 nano
 python3
 python3-pip
-python3-venv
 ruby
