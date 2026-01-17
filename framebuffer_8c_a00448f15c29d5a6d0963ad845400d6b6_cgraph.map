@@ -1,10 +1,17 @@
 <map id="framebuffer_draw_string" name="framebuffer_draw_string">
-<area shape="rect" id="node1" title="Outputs a string to the framebuffer." alt="" coords="5,122,188,149"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#ac667087b1af445c0972bea387adfa598" title="Checks if the y position for the next symbol goes beyond the edge of the framebuffer." alt="" coords="246,5,419,47"/>
-<area shape="rect" id="node3" href="$framebuffer_8c.html#a7975a3b6a6bd87eb13450ec7361e5435" title="Checks if the x position for the next symbol goes beyond the end of the line." alt="" coords="255,71,411,98"/>
-<area shape="rect" id="node4" href="$framebuffer_8c.html#ae01f68c1b7f067632bb80427fa7f2660" title="Checks if we have reached the end of the string." alt="" coords="248,122,417,149"/>
-<area shape="rect" id="node5" href="$framebuffer_8c.html#a7ee04c4d8a2556ba8c00a1ce72d52f53" title="Draws a single symbol (character) to the framebuffer." alt="" coords="236,173,429,199"/>
-<area shape="rect" id="node8" href="$framebuffer_8c.html#ac66e36e3b7404fb37e97f0d213a7cece" title="Checks if the next symbol is a whitespace at the beginning of a line." alt="" coords="259,224,406,265"/>
-<area shape="rect" id="node6" href="$framebuffer_8c.html#ae21269ad59409a9986b18453405cbae5" title="Changes (sets or resets) a single pixel of the framebuffer." alt="" coords="477,136,631,177"/>
-<area shape="rect" id="node7" href="$image_8c.html#a0ad9436e06a64979855eeb09982fadca" title="Returns true if the pixel at x and y coordinates is set." alt="" coords="489,202,619,229"/>
+<area shape="rect" id="Node000001" title="Outputs a string to the framebuffer." alt="" coords="5,119,188,145"/>
+<area shape="rect" id="Node000002" href="$framebuffer_8c.html#a63ea992a7d2bad31381620ef67bfac7d" title="Checks if the y position for the next symbol goes beyond the edge of the framebuffer." alt="" coords="246,5,419,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,117,170,87,235,55,253,48,255,52,237,60,173,92,120,122"/>
+<area shape="rect" id="Node000003" href="$framebuffer_8c.html#a61443af1cdd1dc9d55b7289f329d2b81" title="Checks if the x position for the next symbol goes beyond the end of the line." alt="" coords="255,70,411,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,117,257,96,258,101,159,122"/>
+<area shape="rect" id="Node000004" href="$framebuffer_8c.html#aeb7ae913b8d4e78e145637dab65d3105" title="Checks if we have reached the end of the string." alt="" coords="248,119,417,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,129,234,129,234,135,188,135"/>
+<area shape="rect" id="Node000005" href="$framebuffer_8c.html#a7ee04c4d8a2556ba8c00a1ce72d52f53" title="Draws a single symbol (character) to the framebuffer." alt="" coords="236,169,429,194"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="159,142,258,163,257,168,158,147"/>
+<area shape="rect" id="Node000008" href="$framebuffer_8c.html#ac5cd9a30c1ee9f67d040cf504b7b61e3" title="Checks if the next symbol is a whitespace at the beginning of a line." alt="" coords="259,219,406,259"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="121,142,173,172,237,203,258,211,256,216,235,208,171,176,118,147"/>
+<area shape="rect" id="Node000006" href="$framebuffer_8c.html#ae21269ad59409a9986b18453405cbae5" title="Changes (sets or resets) a single pixel of the framebuffer." alt="" coords="477,132,631,172"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="428,166,464,161,464,167,429,171"/>
+<area shape="rect" id="Node000007" href="$image_8c.html#a0ad9436e06a64979855eeb09982fadca" title="Returns true if the pixel at x and y coordinates is set." alt="" coords="489,197,619,222"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="430,191,476,197,475,202,430,196"/>
 </map>

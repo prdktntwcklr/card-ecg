@@ -1,6 +1,9 @@
 <map id="framebuffer.h" name="framebuffer.h">
-<area shape="rect" id="node1" title=" " alt="" coords="134,5,245,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html" title=" " alt="" coords="5,80,115,107"/>
-<area shape="rect" id="node3" href="$my__assert_8c.html" title=" " alt="" coords="139,80,240,107"/>
-<area shape="rect" id="node4" href="$superloop_8c.html" title=" " alt="" coords="265,80,362,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="134,5,245,31"/>
+<area shape="rect" id="Node000002" href="$framebuffer_8c.html" title=" " alt="" coords="5,79,115,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,40,82,81,80,76,155,35"/>
+<area shape="rect" id="Node000003" href="$my__assert_8c.html" title=" " alt="" coords="139,79,240,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,44,192,79,187,79,187,44"/>
+<area shape="rect" id="Node000004" href="$superloop_8c.html" title=" " alt="" coords="265,79,362,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="222,35,294,76,292,81,220,40"/>
 </map>

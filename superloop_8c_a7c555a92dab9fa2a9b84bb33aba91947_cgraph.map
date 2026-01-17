@@ -1,6 +1,9 @@
 <map id="superloop_run" name="superloop_run">
-<area shape="rect" id="node1" title="Runs continuously." alt="" coords="5,56,120,83"/>
-<area shape="rect" id="node2" href="$adc_8c.html#a60b155fef3605a22cb31eeccde3439bd" title="Gets a value read in by the ADC." alt="" coords="221,5,294,32"/>
-<area shape="rect" id="node3" href="$led_8c.html#a487f9f3640c7f6b9b416134274259866" title="Toggles the LED between on and off state." alt="" coords="212,56,303,83"/>
-<area shape="rect" id="node4" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="168,107,347,133"/>
+<area shape="rect" id="Node000001" title="Runs continuously." alt="" coords="5,55,120,80"/>
+<area shape="rect" id="Node000002" href="$adc_8c.html#a60b155fef3605a22cb31eeccde3439bd" title="Gets a value read in by the ADC." alt="" coords="221,5,294,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,52,207,28,208,33,114,57"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#a487f9f3640c7f6b9b416134274259866" title="Toggles the LED between on and off state." alt="" coords="212,55,303,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="120,65,198,65,198,70,120,70"/>
+<area shape="rect" id="Node000004" href="$timer_8c.html#a3a44c2955b6fafd0794fc0bf00cab0a4" title="Returns TRUE if the deadline has been reached or surpassed." alt="" coords="168,104,347,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="114,77,194,98,192,103,113,83"/>
 </map>

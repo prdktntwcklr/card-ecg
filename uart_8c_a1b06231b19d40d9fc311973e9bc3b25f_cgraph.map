@@ -1,10 +1,17 @@
 <map id="putchar_" name="putchar_">
-<area shape="rect" id="node1" title="Putchar implementation for using printf library." alt="" coords="5,107,84,133"/>
-<area shape="rect" id="node2" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="167,5,287,32"/>
-<area shape="rect" id="node4" href="$ring__buffer_8c.html#ac4b863ff8c7a0a73cb02b19a7336658e" title="Adds value in byte to the ring buffer." alt="" coords="167,56,287,83"/>
-<area shape="rect" id="node6" href="$uart__drv_8c.html#a6d931ad795ad3c2216c69ce01db61fb7" title="Enables the UART transmit buffer empty interrupt." alt="" coords="132,107,323,133"/>
-<area shape="rect" id="node7" href="$uart__drv_8c.html#a710d094ac705251ecf5094655489041e" title="Returns true if the UART transmit buffer empty interrupt is enabled." alt="" coords="149,158,306,199"/>
-<area shape="rect" id="node8" href="$uart__drv_8c.html#a7d0ded7e12feacc884cc54cb5d424786" title="Sends a byte of data over UART." alt="" coords="152,224,303,251"/>
-<area shape="rect" id="node3" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="371,5,529,32"/>
-<area shape="rect" id="node5" href="$ring__buffer_8c.html#ae675033eecfb91d7dc6c49c141bc588d" title="Returns true if ring buffer is full." alt="" coords="381,56,519,83"/>
+<area shape="rect" id="Node000001" title="Putchar implementation for using printf library." alt="" coords="5,104,84,129"/>
+<area shape="rect" id="Node000002" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="167,5,287,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,102,88,71,131,41,153,31,155,36,133,46,91,75,59,106"/>
+<area shape="rect" id="Node000004" href="$ring__buffer_8c.html#ac4b863ff8c7a0a73cb02b19a7336658e" title="Adds value in byte to the ring buffer." alt="" coords="167,55,287,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="83,103,131,90,165,81,166,86,133,95,85,109"/>
+<area shape="rect" id="Node000006" href="$uart__drv_8c.html#a6d931ad795ad3c2216c69ce01db61fb7" title="Enables the UART transmit buffer empty interrupt." alt="" coords="132,104,323,129"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="84,114,119,114,119,119,84,119"/>
+<area shape="rect" id="Node000007" href="$uart__drv_8c.html#a710d094ac705251ecf5094655489041e" title="Returns true if the UART transmit buffer empty interrupt is enabled." alt="" coords="149,154,306,194"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="85,126,151,147,149,152,83,131"/>
+<area shape="rect" id="Node000008" href="$uart__drv_8c.html#a7d0ded7e12feacc884cc54cb5d424786" title="Sends a byte of data over UART." alt="" coords="152,219,303,244"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="57,128,88,166,109,186,133,204,149,211,146,216,131,208,106,190,84,170,53,131"/>
+<area shape="rect" id="Node000003" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="371,5,529,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="288,15,357,15,357,21,288,21"/>
+<area shape="rect" id="Node000005" href="$ring__buffer_8c.html#ae675033eecfb91d7dc6c49c141bc588d" title="Returns true if ring buffer is full." alt="" coords="381,55,519,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="288,65,367,65,367,70,288,70"/>
 </map>

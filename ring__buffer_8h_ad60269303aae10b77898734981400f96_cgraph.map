@@ -1,4 +1,5 @@
 <map id="ring_buffer_get" name="ring_buffer_get">
-<area shape="rect" id="node1" title="Gets an element from ring buffer into byte." alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node2" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="173,5,332,32"/>
+<area shape="rect" id="Node000001" title="Gets an element from ring buffer into byte." alt="" coords="5,5,125,31"/>
+<area shape="rect" id="Node000002" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="173,5,332,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,15,160,15,160,21,126,21"/>
 </map>

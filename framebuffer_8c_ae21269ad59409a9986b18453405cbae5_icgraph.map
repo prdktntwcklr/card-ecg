@@ -1,6 +1,9 @@
 <map id="framebuffer_change_pixel" name="framebuffer_change_pixel">
-<area shape="rect" id="node1" title="Changes (sets or resets) a single pixel of the framebuffer." alt="" coords="477,23,631,65"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#a08567a5308ff64f93d9551be394797e2" title="Draws an image to the framebuffer." alt="" coords="239,5,426,32"/>
-<area shape="rect" id="node3" href="$framebuffer_8c.html#a7ee04c4d8a2556ba8c00a1ce72d52f53" title="Draws a single symbol (character) to the framebuffer." alt="" coords="236,56,429,83"/>
-<area shape="rect" id="node4" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,56,188,83"/>
+<area shape="rect" id="Node000001" title="Changes (sets or resets) a single pixel of the framebuffer." alt="" coords="477,23,631,63"/>
+<area shape="rect" id="Node000002" href="$framebuffer_8c.html#a08567a5308ff64f93d9551be394797e2" title="Draws an image to the framebuffer." alt="" coords="239,5,426,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="463,36,426,31,427,26,464,30"/>
+<area shape="rect" id="Node000003" href="$framebuffer_8c.html#a7ee04c4d8a2556ba8c00a1ce72d52f53" title="Draws a single symbol (character) to the framebuffer." alt="" coords="236,55,429,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="464,56,430,60,429,54,463,50"/>
+<area shape="rect" id="Node000004" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,55,188,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="222,70,188,70,188,65,222,65"/>
 </map>

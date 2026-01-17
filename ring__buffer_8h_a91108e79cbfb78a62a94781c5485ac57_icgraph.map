@@ -1,7 +1,11 @@
 <map id="ring_buffer_is_empty" name="ring_buffer_is_empty">
-<area shape="rect" id="node1" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="528,31,687,57"/>
-<area shape="rect" id="node2" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="360,31,480,57"/>
-<area shape="rect" id="node3" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="191,5,270,32"/>
-<area shape="rect" id="node4" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,56,312,83"/>
-<area shape="rect" id="node5" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,56,101,83"/>
+<area shape="rect" id="Node000001" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="528,31,687,56"/>
+<area shape="rect" id="Node000002" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="360,31,480,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="514,46,480,46,480,41,514,41"/>
+<area shape="rect" id="Node000003" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="191,5,270,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,36,270,26,270,21,347,31"/>
+<area shape="rect" id="Node000004" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,55,312,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="347,55,313,60,312,54,346,50"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,55,101,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="136,70,101,70,101,65,136,65"/>
 </map>

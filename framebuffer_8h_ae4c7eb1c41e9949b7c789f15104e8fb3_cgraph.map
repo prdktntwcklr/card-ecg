@@ -1,4 +1,5 @@
 <map id="framebuffer_init" name="framebuffer_init">
-<area shape="rect" id="node1" title="Initializes the framebuffer and clears it." alt="" coords="5,5,132,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#a990aabfecebcb504a778d823063a5895" title="Clears the whole framebuffer." alt="" coords="180,5,319,32"/>
+<area shape="rect" id="Node000001" title="Initializes the framebuffer and clears it." alt="" coords="5,5,132,31"/>
+<area shape="rect" id="Node000002" href="$framebuffer_8c.html#a990aabfecebcb504a778d823063a5895" title="Clears the whole framebuffer." alt="" coords="180,5,319,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,15,166,15,166,21,132,21"/>
 </map>

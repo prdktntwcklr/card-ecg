@@ -1,6 +1,9 @@
 <map id="uart_drv_send_byte" name="uart_drv_send_byte">
-<area shape="rect" id="node1" title="Sends a byte of data over UART." alt="" coords="360,31,511,57"/>
-<area shape="rect" id="node2" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="191,5,270,32"/>
-<area shape="rect" id="node3" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,56,312,83"/>
-<area shape="rect" id="node4" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,56,101,83"/>
+<area shape="rect" id="Node000001" title="Sends a byte of data over UART." alt="" coords="360,31,511,56"/>
+<area shape="rect" id="Node000002" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="191,5,270,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="346,35,270,25,271,20,347,30"/>
+<area shape="rect" id="Node000003" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="149,55,312,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="347,56,312,60,312,55,346,51"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#a8f83244d56a95eff19688bdc1ca9ffc2" title=" " alt="" coords="5,55,101,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="136,70,101,70,101,65,136,65"/>
 </map>

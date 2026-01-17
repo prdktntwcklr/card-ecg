@@ -1,9 +1,17 @@
 <map id="display_cs_off" name="display_cs_off">
-<area shape="rect" id="node1" title="Turns the CS pin off." alt="" coords="648,56,763,83"/>
-<area shape="rect" id="node2" href="$display_8c.html#adbd67ddaef663b560f256e4c7f7c4aee" title="Sends the data of the framebuffer to the display." alt="" coords="407,5,600,32"/>
-<area shape="rect" id="node4" href="$display__drv_8c.html#a8a9333feb4ed2e6837fc1571323b352b" title="Initializes the GPIO pins for the display." alt="" coords="437,107,569,133"/>
-<area shape="rect" id="node7" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="414,56,593,83"/>
-<area shape="rect" id="node3" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,31,359,57"/>
-<area shape="rect" id="node5" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,93,312,120"/>
-<area shape="rect" id="node6" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,93,120,120"/>
+<area shape="rect" id="Node000001" title="Turns the CS pin off." alt="" coords="648,55,763,80"/>
+<area shape="rect" id="Node000002" href="$display_8c.html#adbd67ddaef663b560f256e4c7f7c4aee" title="Sends the data of the framebuffer to the display." alt="" coords="407,5,600,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="639,54,556,33,557,28,640,49"/>
+<area shape="rect" id="Node000004" href="$display__drv_8c.html#a8a9333feb4ed2e6837fc1571323b352b" title="Initializes the GPIO pins for the display." alt="" coords="437,104,569,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="640,86,557,107,556,101,639,81"/>
+<area shape="rect" id="Node000007" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="414,55,593,80"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="634,70,593,70,593,65,634,65"/>
+<area shape="rect" id="Node000003" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,31,359,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="393,32,359,36,359,31,393,27"/>
+<area shape="rect" id="Node000005" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,92,312,117"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="423,115,312,110,312,104,423,110"/>
+<area shape="rect" id="Node000006" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,92,120,117"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="201,107,120,107,120,102,201,102"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="400,60,359,56,359,50,401,54"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="408,85,313,100,312,95,407,80"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="uart_drv_is_interrupt_enabled" name="uart_drv_is_interrupt_enabled">
-<area shape="rect" id="node1" title="Returns true if the UART transmit buffer empty interrupt is enabled." alt="" coords="188,23,345,65"/>
-<area shape="rect" id="node2" href="$my__assert_8c.html#a0da575e4c652a255c3ea0e96e3f95eca" title=" " alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node3" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="33,56,112,83"/>
+<area shape="rect" id="Node000001" title="Returns true if the UART transmit buffer empty interrupt is enabled." alt="" coords="188,23,345,63"/>
+<area shape="rect" id="Node000002" href="$my__assert_8c.html#a0da575e4c652a255c3ea0e96e3f95eca" title=" " alt="" coords="5,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,34,140,29,140,24,174,29"/>
+<area shape="rect" id="Node000003" href="$uart_8c.html#a1b06231b19d40d9fc311973e9bc3b25f" title="Putchar implementation for using printf library." alt="" coords="33,55,112,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,57,113,65,112,60,174,52"/>
 </map>

@@ -1,5 +1,6 @@
 var framebuffer_8h =
 [
+    [ "FRAMEBUFFER_ELEMENTS", "framebuffer_8h.html#a49db7e2826778d70c8b6fa7a5926cd5f", null ],
     [ "FRAMEBUFFER_HEIGHT", "framebuffer_8h.html#ab227fdd15d25d4d486b553f194b2ee5c", null ],
     [ "FRAMEBUFFER_WIDTH", "framebuffer_8h.html#abae9b604cc42450946d46db6a5627b2a", null ],
     [ "fb_handle_t", "framebuffer_8h.html#a1a1bffe84ede096eed54dd755790ae3e", null ],

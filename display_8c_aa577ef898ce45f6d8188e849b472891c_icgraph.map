@@ -1,6 +1,9 @@
 <map id="display_send_command" name="display_send_command">
-<area shape="rect" id="node1" title="Sends a command to the display." alt="" coords="407,31,585,57"/>
-<area shape="rect" id="node2" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,5,312,32"/>
-<area shape="rect" id="node4" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,56,359,83"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="Node000001" title="Sends a command to the display." alt="" coords="407,31,585,56"/>
+<area shape="rect" id="Node000002" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,5,312,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,35,312,26,313,21,393,29"/>
+<area shape="rect" id="Node000004" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,55,359,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="393,57,359,60,359,55,393,51"/>
+<area shape="rect" id="Node000003" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="201,21,120,21,120,15,201,15"/>
 </map>

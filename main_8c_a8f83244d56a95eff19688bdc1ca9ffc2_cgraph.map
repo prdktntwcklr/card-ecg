@@ -1,11 +1,19 @@
 <map id="IRQHandler" name="IRQHandler">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,101,83"/>
-<area shape="rect" id="node2" href="$adc_8c.html#aa6d15813e162652c9d7bf66ea4a9b094" title="Handles the ADC interrupt." alt="" coords="155,5,314,32"/>
-<area shape="rect" id="node3" href="$timer_8c.html#ab17b4b0e7818b7779dd5bb1f267c0ff7" title="Handles the Timer0 interrupt." alt="" coords="149,56,320,83"/>
-<area shape="rect" id="node4" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="153,107,316,133"/>
-<area shape="rect" id="node5" href="$uart__drv_8c.html#a5637d638688474425ad9c526450faaeb" title=" " alt="" coords="368,31,561,57"/>
-<area shape="rect" id="node6" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="405,81,525,108"/>
-<area shape="rect" id="node8" href="$uart__drv_8c.html#ad40d6eb8cc841db03d229080a16044b6" title="Enables the UART transmit buffer empty interrupt." alt="" coords="368,132,561,159"/>
-<area shape="rect" id="node9" href="$uart__drv_8c.html#a7d0ded7e12feacc884cc54cb5d424786" title="Sends a byte of data over UART." alt="" coords="389,183,540,209"/>
-<area shape="rect" id="node7" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="609,81,768,108"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,101,80"/>
+<area shape="rect" id="Node000002" href="$adc_8c.html#aa6d15813e162652c9d7bf66ea4a9b094" title="Handles the ADC interrupt." alt="" coords="155,5,314,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,52,173,32,175,37,101,57"/>
+<area shape="rect" id="Node000003" href="$timer_8c.html#ab17b4b0e7818b7779dd5bb1f267c0ff7" title="Handles the Timer0 interrupt." alt="" coords="149,55,320,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,65,136,65,136,70,102,70"/>
+<area shape="rect" id="Node000004" href="$uart_8c.html#a54ff751beea435f47ea6cba191922e24" title="Handles the UART interrupt." alt="" coords="153,104,316,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="101,77,175,98,173,103,100,83"/>
+<area shape="rect" id="Node000005" href="$uart__drv_8c.html#a5637d638688474425ad9c526450faaeb" title=" " alt="" coords="368,29,561,55"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="283,101,319,89,343,76,367,64,390,56,392,61,369,68,345,81,321,94,285,106"/>
+<area shape="rect" id="Node000006" href="$ring__buffer_8c.html#ad60269303aae10b77898734981400f96" title="Gets an element from ring buffer into byte." alt="" coords="405,79,525,104"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="316,105,391,97,392,102,316,110"/>
+<area shape="rect" id="Node000008" href="$uart__drv_8c.html#ad40d6eb8cc841db03d229080a16044b6" title="Enables the UART transmit buffer empty interrupt." alt="" coords="368,128,561,153"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="316,122,355,127,354,132,316,128"/>
+<area shape="rect" id="Node000009" href="$uart__drv_8c.html#a7d0ded7e12feacc884cc54cb5d424786" title="Sends a byte of data over UART." alt="" coords="389,177,540,203"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="270,127,369,162,400,171,398,176,367,167,268,132"/>
+<area shape="rect" id="Node000007" href="$ring__buffer_8c.html#a91108e79cbfb78a62a94781c5485ac57" title="Returns true if ring buffer is empty (contains no elements)." alt="" coords="609,79,768,104"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="525,89,596,89,596,94,525,94"/>
 </map>

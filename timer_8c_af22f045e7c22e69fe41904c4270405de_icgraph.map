@@ -1,0 +1,9 @@
+<map id="timer_get_stamp" name="timer_get_stamp">
+<area shape="rect" id="Node000001" title="Returns the current time stamp value." alt="" coords="504,5,637,31"/>
+<area shape="rect" id="Node000002" href="$timer_8c.html#ad018fa25e8466a4b08a128c69f044f26" title=" " alt="" coords="313,5,456,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="490,21,456,21,456,15,490,15"/>
+<area shape="rect" id="Node000003" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="168,5,265,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,21,266,21,266,15,300,15"/>
+<area shape="rect" id="Node000004" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
+</map>

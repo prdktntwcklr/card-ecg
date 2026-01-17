@@ -1,4 +1,0 @@
-<map id="whitespace_at_line_beginning" name="whitespace_at_line_beginning">
-<area shape="rect" id="node1" title="Checks if the next symbol is a whitespace at the beginning of a line." alt="" coords="236,5,383,47"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#a00448f15c29d5a6d0963ad845400d6b6" title="Outputs a string to the framebuffer." alt="" coords="5,13,188,39"/>
-</map>

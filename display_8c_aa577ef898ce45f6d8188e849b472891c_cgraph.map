@@ -1,10 +1,17 @@
 <map id="display_send_command" name="display_send_command">
-<area shape="rect" id="node1" title="Sends a command to the display." alt="" coords="5,132,184,159"/>
-<area shape="rect" id="node2" href="$display__drv_8c.html#a673d9b473b529ed0be43ddd2d2a564d7" title="Turns the CS pin off." alt="" coords="269,5,384,32"/>
-<area shape="rect" id="node3" href="$display__drv_8c.html#a7479ba359792e685997a0f922d7cafb6" title="Turns the CS pin on." alt="" coords="270,56,383,83"/>
-<area shape="rect" id="node4" href="$display__drv_8c.html#a3179ef2d6f25be813d07a38ec839758c" title="Turns the DC pin off." alt="" coords="269,107,384,133"/>
-<area shape="rect" id="node5" href="$display__drv_8c.html#afaa62d2c34da53a65dba2eec2d86cacf" title="Turns the DC pin on." alt="" coords="269,157,384,184"/>
-<area shape="rect" id="node6" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="269,208,384,235"/>
-<area shape="rect" id="node8" href="$spi_8c.html#a574aaedb801473f28d916beb3ec788b3" title="Blocks until transmit FIFO is empty." alt="" coords="232,259,421,285"/>
-<area shape="rect" id="node7" href="$spi_8c.html#ac3fb1651ad60d0280aea4c1f596d3266" title="Blocks until there is space in FIFO." alt="" coords="469,201,616,242"/>
+<area shape="rect" id="Node000001" title="Sends a command to the display." alt="" coords="5,129,184,155"/>
+<area shape="rect" id="Node000002" href="$display__drv_8c.html#a673d9b473b529ed0be43ddd2d2a564d7" title="Turns the CS pin off." alt="" coords="269,5,384,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,127,159,84,194,60,231,40,255,30,257,35,233,44,197,65,163,89,111,131"/>
+<area shape="rect" id="Node000003" href="$display__drv_8c.html#a7479ba359792e685997a0f922d7cafb6" title="Turns the CS pin on." alt="" coords="270,55,383,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,127,231,89,258,81,259,86,233,94,128,132"/>
+<area shape="rect" id="Node000004" href="$display__drv_8c.html#a3179ef2d6f25be813d07a38ec839758c" title="Turns the DC pin off." alt="" coords="269,104,384,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="184,130,255,122,256,127,184,135"/>
+<area shape="rect" id="Node000005" href="$display__drv_8c.html#afaa62d2c34da53a65dba2eec2d86cacf" title="Turns the DC pin on." alt="" coords="269,153,384,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="184,149,256,156,255,161,184,154"/>
+<area shape="rect" id="Node000006" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="269,203,384,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="131,152,233,187,264,196,262,202,231,193,129,157"/>
+<area shape="rect" id="Node000008" href="$spi_8c.html#a574aaedb801473f28d916beb3ec788b3" title="Blocks until transmit FIFO is empty." alt="" coords="232,252,421,277"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="112,153,163,194,197,217,233,237,254,245,252,250,231,242,194,222,160,198,109,157"/>
+<area shape="rect" id="Node000007" href="$spi_8c.html#ac3fb1651ad60d0280aea4c1f596d3266" title="Blocks until there is space in FIFO." alt="" coords="469,195,616,235"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="384,213,456,213,456,218,384,218"/>
 </map>

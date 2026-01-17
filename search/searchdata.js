@@ -5,8 +5,8 @@ var indexSectionsWithContent =
   2: "_abdefilmprstuw",
   3: "adflrstu",
   4: "fr",
-  5: "abcdfimorstu",
-  6: "c"
+  5: "abcdfimoprstu",
+  6: "ce"
 };
 
 var indexSectionNames =

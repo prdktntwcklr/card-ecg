@@ -1,5 +1,7 @@
 <map id="framebuffer_clear" name="framebuffer_clear">
-<area shape="rect" id="node1" title="Clears the whole framebuffer." alt="" coords="343,5,481,32"/>
-<area shape="rect" id="node2" href="$framebuffer_8c.html#ae4c7eb1c41e9949b7c789f15104e8fb3" title="Initializes the framebuffer and clears it." alt="" coords="168,5,295,32"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="Node000001" title="Clears the whole framebuffer." alt="" coords="343,5,481,31"/>
+<area shape="rect" id="Node000002" href="$framebuffer_8c.html#ae4c7eb1c41e9949b7c789f15104e8fb3" title="Initializes the framebuffer and clears it." alt="" coords="168,5,295,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="329,21,295,21,295,15,329,15"/>
+<area shape="rect" id="Node000003" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
 </map>

@@ -1,9 +1,16 @@
 <map id="spi_wait_for_space_in_tx_fifo" name="spi_wait_for_space_in_tx_fifo">
-<area shape="rect" id="node1" title="Blocks until there is space in FIFO." alt="" coords="811,23,957,65"/>
-<area shape="rect" id="node2" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="648,31,763,57"/>
-<area shape="rect" id="node3" href="$display_8c.html#adbd67ddaef663b560f256e4c7f7c4aee" title="Sends the data of the framebuffer to the display." alt="" coords="407,5,600,32"/>
-<area shape="rect" id="node5" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="414,56,593,83"/>
-<area shape="rect" id="node4" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,5,359,32"/>
-<area shape="rect" id="node6" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,56,312,83"/>
-<area shape="rect" id="node7" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,56,120,83"/>
+<area shape="rect" id="Node000001" title="Blocks until there is space in FIFO." alt="" coords="811,23,957,63"/>
+<area shape="rect" id="Node000002" href="$spi_8c.html#a9c43d0742e33e902872dbe96fa018acb" title="Sends data through SPI." alt="" coords="648,31,763,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="797,46,763,46,763,41,797,41"/>
+<area shape="rect" id="Node000003" href="$display_8c.html#adbd67ddaef663b560f256e4c7f7c4aee" title="Sends the data of the framebuffer to the display." alt="" coords="407,5,600,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="634,37,600,33,601,28,635,32"/>
+<area shape="rect" id="Node000005" href="$display_8c.html#aa577ef898ce45f6d8188e849b472891c" title="Sends a command to the display." alt="" coords="414,55,593,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="635,54,593,59,592,54,634,49"/>
+<area shape="rect" id="Node000004" href="$display_8c.html#adfeec4612d5d325f02994da6485436f0" title="Sends the framebuffer to the display." alt="" coords="168,5,359,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="393,21,359,21,359,15,393,15"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="427,54,325,33,327,28,428,49"/>
+<area shape="rect" id="Node000006" href="$display_8c.html#a407d5033a6f0198221c8a9081d7e807e" title="Called by the application to initialize the display." alt="" coords="215,55,312,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="400,70,312,70,312,65,400,65"/>
+<area shape="rect" id="Node000007" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,55,120,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="201,70,120,70,120,65,201,65"/>
 </map>

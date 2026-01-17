@@ -1,5 +1,7 @@
 <map id="led_off" name="led_off">
-<area shape="rect" id="node1" title="Turns the LED off." alt="" coords="287,5,353,32"/>
-<area shape="rect" id="node2" href="$led_8c.html#a7eb4d382bdd4b42c57dbb7154d03ac66" title="Initializes the LED." alt="" coords="168,5,239,32"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="Node000001" title="Turns the LED off." alt="" coords="287,5,353,31"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#a7eb4d382bdd4b42c57dbb7154d03ac66" title="Initializes the LED." alt="" coords="168,5,239,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="273,21,239,21,239,15,273,15"/>
+<area shape="rect" id="Node000003" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
 </map>

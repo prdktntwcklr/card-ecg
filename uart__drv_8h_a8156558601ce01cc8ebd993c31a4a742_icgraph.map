@@ -1,5 +1,7 @@
 <map id="uart_drv_init" name="uart_drv_init">
-<area shape="rect" id="node1" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="292,5,396,32"/>
-<area shape="rect" id="node2" href="$uart_8c.html#a0c0ca72359ddf28dcd15900dfba19343" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="168,5,244,32"/>
-<area shape="rect" id="node3" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="Node000001" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="292,5,396,31"/>
+<area shape="rect" id="Node000002" href="$uart_8c.html#a0c0ca72359ddf28dcd15900dfba19343" title="Initializes the UART module. Uses a fixed baud rate of 9600." alt="" coords="168,5,244,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,21,244,21,244,15,278,15"/>
+<area shape="rect" id="Node000003" href="$superloop_8c.html#a3c99d46ff1affdfcaf6a63b7130fbd73" title="Runs once at the beginning of the program." alt="" coords="5,5,120,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
 </map>
