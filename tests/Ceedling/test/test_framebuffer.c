@@ -8,7 +8,6 @@
 #include <string.h>
 
 #include "font.h"
-#include "framebuffer.c" /* hack to test static functions */
 #include "framebuffer.h"
 #include "image.h"
 #include "my_assert_stub.h"

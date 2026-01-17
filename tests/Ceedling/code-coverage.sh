@@ -1,23 +1,28 @@
 #!/bin/bash
 
-test_framework=ceedling
-formatter=pycobertura
+set -eou pipefail
+
+TEST_FRAMEWORK=ceedling
+FORMATTER=pycobertura
+SCRIPT_DIR=$(dirname "$(realpath "$0")")
+COVERAGE_DIR="$SCRIPT_DIR/build/artifacts/gcov/gcovr"
 
 echo ""
 echo " ========================================================= "
 echo "     Creating code coverage report                         "
-echo "     using $test_framework ...                             "
+echo "     using $TEST_FRAMEWORK ...                             "
 echo " ========================================================= "
 echo ""
 
-$test_framework gcov:all utils:gcov
+$TEST_FRAMEWORK gcov:all
 
 echo ""
 echo " ========================================================= "
 echo "     Formatting code coverage report                       "
-echo "     using $formatter ...                                  "
+echo "     using $FORMATTER ...                                  "
 echo " ========================================================= "
 echo ""
 
-cd build/artifacts/gcov/
-$formatter show GcovCoverageCobertura.xml --format markdown --output GcovCoverageResults.md
+echo ${COVERAGE_DIR}
+cd ${COVERAGE_DIR}
+$FORMATTER show GcovCoverageCobertura.xml --format markdown --output GcovCoverageResults.md

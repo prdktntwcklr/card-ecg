@@ -4,7 +4,6 @@
 
 #define EXTERN
 
-#include "led.c" /* hack to test static functions */
 #include "led.h"
 #include "my_assert_stub.h"
 #include "testable_mcu_registers.h"

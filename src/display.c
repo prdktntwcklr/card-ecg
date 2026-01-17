@@ -114,7 +114,7 @@ void display_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void display_deinit(void)
+void display_deinit(void)
 {
     display_is_initialized = false;
 }
