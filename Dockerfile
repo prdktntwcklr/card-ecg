@@ -13,6 +13,7 @@ RUN apt-get update && \
     xargs -a packages.txt apt-get install --no-install-recommends -y
 
 COPY requirements.txt .
+ENV PATH="${PATH}:/root/.local/bin"
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 RUN gem install ceedling
