@@ -43,8 +43,7 @@ services:
     - ./:/app
   code-coverage:
     image: card-ecg
-    command: bash -c "cd tests/Ceedling && chmod +x code-coverage.sh && \
-                      ./code-coverage.sh"
+    command: bash -c "make coverage"
     depends_on:
     - build-image
     volumes:

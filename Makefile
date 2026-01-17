@@ -137,3 +137,7 @@ clean:
 .PHONY: tests
 tests:
 	cd tests/Ceedling; ./unit-tests.sh
+
+.PHONY: coverage
+coverage:
+	cd tests/Ceedling; ./code-coverage.sh
