@@ -49,7 +49,7 @@ void adc_init(void)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void adc_deinit(void)
+void adc_deinit(void)
 {
     adc_is_initialized = false;
 }

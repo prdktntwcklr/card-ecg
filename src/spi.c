@@ -57,7 +57,7 @@ extern void spi_init(uint32_t bit_rate)
  * @note  Used for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void spi_deinit(void)
+void spi_deinit(void)
 {
     spi_is_initialized = false;
 }

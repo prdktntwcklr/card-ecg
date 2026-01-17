@@ -8,6 +8,12 @@
 #include "testable_mcu_registers.h"
 #endif
 
+#ifndef TEST
+#define PRIVATE static
+#else
+#define PRIVATE
+#endif
+
 #define TICK_RATE_HZ       (100UL)
 #define TIMER_DIV_VAL      (256UL)
 #define TIMER_RELOAD_VALUE ((CPU_CLK) / ((TICK_RATE_HZ) * (TIMER_DIV_VAL)))
@@ -26,7 +32,7 @@ static bool timer_is_initialized = false;
 /**
  * @brief Returns the current time stamp value.
  */
-static uint32_t timer_get_stamp(void)
+PRIVATE uint32_t timer_get_stamp(void)
 {
     IRQEN &= ~(TIMER0_BIT);
     uint32_t temp_time_stamp = time_stamp;
@@ -42,7 +48,7 @@ static uint32_t timer_get_stamp(void)
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void timer_set_stamp(const uint32_t value)
+void timer_set_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);
     time_stamp = value;
@@ -57,7 +63,7 @@ static void timer_set_stamp(const uint32_t value)
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void timer_increment_stamp(const uint32_t value)
+void timer_increment_stamp(const uint32_t value)
 {
     IRQEN &= ~(TIMER0_BIT);
     time_stamp += value;
@@ -87,7 +93,7 @@ extern void timer_init(void)
  * @note  Helper function for unit testing.
  */
 /* cppcheck-suppress unusedFunction */
-static void timer_deinit(void)
+void timer_deinit(void)
 {
     timer_is_initialized = false;
 }

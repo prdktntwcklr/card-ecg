@@ -5,7 +5,6 @@
 #define EXTERN
 
 #include "my_assert_stub.h"
-#include "spi.c" /* hack to test static functions */
 #include "spi.h"
 #include "testable_mcu_registers.h"
 

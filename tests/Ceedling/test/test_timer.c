@@ -6,7 +6,6 @@
 
 #include "my_assert_stub.h"
 #include "testable_mcu_registers.h"
-#include "timer.c" /* hack to test static functions */
 #include "timer.h"
 
 void setUp(void)

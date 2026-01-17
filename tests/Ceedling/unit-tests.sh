@@ -9,5 +9,4 @@ echo "     using $test_framework ...                             "
 echo " ========================================================= "
 echo ""
 
-$test_framework clobber
 $test_framework
