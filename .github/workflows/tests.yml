@@ -59,4 +59,4 @@ jobs:
       - name: check code coverage
         run:  docker compose run --rm code-coverage
       - name: add code coverage to job summary
-        run:  cat tests/Ceedling/build/artifacts/gcov/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
+        run:  cat tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
