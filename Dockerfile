@@ -1,10 +1,8 @@
 FROM ubuntu:22.04
 
-# set working directory
 WORKDIR /app
 
-# copy packages.txt into image
-COPY packages.txt .
+COPY packages.txt requirements.txt .
 
 # set timezone
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
@@ -12,9 +10,12 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
 
 # update package information and install required packages
 RUN apt-get update && \
-    xargs -a packages.txt apt-get install --no-install-recommends -y && \
-    pip install --no-cache-dir -r requirements.txt && \
-    gem install ceedling
+    xargs -a packages.txt apt-get install --no-install-recommends -y
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN gem install ceedling
 
 # clean up stale packages
 RUN apt-get clean -y && \
