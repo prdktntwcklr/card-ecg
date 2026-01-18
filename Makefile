@@ -92,7 +92,7 @@ CFLAGS     += -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
 
 LD_FLAGS    = -mcpu=$(MCU)
 LD_FLAGS   += -nostartfiles
-LD_FLAGS   += -Wl,-Map="$(MAP)",--cref
+LD_FLAGS   += -Wl,-Map="$(MAP)",--cref,--print-memory-usage
 LD_FLAGS   += -fno-exceptions -fno-rtti
 LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
@@ -100,13 +100,9 @@ LD_FLAGS   += -specs=nosys.specs
 
 VPATH      := $(DIRS)
 
-.PHONY: all dirs clean size
+.PHONY: all dirs clean
 
-all: dirs $(ELF) $(HEX) $(LSS) size
-
-size: $(ELF)
-	@echo --- running size tool...
-	$(SIZE) $(ELF)
+all: dirs $(ELF) $(HEX) $(LSS)
 
 $(LSS): $(ELF)
 	@echo --- making asm-lst...
