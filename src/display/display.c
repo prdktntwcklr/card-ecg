@@ -1,9 +1,10 @@
-#include "display.h"
-#include "display_drv.h"
-#include "display_registers.h"
-#include "my_assert.h"
-#include "spi.h"
-#include "timer.h"
+#include "display/display.h"
+
+#include "display/display_registers.h"
+#include "drivers/display_drv.h"
+#include "drivers/spi.h"
+#include "drivers/timer.h"
+#include "utils/my_assert.h"
 
 #include <stdbool.h>
 #include <stddef.h>

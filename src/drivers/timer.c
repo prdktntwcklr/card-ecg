@@ -1,6 +1,7 @@
-#include "timer.h"
-#include "my_assert.h"
-#include "system.h"
+#include "drivers/timer.h"
+
+#include "drivers/system.h"
+#include "utils/my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"

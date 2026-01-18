@@ -29,7 +29,8 @@ jobs:
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
             name: card-ecg-${{ steps.vars.outputs.sha_short }}
-            path: output/exe/card-ecg.hex
+            path: build/card-ecg.hex
+            if-no-files-found: error
 
   static-analysis:
     runs-on: ubuntu-22.04

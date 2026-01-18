@@ -1,8 +1,9 @@
-#include "uart.h"
-#include "my_assert.h"
-#include "ring_buffer.h"
-#include "system.h"
-#include "uart_drv.h"
+#include "drivers/uart.h"
+
+#include "drivers/system.h"
+#include "drivers/uart_drv.h"
+#include "utils/my_assert.h"
+#include "utils/ring_buffer.h"
 
 #ifndef NPRINTF /* NPRINTF not defined -- printf enabled */
 

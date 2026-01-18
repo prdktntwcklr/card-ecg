@@ -1,4 +1,4 @@
-#include "image.h"
+#include "display/image.h"
 
 /**
  * @brief Returns true if the pixel at x and y coordinates is set.

@@ -1,4 +1,4 @@
-#include "display_drv.h"
+#include "drivers/display_drv.h"
 
 #ifndef TEST
 #include "aduc706x.h"

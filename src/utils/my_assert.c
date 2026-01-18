@@ -1,9 +1,10 @@
-#include "my_assert.h"
-#include "display.h"
-#include "framebuffer.h"
-#include "my_printf.h"
-#include "uart.h"
-#include "uart_drv.h"
+#include "utils/my_assert.h"
+
+#include "display/display.h"
+#include "display/framebuffer.h"
+#include "drivers/uart.h"
+#include "drivers/uart_drv.h"
+#include "utils/my_printf.h"
 
 #ifndef TEST
 #include "aduc706x.h"
@@ -11,7 +12,6 @@
 #include "testable_mcu_registers.h"
 #endif
 
-/* cppcheck-suppress unusedFunction */
 void my_assert_failed(const char *file, int line)
 {
     UNUSED(file);

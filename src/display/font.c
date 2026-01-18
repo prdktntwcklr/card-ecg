@@ -9,7 +9,7 @@
  * Please, as a favour, retain the link tinusaur.org to The Tinusaur Project.
  */
 
-#include "font.h"
+#include "display/font.h"
 
 const uint8_t ssd1306xled_font6x8[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sp

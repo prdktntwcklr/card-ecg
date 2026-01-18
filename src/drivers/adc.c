@@ -1,5 +1,5 @@
-#include "adc.h"
-#include "my_assert.h"
+#include "drivers/adc.h"
+#include "utils/my_assert.h"
 
 #include <stdbool.h>
 
