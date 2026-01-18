@@ -1,29 +1,35 @@
 #!/bin/bash
 
-checker=clang-tidy
-dummy_file=dummyfile
+CHECKER=clang-tidy
+DUMMY_FILE=dummyfile
+
+# Get the directory where the script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo ""
 echo " ========================================================= "
 echo "     Running Static Code Analysis                          "
-echo "     using $checker ...                                    "
+echo "     using $CHECKER ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker $(find ../../src -name "*.c" -o -name "*.cpp") -header-filter=.* -- -nostdlibinc -mfloat-abi=soft --target=arm -I../../inc -I../../common -I../../third-party -I../../inc/drivers -I../../inc/display -I../../inc/utils > $dummy_file
+$CHECKER $(find ../../src -name "*.c" -o -name "*.cpp") \
+  -p ../../build \
+  --config-file="$SCRIPT_DIR/.clang-tidy" \
+  -header-filter=".*" > $DUMMY_FILE
 
 echo ""
 echo " ========================================================= "
 echo "     RESULTS                                               "
 echo ""
 
-results=$(cat $dummy_file | sed "/^^/d")
+results=$(cat $DUMMY_FILE | sed "/^^/d")
 
-rm $dummy_file
+rm $DUMMY_FILE
 
 if [[ $results ]]; then
     echo "     FAIL                                                  "
-    echo "     $checker has found problems!                          "
+    echo "     $CHECKER has found problems!                          "
     echo " ========================================================= "
     echo ""
     echo "$results"
@@ -31,7 +37,7 @@ if [[ $results ]]; then
     exit 1
 else
     echo "     SUCCESS                                               "
-    echo "     $checker says code is OK!                             "
+    echo "     $CHECKER says code is OK!                             "
     echo " ========================================================= "
     echo ""
 fi

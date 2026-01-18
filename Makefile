@@ -1,157 +1,37 @@
-#----------------------------------------------------------------------------
-#
-#  Copyright (c) 2010 Anton Gusev aka AHTOXA
-#
-#  Makefile modified by the author of this repository.
-#
-#  File:       makefile
-#
-#  Contents:   makefile to build ADuc706x ARM software with gcc
-#
-#----------------------------------------------------------------------------
+# --- Configuration ---
+BUILD_DIR = build
 
-SHELL       = /bin/bash
+# Path to your toolchain file
+TOOLCHAIN = arm-none-eabi.cmake
 
-# program name
-TARGET      = card-ecg
-TOOL        = arm-none-eabi-
+.PHONY: all setup clean tests coverage clang-tidy cppcheck code-complexity
 
-# compile options
-MCU         = arm7tdmi
-CHIP        = ADUC7060
-OPTIMIZE    = -O2
+# Default target: Configure and then build
+all: setup
+	cmake --build $(BUILD_DIR)
 
-# common part
-BASE        = .
-OUTDIR      = output
-CC          = $(TOOL)gcc
-LD          = $(TOOL)gcc
-AS          = $(CC) -x assembler-with-cpp
-OBJCOPY     = $(TOOL)objcopy
-OBJDUMP     = $(TOOL)objdump
-SIZE        = $(TOOL)size -d
-RM          = rm -rf
-MD          = mkdir -p -v
+# Rule to run CMake configuration if the build directory doesn't exist
+setup:
+	mkdir -p $(BUILD_DIR)
+	cmake -B $(BUILD_DIR) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN)
 
-# dirs
-SRCDIR      = $(BASE)/src
-INCDIR      = $(BASE)/inc
-COMDIR      = $(BASE)/common
-TPARTYDIR   = $(BASE)/third-party
-OBJDIR      = $(OUTDIR)/obj
-LSTDIR      = $(OUTDIR)/lst
-EXEDIR      = $(OUTDIR)/exe
-
-# files
-ELF         = $(EXEDIR)/$(TARGET).elf
-MAP         = $(LSTDIR)/$(TARGET).map
-HEX         = $(EXEDIR)/$(TARGET).hex
-LSS         = $(LSTDIR)/$(TARGET).lss
-
-# linker script
-LD_SCRIPT   = $(COMDIR)/aduc706x_rom.ld
-
-# files in directories
-DIRS       := $(SRCDIR)
-DIRS       += $(SRCDIR)/display
-DIRS       += $(SRCDIR)/drivers
-DIRS       += $(SRCDIR)/utils
-DIRS       += $(COMDIR)
-DIRS       += $(TPARTYDIR)/printf
-INCDIRS    := $(INCDIR)
-INCDIRS    += $(INCDIR)/display
-INCDIRS    += $(INCDIR)/drivers
-INCDIRS    += $(INCDIR)/utils
-INCDIRS    += $(COMDIR)
-INCDIRS    += $(TPARTYDIR)
-INCS       := $(patsubst %, -I "%", $(INCDIRS))
-SRCS       := $(wildcard $(addsuffix /*.c, $(DIRS)) $(wildcard $(addsuffix /*.S, $(DIRS))))
-OBJS       := $(notdir $(SRCS) )
-OBJS       := $(OBJS:.c=.o)
-OBJS       := $(OBJS:.S=.o)
-OBJS       := $(OBJS:.s=.o)
-OBJS       := $(patsubst %, $(OBJDIR)/%, $(OBJS))
-
-# flags
-FLAGS       = -mcpu=$(MCU)
-FLAGS      += -g -gdwarf-2
-FLAGS      += $(INCS)
-FLAGS      += -MD
-FLAGS      += -D$(CHIP)
-FLAGS      += -Wa,-adhlns=$(addprefix $(LSTDIR)/, $(notdir $(addsuffix .lst, $(basename $<))))
-
-AFLAGS      = $(FLAGS)
-
-CFLAGS      = $(FLAGS)
-CFLAGS     += $(OPTIMIZE)
-CFLAGS     += -std=gnu99
-CFLAGS     += -ffunction-sections -fdata-sections
-CFLAGS     += -Wall -Wextra
-CFLAGS     += -Wimplicit -Wcast-align -Wpointer-arith -Wredundant-decls
-CFLAGS     += -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
-
-LD_FLAGS    = -mcpu=$(MCU)
-LD_FLAGS   += -nostartfiles
-LD_FLAGS   += -Wl,-Map="$(MAP)",--cref,--print-memory-usage
-LD_FLAGS   += -fno-exceptions -fno-rtti
-LD_FLAGS   += -Wl,--gc-sections
-LD_FLAGS   += -T$(LD_SCRIPT)
-LD_FLAGS   += -specs=nosys.specs
-
-VPATH      := $(DIRS)
-
-.PHONY: all dirs clean
-
-all: dirs $(ELF) $(HEX) $(LSS)
-
-$(LSS): $(ELF)
-	@echo --- making asm-lst...
-	$(OBJDUMP) -dC $(ELF) > $(LSS)
-
-$(ELF):	$(OBJS)
-	@echo --- linking...
-	$(LD) $(OBJS) $(LD_FLAGS) -o $(ELF)
-
-$(HEX): $(ELF)
-	@echo --- creating hex...
-	$(OBJCOPY) -O ihex $(ELF) $(HEX)
-
-$(OBJDIR)/%.o: %.c
-	@echo --- compiling $<...
-	$(CC) -c $(CFLAGS) -o $@ $<
-
-$(OBJDIR)/%.o: %.S
-	@echo --- assembling $<...
-	$(AS) -c $(AFLAGS) -o $@ $<
-
-dirs:
-	@echo --- creating directories...
-	-@$(MD) "$(OUTDIR)"
-	-@$(MD) "$(OBJDIR)"
-	-@$(MD) "$(LSTDIR)"
-	-@$(MD) "$(EXEDIR)"
-
-.PHONY: clean
+# Rule to remove the CMake build directory
 clean:
-	@echo --- cleaning up output files...
-	-$(RM) $(OUTDIR)
+	rm -rf $(BUILD_DIR)
+	@echo "Build directory removed."
 
-.PHONY: tests
-tests:
-	cd tests/Ceedling; ./unit-tests.sh
+# Delegating to custom targets defined in CMake
+tests: setup
+	cmake --build $(BUILD_DIR) --target tests
 
-.PHONY: coverage
-coverage:
-	cd tests/Ceedling; ./code-coverage.sh
+coverage: setup
+	cmake --build $(BUILD_DIR) --target coverage
 
-.PHONY: clang-tidy
-clang-tidy:
-	cd tests/StaticAnalysis; ./clang-tidy.sh
+clang-tidy: setup
+	cmake --build $(BUILD_DIR) --target clang-tidy
 
-.PHONY: cppcheck
-cppcheck:
-	cd tests/StaticAnalysis; ./cppcheck.sh
+cppcheck: setup
+	cmake --build $(BUILD_DIR) --target cppcheck
 
-.PHONY: code-complexity
-code-complexity:
-	cd tests/StaticAnalysis; ./code-complexity.sh
+code-complexity: setup
+	cmake --build $(BUILD_DIR) --target code-complexity

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eou pipefail
-
 TEST_FRAMEWORK=ceedling
 FORMATTER=pycobertura
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
