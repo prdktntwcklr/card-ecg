@@ -11,6 +11,7 @@
 #include "testable_mcu_registers.h"
 #endif
 
+/* cppcheck-suppress unusedFunction */
 void my_assert_failed(const char *file, int line)
 {
     UNUSED(file);

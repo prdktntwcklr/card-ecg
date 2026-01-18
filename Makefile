@@ -147,3 +147,15 @@ tests:
 .PHONY: coverage
 coverage:
 	cd tests/Ceedling; ./code-coverage.sh
+
+.PHONY: clang-tidy
+clang-tidy:
+	cd tests/StaticAnalysis; ./clang-tidy.sh
+
+.PHONY: cppcheck
+cppcheck:
+	cd tests/StaticAnalysis; ./cppcheck.sh
+
+.PHONY: code-complexity
+code-complexity:
+	cd tests/StaticAnalysis; ./code-complexity.sh

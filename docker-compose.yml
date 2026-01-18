@@ -7,44 +7,41 @@ services:
     image: card-ecg
     command: bash -c "make clean && make"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app
   code-complexity:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && \
-                      chmod +x code-complexity.sh && ./code-complexity.sh"
+    command: bash -c "make code-complexity"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app
   cppcheck:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && chmod +x cppcheck.sh && \
-                      ./cppcheck.sh"
+    command: bash -c "make cppcheck"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app
   clang-tidy:
     image: card-ecg
-    command: bash -c "cd tests/StaticAnalysis && chmod +x clang-tidy.sh && \
-                      ./clang-tidy.sh"
+    command: bash -c "make clang-tidy"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app
   unit-tests:
     image: card-ecg
     command: bash -c "make tests"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app
   code-coverage:
     image: card-ecg
     command: bash -c "make coverage"
     depends_on:
-    - build-image
+      - build-image
     volumes:
-    - ./:/app
+      - ./:/app

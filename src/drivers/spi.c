@@ -29,7 +29,6 @@ extern void spi_init(uint32_t bit_rate)
     MY_ASSERT(bit_rate != 0U);
 
     /* set bit rate, see p97 of datasheet */
-    /* cppcheck-suppress zerodivcond */
     SPIDIV = (CPU_CLK / (2UL * bit_rate)) - 1UL;
 
     /* set alternative functions for P0.1, P0.2, and P0.3 */
