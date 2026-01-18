@@ -6,25 +6,17 @@ project(card-ecg VERSION 1.0 LANGUAGES C ASM)
 # export compile commands (for clang-tidy)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# 1. Source Collection (Explicitly following your Makefile structure)
-file(GLOB_RECURSE SRCS
-    "src/*.c" "src/*.S"
-    "common/*.c" "common/*.S"
-    "third-party/printf/*.c"
-)
+add_executable(${PROJECT_NAME})
 
-# 2. Target Definition
-add_executable(${PROJECT_NAME} ${SRCS})
+add_subdirectory(common)
+add_subdirectory(src)
+add_subdirectory(third-party)
 
 # 3. Include Directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     inc
-    inc/display
-    inc/drivers
-    inc/utils
     common
     third-party
-    third-party/printf
 )
 
 # 4. Compilation Flags

@@ -1,4 +1,4 @@
-#include "uart_drv.h"
+#include "drivers/uart_drv.h"
 
 #ifndef TEST
 #include "aduc706x.h"

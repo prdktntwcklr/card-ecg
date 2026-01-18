@@ -1,6 +1,7 @@
-#include "ring_buffer.h"
-#include "my_assert.h"
-#include "system.h"
+#include "utils/ring_buffer.h"
+
+#include "drivers/system.h"
+#include "utils/my_assert.h"
 
 #ifndef NRINGBUF /* NRINGBUF not defined -- ring buffer enabled */
 

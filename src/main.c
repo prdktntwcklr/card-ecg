@@ -1,9 +1,10 @@
 #include "main.h"
-#include "adc.h"
+
+#include "drivers/adc.h"
+#include "drivers/system.h"
+#include "drivers/timer.h"
+#include "drivers/uart.h"
 #include "superloop.h"
-#include "system.h"
-#include "timer.h"
-#include "uart.h"
 
 #ifndef TEST
 #include "aduc706x.h"

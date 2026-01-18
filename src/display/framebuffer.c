@@ -1,7 +1,7 @@
-#include "framebuffer.h"
-#include "font.h"
-#include "image.h"
-#include "my_assert.h"
+#include "display/framebuffer.h"
+#include "display/font.h"
+#include "display/image.h"
+#include "utils/my_assert.h"
 
 #include <stddef.h>
 
@@ -64,6 +64,7 @@ void framebuffer_clear(fb_handle_t framebuffer)
 
     for(uint8_t i = 0; i < (uint8_t)FRAMEBUFFER_ELEMENTS; i++)
     {
+        /* cppcheck-suppress nullPointerRedundantCheck */
         framebuffer[i] = 0;
     }
 }
@@ -179,6 +180,7 @@ void framebuffer_draw_string(fb_handle_t framebuffer, uint8_t x, uint8_t y,
     /* print every character of string */
     for(uint8_t i = 0; i < MAX_STRING_LENGTH; i++)
     {
+        /* cppcheck-suppress nullPointerRedundantCheck */
         char next_symbol = string[i];
 
         if(end_of_line_reached(next_x_pos))

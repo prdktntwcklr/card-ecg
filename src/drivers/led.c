@@ -1,8 +1,8 @@
-#include "led.h"
+#include "drivers/led.h"
 
 #include <stdbool.h>
 
-#include "my_assert.h"
+#include "utils/my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"

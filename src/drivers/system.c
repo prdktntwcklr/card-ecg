@@ -1,5 +1,5 @@
-#include "system.h"
-#include "my_assert.h"
+#include "drivers/system.h"
+#include "utils/my_assert.h"
 
 #ifndef TEST
 #include "aduc706x.h"
