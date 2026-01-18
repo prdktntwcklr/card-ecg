@@ -53,9 +53,11 @@ LD_SCRIPT   = $(COMDIR)/aduc706x_rom.ld
 
 # files in directories
 DIRS       := $(SRCDIR)
+DIRS       += $(SRCDIR)/drivers
 DIRS       += $(COMDIR)
 DIRS       += $(TPARTYDIR)/printf
 INCDIRS    := $(INCDIR)
+INCDIRS    += $(INCDIR)/drivers
 INCDIRS    += $(COMDIR)
 INCDIRS    += $(TPARTYDIR)
 INCS       := $(patsubst %, -I "%", $(INCDIRS))
