@@ -1,5 +1,6 @@
 clang-format
 clang-tidy
+cmake
 cppcheck
 gcc
 gcc-arm-none-eabi
