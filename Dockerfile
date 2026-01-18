@@ -16,7 +16,7 @@ COPY requirements.txt .
 ENV PATH="${PATH}:/root/.local/bin"
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-RUN gem install ceedling
+RUN gem install ceedling -v '1.0.1'
 
 # clean up stale packages
 RUN apt-get clean -y && \
