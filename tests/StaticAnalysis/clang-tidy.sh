@@ -10,7 +10,7 @@ echo "     using $checker ...                                    "
 echo " ========================================================= "
 echo ""
 
-$checker ../../src/* -header-filter=.* -- -nostdlibinc -mfloat-abi=soft --target=arm -I../../inc -I../../common -I../../third-party > $dummy_file
+$checker $(find ../../src -name "*.c" -o -name "*.cpp") -header-filter=.* -- -nostdlibinc -mfloat-abi=soft --target=arm -I../../inc -I../../common -I../../third-party -I../../inc/drivers -I../../inc/display -I../../inc/utils > $dummy_file
 
 echo ""
 echo " ========================================================= "

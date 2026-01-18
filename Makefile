@@ -53,9 +53,15 @@ LD_SCRIPT   = $(COMDIR)/aduc706x_rom.ld
 
 # files in directories
 DIRS       := $(SRCDIR)
+DIRS       += $(SRCDIR)/display
+DIRS       += $(SRCDIR)/drivers
+DIRS       += $(SRCDIR)/utils
 DIRS       += $(COMDIR)
 DIRS       += $(TPARTYDIR)/printf
 INCDIRS    := $(INCDIR)
+INCDIRS    += $(INCDIR)/display
+INCDIRS    += $(INCDIR)/drivers
+INCDIRS    += $(INCDIR)/utils
 INCDIRS    += $(COMDIR)
 INCDIRS    += $(TPARTYDIR)
 INCS       := $(patsubst %, -I "%", $(INCDIRS))
@@ -86,7 +92,7 @@ CFLAGS     += -Wshadow -Wcast-qual -Wcast-align -Wnested-externs -pedantic
 
 LD_FLAGS    = -mcpu=$(MCU)
 LD_FLAGS   += -nostartfiles
-LD_FLAGS   += -Wl,-Map="$(MAP)",--cref
+LD_FLAGS   += -Wl,-Map="$(MAP)",--cref,--print-memory-usage
 LD_FLAGS   += -fno-exceptions -fno-rtti
 LD_FLAGS   += -Wl,--gc-sections
 LD_FLAGS   += -T$(LD_SCRIPT)
@@ -94,13 +100,9 @@ LD_FLAGS   += -specs=nosys.specs
 
 VPATH      := $(DIRS)
 
-.PHONY: all dirs clean size
+.PHONY: all dirs clean
 
-all: dirs $(ELF) $(HEX) $(LSS) size
-
-size: $(ELF)
-	@echo --- running size tool...
-	$(SIZE) $(ELF)
+all: dirs $(ELF) $(HEX) $(LSS)
 
 $(LSS): $(ELF)
 	@echo --- making asm-lst...
@@ -141,3 +143,15 @@ tests:
 .PHONY: coverage
 coverage:
 	cd tests/Ceedling; ./code-coverage.sh
+
+.PHONY: clang-tidy
+clang-tidy:
+	cd tests/StaticAnalysis; ./clang-tidy.sh
+
+.PHONY: cppcheck
+cppcheck:
+	cd tests/StaticAnalysis; ./cppcheck.sh
+
+.PHONY: code-complexity
+code-complexity:
+	cd tests/StaticAnalysis; ./code-complexity.sh
