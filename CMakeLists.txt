@@ -37,7 +37,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 target_link_options(${PROJECT_NAME} PRIVATE
     ${MCU_FLAGS}
     -nostartfiles
-    -T${CMAKE_SOURCE_DIR}/common/aduc706x_rom.ld
     -Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map
     -Wl,--cref,--print-memory-usage,--gc-sections
     -specs=nosys.specs
