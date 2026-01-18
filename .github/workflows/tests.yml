@@ -2,9 +2,11 @@ name: Tests
 
 on:
   push:
-    branches: [ main, dev ]
+    branches:
+      - main
   pull_request:
-    branches: [ main, dev ]
+    branches:
+      - main
 
   # allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,6 +30,7 @@ jobs:
         with:
             name: card-ecg-${{ steps.vars.outputs.sha_short }}
             path: output/exe/card-ecg.hex
+
   static-analysis:
     runs-on: ubuntu-22.04
     needs: build-hex # project has to build successfully before static analysis
@@ -45,6 +48,7 @@ jobs:
       - name: run clang-tidy
         run:  docker compose run --rm clang-tidy
         if: always() # run even if cppcheck fails
+
   unit-tests:
     runs-on: ubuntu-22.04
     needs: build-hex # project has to build successfully before unit tests
