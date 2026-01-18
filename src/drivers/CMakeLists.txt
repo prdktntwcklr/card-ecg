@@ -1,4 +1,4 @@
-target_sources(card-ecg PRIVATE
+target_sources(${PROJECT_NAME} PRIVATE
     adc.c
     dac.c
     display_drv.c

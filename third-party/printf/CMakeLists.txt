@@ -1,3 +1,3 @@
-target_sources(card-ecg PRIVATE
+target_sources(${PROJECT_NAME} PRIVATE
     printf.c
 )
