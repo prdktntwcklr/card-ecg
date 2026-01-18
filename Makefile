@@ -4,7 +4,7 @@ BUILD_DIR = build
 # Path to your toolchain file
 TOOLCHAIN = arm-none-eabi.cmake
 
-.PHONY: all clean tests coverage clang-tidy cppcheck code-complexity
+.PHONY: all setup clean tests coverage clang-tidy cppcheck code-complexity
 
 # Default target: Configure and then build
 all: setup
@@ -15,7 +15,7 @@ setup:
 	mkdir -p $(BUILD_DIR)
 	cmake -B $(BUILD_DIR) -DCMAKE_TOOLCHAIN_FILE=$(TOOLCHAIN)
 
-# Cleaning build directory
+# Rule to remove the CMake build directory
 clean:
 	rm -rf $(BUILD_DIR)
 	@echo "Build directory removed."
