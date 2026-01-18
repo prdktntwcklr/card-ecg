@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.20)
 # Project setup (ASM is required for .S files)
 project(card-ecg VERSION 1.0 LANGUAGES C ASM)
 
+# export compile commands (for clang-tidy)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # 1. Source Collection (Explicitly following your Makefile structure)
 file(GLOB_RECURSE SRCS
     "src/*.c" "src/*.S"
