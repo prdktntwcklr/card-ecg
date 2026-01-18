@@ -4,10 +4,13 @@ BUILD_DIR = build
 # Path to your toolchain file
 TOOLCHAIN = arm-none-eabi.cmake
 
-.PHONY: all setup clean tests coverage clang-tidy cppcheck code-complexity
+.PHONY: all build setup clean tests coverage clang-tidy cppcheck code-complexity
 
 # Default target: Configure and then build
-all: setup
+all: build
+
+# Build firmware binaries
+build: setup
 	cmake --build $(BUILD_DIR)
 
 # Rule to run CMake configuration if the build directory doesn't exist
