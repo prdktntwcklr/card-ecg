@@ -2,13 +2,8 @@
 
 #include <stdbool.h>
 
+#include "drivers/board.h"
 #include "utils/my_assert.h"
-
-#ifndef TEST
-#include "aduc706x.h"
-#else
-#include "testable_mcu_registers.h"
-#endif
 
 /* Flag to check if peripheral is initialized or not */
 static bool led_is_initialized = false;
@@ -18,8 +13,7 @@ static bool led_is_initialized = false;
  */
 extern void led_init(void)
 {
-    /* configure P1.5 as an output */
-    GP1DAT |= (1UL << 29);
+    set_led_pin_as_output();
 
     led_is_initialized = true;
 
@@ -46,7 +40,7 @@ extern void led_off(void)
 {
     MY_ASSERT(led_is_initialized);
 
-    GP1DAT &= ~(1UL << 21);
+    turn_led_pin_off();
 }
 
 /**
@@ -57,7 +51,7 @@ extern void led_on(void)
 {
     MY_ASSERT(led_is_initialized);
 
-    GP1DAT |= (1UL << 21);
+    turn_led_pin_on();
 }
 
 /**
@@ -67,6 +61,6 @@ extern void led_toggle(void)
 {
     MY_ASSERT(led_is_initialized);
 
-    GP1DAT ^= (1UL << 21);
+    toggle_led_pin();
 }
 /*** end of file ***/

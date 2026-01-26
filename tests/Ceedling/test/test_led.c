@@ -5,6 +5,8 @@
 #define EXTERN
 
 #include "led.h"
+
+#include "board.h"
 #include "my_assert_stub.h"
 #include "testable_mcu_registers.h"
 
