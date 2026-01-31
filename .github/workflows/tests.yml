@@ -62,9 +62,16 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: build docker image
         run:  docker compose build
-      - name: run unit tests
-        run:  docker compose run --rm unit-tests
-      - name: check code coverage
+      - name: run code coverage (also runs unit tests)
         run:  docker compose run --rm code-coverage
+      - name: upload test results
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: coverage-report
+          path: tests/Ceedling/build/artifacts/gcov/
       - name: add code coverage to job summary
-        run:  cat tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
+        if: always()
+        run: |
+          echo "## 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
+          cat tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
