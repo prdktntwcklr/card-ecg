@@ -8,28 +8,28 @@
 
 // TODO: make this driver more generic
 
-#define LED_PIN (5)
+#define LED_PIN_NO (5UL)
 
 void set_led_pin_as_output()
 {
     /* set P1.5 as output */
-    GP1DAT |= (1UL << (24 + LED_PIN));
+    GP1DAT |= (1UL << (uint8_t)(24 + LED_PIN_NO));
 }
 
 void turn_led_pin_off(void)
 {
     /* turn P1.5 off */
-    GP1DAT &= ~(1UL << (16 + LED_PIN));
+    GP1DAT &= ~(1UL << (uint8_t)(16 + LED_PIN_NO));
 }
 
 void turn_led_pin_on(void)
 {
     /* turn P1.5 on */
-    GP1DAT |= (1UL << (16 + LED_PIN));
+    GP1DAT |= (1UL << (uint8_t)(16 + LED_PIN_NO));
 }
 
 void toggle_led_pin(void)
 {
     /* toggle P1.5 */
-    GP1DAT ^= (1UL << (16 + LED_PIN));
+    GP1DAT ^= (1UL << (uint8_t)(16 + LED_PIN_NO));
 }

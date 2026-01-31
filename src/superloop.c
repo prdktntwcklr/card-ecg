@@ -5,9 +5,9 @@
 #include "display/logo.h"
 #include "drivers/adc.h"
 #include "drivers/dac.h"
-#include "drivers/led.h"
 #include "drivers/timer.h"
 #include "drivers/uart.h"
+#include "led.h"
 #include "utils/my_assert.h"
 #include "utils/my_printf.h"
 
