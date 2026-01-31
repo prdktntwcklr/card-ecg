@@ -84,5 +84,5 @@ jobs:
         with:
           fail_ci_if_error: true
           files: tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageCobertura.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
+          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           verbose: true
