@@ -18,24 +18,20 @@
 
 void set_led_pin_as_output()
 {
-    /* set P1.5 as output */
     GP1DAT |= GPIO_BIT_MASK(GPIO_DIR_BIT_OFFSET, LED_PIN_NO);
 }
 
 void turn_led_pin_off(void)
 {
-    /* turn P1.5 off */
     GP1DAT &= ~GPIO_BIT_MASK(GPIO_DATA_BIT_OFFSET, LED_PIN_NO);
 }
 
 void turn_led_pin_on(void)
 {
-    /* turn P1.5 on */
     GP1DAT |= GPIO_BIT_MASK(GPIO_DATA_BIT_OFFSET, LED_PIN_NO);
 }
 
 void toggle_led_pin(void)
 {
-    /* toggle P1.5 */
     GP1DAT ^= GPIO_BIT_MASK(GPIO_DATA_BIT_OFFSET, LED_PIN_NO);
 }
