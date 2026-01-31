@@ -78,3 +78,11 @@ jobs:
         run: |
           echo "## 📊 Coverage Report ${{ steps.vars.outputs.sha_short }}" >> $GITHUB_STEP_SUMMARY
           cat tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageResults.md >> $GITHUB_STEP_SUMMARY
+      - name: Upload to Codecov
+        if: always()
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        with:
+          fail_ci_if_error: true
+          files: tests/Ceedling/build/artifacts/gcov/gcovr/GcovCoverageCobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
