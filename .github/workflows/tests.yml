@@ -64,13 +64,13 @@ jobs:
         run:  docker compose build
       - name: run code coverage (also runs unit tests)
         run:  docker compose run --rm code-coverage
-      - name: upload test results
+      - name: upload coverage report
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: coverage-report
           path: tests/Ceedling/build/artifacts/gcov/
-      - name: add code coverage to job summary
+      - name: add coverage report to job summary
         if: always()
         run: |
           echo "## 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
