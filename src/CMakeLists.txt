@@ -1,4 +1,5 @@
 target_sources(${PROJECT_NAME} PRIVATE
+    led.c
     main.c
     superloop.c
 )

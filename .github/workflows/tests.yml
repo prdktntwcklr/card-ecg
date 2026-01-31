@@ -7,9 +7,12 @@ on:
   pull_request:
     branches:
       - main
-
-  # allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+# cancel active workflow runs if a new commit is pushed to a PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   build-hex:
